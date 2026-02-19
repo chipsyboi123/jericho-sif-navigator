@@ -9,7 +9,7 @@ import SIF101 from "./pages/SIF101";
 import FundExplorer from "./pages/FundExplorer";
 import SIFTracker from "./pages/SIFTracker";
 import SIFCompare from "./pages/SIFCompare";
-import TaxCalculator from "./pages/TaxCalculator";
+
 import KnowledgeHub from "./pages/KnowledgeHub";
 
 import Contact from "./pages/Contact";
@@ -30,7 +30,7 @@ const App = () => (
             <Route path="/funds" element={<FundExplorer />} />
             <Route path="/tracker" element={<SIFTracker />} />
             <Route path="/compare" element={<SIFCompare />} />
-            <Route path="/calculator" element={<TaxCalculator />} />
+            
             <Route path="/knowledge" element={<KnowledgeHub />} />
             
             <Route path="/contact" element={<Contact />} />

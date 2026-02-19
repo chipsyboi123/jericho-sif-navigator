@@ -9,7 +9,7 @@ const navItems = [
   { label: "Fund Explorer", path: "/funds" },
   { label: "SIF Tracker", path: "/tracker" },
   { label: "Compare", path: "/compare" },
-  { label: "Tax Calculator", path: "/calculator" },
+  
   { label: "Knowledge Hub", path: "/knowledge" },
   
 ];

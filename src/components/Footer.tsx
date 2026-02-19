@@ -25,7 +25,7 @@ const Footer = () => {
                 { label: "Fund Explorer", path: "/funds" },
                 { label: "SIF Tracker", path: "/tracker" },
                 { label: "Compare Funds", path: "/compare" },
-                { label: "Tax Calculator", path: "/calculator" },
+                
               ].map((link) => (
                 <Link key={link.path} to={link.path} className="text-sm text-accent-foreground/60 hover:text-gold-light transition-colors">
                   {link.label}
