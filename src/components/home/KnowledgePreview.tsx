@@ -10,7 +10,7 @@ const articles = [
 
 const KnowledgePreview = () => {
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -36,7 +36,7 @@ const KnowledgePreview = () => {
             >
               <Link
                 to="/knowledge"
-                className="block bg-card border border-border p-7 hover:border-gold/20 transition-colors group"
+                className="block bg-white border border-[#E5E2DB] shadow-card hover:shadow-card-hover p-7 hover:border-gold/30 transition-all group"
               >
                 <span className="text-xs font-semibold px-2.5 py-1 bg-gold/10 text-gold uppercase tracking-wider">
                   {article.tag}
@@ -50,7 +50,7 @@ const KnowledgePreview = () => {
         </div>
 
         <div className="mt-10 text-center">
-          <Link to="/knowledge" className="text-sm font-semibold text-gold hover:text-gold-light transition-colors">
+          <Link to="/knowledge" className="text-sm font-semibold text-gold hover:text-gold-dark transition-colors">
             Visit Knowledge Hub &rarr;
           </Link>
         </div>

@@ -24,7 +24,7 @@ const cards = [
 
 const WhyJericho = () => {
   return (
-    <section className="py-24 bg-cream">
+    <section className="py-24 bg-[#F8F6F1]">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -33,10 +33,10 @@ const WhyJericho = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-3 text-navy">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-3 text-foreground">
             Why Choose Jericho
           </h2>
-          <p className="text-navy/50 text-lg max-w-xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
             A disciplined approach to navigating India's newest asset class.
           </p>
         </motion.div>
@@ -49,11 +49,11 @@ const WhyJericho = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="bg-white border border-navy/5 p-8 hover:border-gold/20 transition-colors"
+              className="bg-white border border-[#E5E2DB] shadow-card hover:shadow-card-hover p-8 hover:border-gold/30 transition-all"
             >
               <card.icon className="w-7 h-7 text-gold mb-5" strokeWidth={1.5} />
-              <h3 className="font-serif text-lg font-bold mb-3 text-navy">{card.title}</h3>
-              <p className="text-sm text-navy/55 leading-relaxed">{card.description}</p>
+              <h3 className="font-serif text-lg font-bold mb-3 text-foreground">{card.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{card.description}</p>
             </motion.div>
           ))}
         </div>

@@ -32,7 +32,7 @@ const EducationTabs = () => {
   const activeTab = tabs.find((t) => t.id === active)!;
 
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -40,9 +40,9 @@ const EducationTabs = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="bg-card border border-border overflow-hidden">
+          <div className="bg-white border border-[#E5E2DB] shadow-card overflow-hidden">
             {/* Tab headers */}
-            <div className="flex border-b border-border">
+            <div className="flex border-b border-[#E5E2DB]">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
@@ -65,7 +65,7 @@ const EducationTabs = () => {
               </p>
               <Link
                 to={activeTab.cta.path}
-                className="text-sm font-semibold text-gold hover:text-gold-light transition-colors"
+                className="text-sm font-semibold text-gold hover:text-gold-dark transition-colors"
               >
                 {activeTab.cta.label} &rarr;
               </Link>

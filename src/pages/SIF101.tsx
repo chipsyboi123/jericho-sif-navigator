@@ -134,27 +134,27 @@ function getResult(score: number) {
     return {
       title: "Building Your Foundation",
       message: "SIF may not be suitable right now. Consider building a diversified mutual fund portfolio first, and talk to us when you are ready to explore further.",
-      color: "text-yellow-400",
+      color: "text-yellow-600",
     };
   }
   if (score <= 9) {
     return {
       title: "SIF Could Complement Your Portfolio",
       message: "A hybrid long-short fund would be a good starting point for lower volatility. Let us discuss which one fits best.",
-      color: "text-emerald-400",
+      color: "text-emerald-600",
     };
   }
   if (score <= 13) {
     return {
       title: "SIF Aligns Well With Your Profile",
       message: "You could explore both equity and hybrid strategies depending on your market view. Schedule a call to discuss allocation.",
-      color: "text-green-400",
+      color: "text-green-600",
     };
   }
   return {
     title: "Well-Positioned for SIF",
     message: "Consider allocating across multiple strategy types for diversification. Let us build a plan.",
-    color: "text-primary",
+    color: "text-gold",
   };
 }
 
@@ -176,7 +176,7 @@ const RiskProfiler = () => {
   if (showResult) {
     return (
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-        <div className="bg-card border border-border p-8 mb-6">
+        <div className="bg-white border border-[#E5E2DB] shadow-card p-8 mb-6">
           <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-2">Your Score: {totalScore}/16</p>
           <h3 className={`font-serif text-2xl font-bold mb-3 ${result.color}`}>{result.title}</h3>
           <p className="text-foreground/80 leading-relaxed mb-6">{result.message}</p>
@@ -189,7 +189,7 @@ const RiskProfiler = () => {
             </Link>
             <button
               onClick={() => { setAnswers(new Array(questions.length).fill(null)); setShowResult(false); }}
-              className="px-6 py-3 border border-border text-muted-foreground font-semibold hover:text-foreground transition-colors text-center"
+              className="px-6 py-3 border border-[#E5E2DB] text-muted-foreground font-semibold hover:text-foreground transition-colors text-center"
             >
               Retake Assessment
             </button>
@@ -202,7 +202,7 @@ const RiskProfiler = () => {
   return (
     <div className="space-y-6">
       {questions.map((q, qi) => (
-        <div key={qi} className="bg-card border border-border p-6">
+        <div key={qi} className="bg-white border border-[#E5E2DB] shadow-card p-6">
           <p className="text-sm font-semibold text-foreground mb-4">
             {qi + 1}. {q.question}
           </p>
@@ -214,7 +214,7 @@ const RiskProfiler = () => {
                 className={`text-left px-4 py-3 text-sm border transition-colors ${
                   answers[qi] === opt.points
                     ? "border-gold bg-gold/10 text-gold font-semibold"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-gold/25"
+                    : "border-[#E5E2DB] text-muted-foreground hover:text-foreground hover:border-gold/25"
                 }`}
               >
                 {opt.label}
@@ -229,7 +229,7 @@ const RiskProfiler = () => {
         className={`w-full px-6 py-3 font-semibold transition-opacity ${
           allAnswered
             ? "bg-gradient-gold text-white hover:opacity-90"
-            : "bg-secondary text-muted-foreground cursor-not-allowed"
+            : "bg-[#F0EDE6] text-muted-foreground cursor-not-allowed"
         }`}
       >
         {allAnswered ? "See My Result" : "Answer all questions to continue"}
@@ -263,7 +263,7 @@ const SIF101 = () => {
                   className={`w-full text-left px-4 py-3 text-sm transition-colors ${
                     activeModule === m.id
                       ? "bg-gold/10 text-gold font-semibold"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                      : "text-muted-foreground hover:text-foreground hover:bg-[#F8F6F1]"
                   }`}
                 >
                   Module {m.id}: {m.title}
@@ -300,7 +300,7 @@ const SIF101 = () => {
                         {m.id > 1 && (
                           <button
                             onClick={() => setActiveModule(m.id - 1)}
-                            className="px-4 py-2 text-sm border border-border text-muted-foreground hover:text-foreground transition-colors"
+                            className="px-4 py-2 text-sm border border-[#E5E2DB] text-muted-foreground hover:text-foreground transition-colors"
                           >
                             Previous
                           </button>

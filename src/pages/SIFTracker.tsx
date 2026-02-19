@@ -21,13 +21,13 @@ const SIFTracker = () => {
         {/* Launched */}
         <div className="mb-16">
           <h2 className="font-serif text-2xl font-bold mb-6 flex items-center gap-3">
-            <span className="w-2 h-2 bg-emerald-400" />
+            <span className="w-2 h-2 bg-emerald-500" />
             Launched Funds
           </h2>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto bg-white border border-[#E5E2DB] shadow-card">
             <table className="w-full min-w-[800px]">
               <thead>
-                <tr className="border-b border-border">
+                <tr className="border-b border-[#E5E2DB]">
                   <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase">Fund</th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase">AMC</th>
                   <th className="text-left py-3 px-4 text-xs font-semibold text-muted-foreground uppercase">Strategy</th>
@@ -38,7 +38,7 @@ const SIFTracker = () => {
               </thead>
               <tbody>
                 {launched.map((fund) => (
-                  <tr key={fund.id} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
+                  <tr key={fund.id} className="border-b border-[#E5E2DB]/50 hover:bg-[#F8F6F1] transition-colors">
                     <td className="py-3 px-4 text-sm font-medium text-foreground">{fund.sifBrand}</td>
                     <td className="py-3 px-4 text-sm text-muted-foreground">{fund.amcName}</td>
                     <td className="py-3 px-4 text-sm text-muted-foreground">{fund.strategyType}</td>
@@ -62,11 +62,11 @@ const SIFTracker = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {comingSoon.map((fund) => (
-              <div key={fund.id} className="bg-card border border-border p-5">
+              <div key={fund.id} className="bg-white border border-[#E5E2DB] shadow-card p-5">
                 <p className="text-xs font-semibold text-gold uppercase tracking-wider">{fund.amcName}</p>
                 <h3 className="font-serif text-lg font-bold text-foreground mt-1">{fund.sifBrand}</h3>
                 <p className="text-sm text-muted-foreground mt-2">{fund.strategyType}</p>
-                <span className="inline-block mt-3 text-xs font-semibold px-2 py-1 bg-gold/10 text-gold">
+                <span className="inline-block mt-3 text-xs font-semibold px-2 py-1 bg-[#FDF8EC] text-gold">
                   Approved, Awaiting Launch
                 </span>
               </div>

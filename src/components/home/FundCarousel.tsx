@@ -7,7 +7,7 @@ const FundCarousel = () => {
   const { data: launchedFunds } = useLaunchedFunds();
 
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -32,7 +32,7 @@ const FundCarousel = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="min-w-[300px] bg-card border border-border p-6 flex flex-col gap-3 hover:border-gold/25 transition-all group"
+              className="min-w-[300px] bg-white border border-[#E5E2DB] shadow-card hover:shadow-card-hover p-6 flex flex-col gap-3 hover:border-gold/30 transition-all group"
             >
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-gold uppercase tracking-wider">{fund.amcName}</span>
@@ -41,15 +41,15 @@ const FundCarousel = () => {
                 </span>
               </div>
               <h3 className="font-serif text-lg font-bold text-foreground">{fund.sifBrand}</h3>
-              <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 w-fit">{fund.strategyType}</span>
-              <div className="flex items-baseline justify-between mt-auto pt-4 border-t border-border">
+              <span className="text-xs text-muted-foreground bg-[#F8F6F1] px-2 py-1 w-fit">{fund.strategyType}</span>
+              <div className="flex items-baseline justify-between mt-auto pt-4 border-t border-[#E5E2DB]">
                 <div>
                   <p className="text-xs text-muted-foreground">NAV</p>
                   <p className="text-lg font-semibold text-foreground">{fund.nav}</p>
                 </div>
                 <Link
                   to={`/funds/${fund.id}`}
-                  className="text-xs font-semibold text-gold hover:text-gold-light transition-colors"
+                  className="text-xs font-semibold text-gold hover:text-gold-dark transition-colors"
                 >
                   Learn More
                 </Link>
@@ -59,7 +59,7 @@ const FundCarousel = () => {
         </div>
 
         <div className="mt-8 text-center">
-          <Link to="/funds" className="text-sm font-semibold text-gold hover:text-gold-light transition-colors">
+          <Link to="/funds" className="text-sm font-semibold text-gold hover:text-gold-dark transition-colors">
             View All Funds in Fund Explorer &rarr;
           </Link>
         </div>
