@@ -11,7 +11,7 @@ import SIFTracker from "./pages/SIFTracker";
 import SIFCompare from "./pages/SIFCompare";
 import TaxCalculator from "./pages/TaxCalculator";
 import KnowledgeHub from "./pages/KnowledgeHub";
-import Distributors from "./pages/Distributors";
+
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
@@ -32,7 +32,7 @@ const App = () => (
             <Route path="/compare" element={<SIFCompare />} />
             <Route path="/calculator" element={<TaxCalculator />} />
             <Route path="/knowledge" element={<KnowledgeHub />} />
-            <Route path="/distributors" element={<Distributors />} />
+            
             <Route path="/contact" element={<Contact />} />
           </Route>
           <Route path="*" element={<NotFound />} />
