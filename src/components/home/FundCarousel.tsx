@@ -1,0 +1,69 @@
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { sifFunds, getRiskColor, getRiskLabel } from "@/data/sifFunds";
+
+const FundCarousel = () => {
+  const launchedFunds = sifFunds.filter((f) => f.status === "Launched");
+
+  return (
+    <section className="py-20 bg-background">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-2">
+            SIF Funds at a <span className="text-gradient-gold">Glance</span>
+          </h2>
+          <p className="text-muted-foreground mb-8">
+            Explore all launched Specialized Investment Fund schemes across AMCs.
+          </p>
+        </motion.div>
+
+        <div className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide">
+          {launchedFunds.map((fund, i) => (
+            <motion.div
+              key={fund.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.05 }}
+              className="min-w-[300px] bg-card border border-border rounded-lg p-5 flex flex-col gap-3 hover:border-primary/30 hover:glow-gold transition-all"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-primary uppercase tracking-wider">{fund.amcName}</span>
+                <span className={`text-xs font-bold ${getRiskColor(fund.riskBand)}`}>
+                  Risk: {fund.riskBand}/5
+                </span>
+              </div>
+              <h3 className="font-serif text-lg font-bold text-foreground">{fund.sifBrand}</h3>
+              <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded w-fit">{fund.strategyType}</span>
+              <div className="flex items-baseline justify-between mt-auto pt-3 border-t border-border">
+                <div>
+                  <p className="text-xs text-muted-foreground">NAV</p>
+                  <p className="text-lg font-semibold text-foreground">{fund.nav}</p>
+                </div>
+                <Link
+                  to={`/funds#${fund.id}`}
+                  className="text-xs font-semibold text-primary hover:underline"
+                >
+                  Learn More →
+                </Link>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-6 text-center">
+          <Link to="/funds" className="text-sm font-semibold text-primary hover:underline">
+            View All Funds in Fund Explorer →
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default FundCarousel;
