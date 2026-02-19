@@ -17,8 +17,8 @@ const HeroSection = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img src={heroImage} alt="City skyline at dusk" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy/95 via-navy/70 to-navy/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-navy/10" />
       </div>
 
       <div className="relative container mx-auto px-4 py-20">
@@ -44,15 +44,9 @@ const HeroSection = () => {
             </Link>
             <Link
               to="/sif-101"
-              className="px-6 py-3 border border-primary/30 text-foreground font-semibold rounded-md hover:bg-primary/10 transition-colors text-center"
+              className="px-6 py-3 border border-gold/30 text-accent-foreground font-semibold rounded-md hover:bg-gold/10 transition-colors text-center"
             >
               New to SIF? Start Here
-            </Link>
-            <Link
-              to="/calculator"
-              className="px-6 py-3 border border-border text-muted-foreground font-medium rounded-md hover:border-primary/30 hover:text-foreground transition-colors text-center"
-            >
-              SIF Tax Calculator
             </Link>
           </div>
         </motion.div>
