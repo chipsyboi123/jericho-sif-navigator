@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
+import SEOHead from "@/components/SEOHead";
 
 const Contact = () => {
   const [searchParams] = useSearchParams();
@@ -71,6 +72,7 @@ const Contact = () => {
 
   return (
     <div className="py-20">
+      <SEOHead title="Contact Us" description="Schedule a consultation with Jericho's SIF advisory team. Get personalized guidance on Specialized Investment Fund allocation." noIndex={true} />
       <div className="container mx-auto px-4 max-w-2xl">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-2">

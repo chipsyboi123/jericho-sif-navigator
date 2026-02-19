@@ -25,6 +25,7 @@ function mapDbFund(row: any): SIFFund {
   const allocation = row.indicative_allocation || { equity: 50, debt: 35, derivatives: 15 };
 
   return {
+    dbId: row.id,
     id: row.slug,
     amcName: row.amcs?.name || "",
     sifBrand: row.name,

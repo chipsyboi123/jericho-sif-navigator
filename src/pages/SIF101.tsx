@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import SEOHead from "@/components/SEOHead";
 
 interface Module {
   id: number;
@@ -242,6 +243,7 @@ const SIF101 = () => {
 
   return (
     <div className="py-20">
+      <SEOHead title="SIF 101: What is a Specialized Investment Fund?" description="Learn everything about SIFs. Investment minimums, strategies, taxation, risk bands, and how SIFs compare to PMS and AIF." />
       <div className="container mx-auto px-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-2">

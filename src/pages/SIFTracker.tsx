@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { getRiskColor, getRiskLabel } from "@/data/sifFunds";
 import { useLaunchedFunds, useComingSoonFunds } from "@/hooks/useFunds";
+import SEOHead from "@/components/SEOHead";
 
 const SIFTracker = () => {
   const { data: launched, isLoading: loadingLaunched } = useLaunchedFunds();
@@ -8,6 +9,7 @@ const SIFTracker = () => {
 
   return (
     <div className="py-20">
+      <SEOHead title="SIF Tracker" description="Track all launched SIF funds and upcoming AMC launches in real time. NAV data, launch dates, and fund status." />
       <div className="container mx-auto px-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-2">

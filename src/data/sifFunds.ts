@@ -1,5 +1,6 @@
 // Static SIF fund data — corrected per JERICHO-SIF-HANDOVER-V2.md
 export interface SIFFund {
+  dbId?: string;
   id: string;
   amcName: string;
   sifBrand: string;

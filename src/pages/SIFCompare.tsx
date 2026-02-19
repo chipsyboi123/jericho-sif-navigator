@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useLaunchedFunds } from "@/hooks/useFunds";
+import SEOHead from "@/components/SEOHead";
 
 const SIFCompare = () => {
   const { data: launched, isLoading } = useLaunchedFunds();
@@ -37,6 +38,7 @@ const SIFCompare = () => {
 
   return (
     <div className="py-20">
+      <SEOHead title="Compare SIF Funds" description="Side-by-side comparison of SIF strategies. Compare risk bands, benchmarks, fund managers, and allocation across schemes." />
       <div className="container mx-auto px-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-2">

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import SEOHead from "@/components/SEOHead";
 import { Search, Shield, Eye, ClipboardCheck, Target, FileText, BarChart3, CheckCircle2, XCircle } from "lucide-react";
 
 const pillars = [
@@ -76,6 +77,7 @@ const fadeIn = {
 const WhyJerichoPage = () => {
   return (
     <div>
+      <SEOHead title="Why Jericho" description="Jericho is not an aggregator. We are your SIF advisor. Research-led conviction, full transparency, and guided investing for HNIs." />
       {/* Hero */}
       <section className="py-20 bg-accent">
         <div className="container mx-auto px-4">

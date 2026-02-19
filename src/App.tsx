@@ -15,6 +15,10 @@ import KnowledgeHub from "./pages/KnowledgeHub";
 import Contact from "./pages/Contact";
 import WhyJerichoPage from "./pages/WhyJerichoPage";
 import FundDetail from "./pages/FundDetail";
+import BlogArticle from "./pages/BlogArticle";
+import AdminLogin from "./pages/admin/AdminLogin";
+import NavUpload from "./pages/admin/NavUpload";
+import AdminRoute from "./components/AdminRoute";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,7 +41,10 @@ const App = () => (
             
             <Route path="/why-jericho" element={<WhyJerichoPage />} />
             <Route path="/funds/:slug" element={<FundDetail />} />
+            <Route path="/knowledge/:slug" element={<BlogArticle />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/nav-upload" element={<AdminRoute><NavUpload /></AdminRoute>} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

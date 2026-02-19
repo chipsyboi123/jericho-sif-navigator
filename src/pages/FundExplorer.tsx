@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { getRiskColor, getRiskLabel } from "@/data/sifFunds";
 import { useLaunchedFunds } from "@/hooks/useFunds";
+import SEOHead from "@/components/SEOHead";
 
 const FundExplorer = () => {
   const [filter, setFilter] = useState<string>("All");
@@ -13,6 +14,10 @@ const FundExplorer = () => {
 
   return (
     <div className="py-20">
+      <SEOHead
+        title="SIF Fund Explorer"
+        description="Explore all SEBI-registered Specialized Investment Funds. Filter by category, compare strategies, and find the right SIF for your portfolio."
+      />
       <div className="container mx-auto px-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <h1 className="font-serif text-4xl md:text-5xl font-bold mb-2">

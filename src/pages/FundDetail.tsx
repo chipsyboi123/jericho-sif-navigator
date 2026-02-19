@@ -2,6 +2,8 @@ import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { getRiskColor, getRiskLabel } from "@/data/sifFunds";
 import { useFundBySlug } from "@/hooks/useFunds";
+import PerformanceChart from "@/components/PerformanceChart";
+import SEOHead from "@/components/SEOHead";
 
 const FundDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -36,6 +38,18 @@ const FundDetail = () => {
   return (
     <div className="py-20">
       <div className="container mx-auto px-4 max-w-4xl">
+        <SEOHead
+          title={fund.sifBrand}
+          description={`${fund.sifBrand} by ${fund.amcName}. ${fund.objective.substring(0, 150)}`}
+          jsonLd={{
+            "@context": "https://schema.org",
+            "@type": "FinancialProduct",
+            name: fund.sifBrand,
+            provider: { "@type": "Organization", name: fund.amcName },
+            description: fund.objective,
+            category: "Specialized Investment Fund",
+          }}
+        />
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
           <Link to="/funds" className="hover:text-primary transition-colors">Fund Explorer</Link>
@@ -128,12 +142,9 @@ const FundDetail = () => {
             </div>
           </div>
 
-          {/* Performance Placeholder */}
-          <div className="bg-card border border-border p-6 mb-10">
-            <h3 className="font-serif text-lg font-bold mb-2 text-foreground">Performance</h3>
-            <p className="text-muted-foreground text-sm">
-              Performance data will be available after sufficient trading history. Check back soon or contact us for the latest figures.
-            </p>
+          {/* Performance Chart */}
+          <div className="mb-10">
+            <PerformanceChart fundId={fund.dbId} fundName={fund.sifBrand} />
           </div>
 
           {/* CTAs */}
