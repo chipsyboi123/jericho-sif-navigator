@@ -5,7 +5,7 @@ const articles = [
   { title: "SIF 101: The Complete Beginner's Guide", tag: "Guide", color: "bg-primary/10 text-primary" },
   { title: "Which SIF Strategy Matches Your Risk Profile?", tag: "Advisory", color: "bg-emerald-500/10 text-emerald-400" },
   { title: "How SIF Taxation Works: Equity, Debt, and Hybrid", tag: "Tax", color: "bg-orange-500/10 text-orange-400" },
-  { title: "The MFD's Guide to Distributing SIF", tag: "Distributor", color: "bg-blue-500/10 text-blue-400" },
+  { title: "Is SIF Right for You? A Self-Assessment", tag: "Investor", color: "bg-blue-500/10 text-blue-400" },
 ];
 
 const KnowledgePreview = () => {

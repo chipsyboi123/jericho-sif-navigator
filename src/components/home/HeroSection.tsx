@@ -13,12 +13,12 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-accent">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img src={heroImage} alt="City skyline at dusk" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
       </div>
 
       <div className="relative container mx-auto px-4 py-20">
@@ -28,13 +28,13 @@ const HeroSection = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-2xl"
         >
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-accent-foreground">
             Navigate SIF with{" "}
             <span className="text-gradient-gold">Confidence</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-xl">
-            India's newest SEBI-regulated asset class, explained and accessible. Compare strategies, track performance, and invest through Jericho.
-          </p>
+           <p className="text-lg md:text-xl text-accent-foreground/70 leading-relaxed mb-8 max-w-xl">
+             India's newest SEBI-regulated asset class, explained and accessible. Compare strategies, track performance, and invest through Jericho.
+           </p>
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <Link
               to="/funds"
@@ -49,20 +49,20 @@ const HeroSection = () => {
               New to SIF? Start Here
             </Link>
             <Link
-              to="/distributors"
+              to="/calculator"
               className="px-6 py-3 border border-border text-muted-foreground font-medium rounded-md hover:border-primary/30 hover:text-foreground transition-colors text-center"
             >
-              Become a Distributor
+              SIF Tax Calculator
             </Link>
           </div>
         </motion.div>
       </div>
 
       {/* Ticker */}
-      <div className="absolute bottom-0 left-0 right-0 bg-secondary/80 backdrop-blur-sm border-t border-border py-3 overflow-hidden">
+      <div className="absolute bottom-0 left-0 right-0 bg-accent/80 backdrop-blur-sm border-t border-accent-foreground/10 py-3 overflow-hidden">
         <div className="animate-ticker flex whitespace-nowrap gap-8">
           {[...tickerItems, ...tickerItems].map((item, i) => (
-            <span key={i} className="text-sm text-muted-foreground flex items-center gap-2">
+            <span key={i} className="text-sm text-accent-foreground/60 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
               {item}
             </span>

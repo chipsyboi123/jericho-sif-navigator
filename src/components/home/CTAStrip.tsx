@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const CTAStrip = () => {
   return (
-    <section className="py-20 bg-secondary border-t border-border">
+    <section className="py-20 bg-accent border-t border-accent-foreground/10">
       <div className="container mx-auto px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -11,7 +11,7 @@ const CTAStrip = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-8">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-8 text-accent-foreground">
             Ready to Get <span className="text-gradient-gold">Started?</span>
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -22,14 +22,14 @@ const CTAStrip = () => {
               I Want to Invest in SIF
             </Link>
             <Link
-              to="/distributors"
-              className="px-8 py-3 border border-primary/30 text-foreground font-semibold rounded-md hover:bg-primary/10 transition-colors"
+              to="/compare"
+              className="px-8 py-3 border border-gold/30 text-accent-foreground font-semibold rounded-md hover:bg-gold/10 transition-colors"
             >
-              I Want to Distribute SIF
+              I Want to Compare SIF Funds
             </Link>
             <Link
               to="/sif-101"
-              className="px-8 py-3 border border-border text-muted-foreground font-medium rounded-md hover:border-primary/30 hover:text-foreground transition-colors"
+              className="px-8 py-3 border border-accent-foreground/20 text-accent-foreground/70 font-medium rounded-md hover:border-gold/30 hover:text-accent-foreground transition-colors"
             >
               I Want to Learn About SIF
             </Link>
