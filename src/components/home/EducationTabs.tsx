@@ -7,21 +7,21 @@ const tabs = [
     id: "what",
     title: "What is SIF?",
     content:
-      "SIF is a new SEBI-regulated investment category launched in April 2025. It bridges the gap between mutual funds and PMS by allowing AMCs to offer advanced strategies like long-short equity, sector rotation, and tactical allocation. Minimum investment is ₹10 lakh.",
+      "SIF is a new SEBI-regulated investment category launched in April 2025. It bridges the gap between mutual funds and PMS by allowing AMCs to offer advanced strategies like long-short equity, sector rotation, and tactical allocation. Minimum investment is \u20B910 lakh.",
     cta: { label: "Read the Full Guide", path: "/sif-101" },
   },
   {
     id: "tax",
     title: "How SIF Taxation Works",
     content:
-      "SIFs are taxed at the scheme level, like mutual funds. For equity-oriented SIFs held over 12 months, LTCG is taxed at 12.5% on gains above ₹1.25 lakh. For debt-oriented SIFs, gains are taxed at slab rates. This makes SIFs significantly more tax-efficient than most AIF categories.",
+      "SIFs are taxed at the scheme level, like mutual funds. For equity-oriented SIFs held over 12 months, LTCG is taxed at 12.5% on gains above \u20B91.25 lakh. For debt-oriented SIFs, gains are taxed at slab rates. This makes SIFs significantly more tax-efficient than most AIF categories.",
     cta: { label: "Use Tax Calculator", path: "/calculator" },
   },
   {
     id: "vs",
     title: "SIF vs PMS",
     content:
-      "PMS requires ₹50 lakh minimum and charges tax at the transaction level. SIF requires ₹10 lakh and benefits from scheme-level taxation (same as mutual funds). PMS offers full customization but SIF provides advanced strategies within SEBI's mutual fund framework.",
+      "PMS requires \u20B950 lakh minimum and charges tax at the transaction level. SIF requires \u20B910 lakh and benefits from scheme-level taxation (same as mutual funds). PMS offers full customization but SIF provides advanced strategies within SEBI's mutual fund framework.",
     cta: { label: "Compare in Detail", path: "/compare" },
   },
 ];
@@ -32,7 +32,7 @@ const EducationTabs = () => {
   const activeTab = tabs.find((t) => t.id === active)!;
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-24 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -49,7 +49,7 @@ const EducationTabs = () => {
                   onClick={() => setActive(tab.id)}
                   className={`flex-1 py-4 px-4 text-sm font-semibold transition-colors ${
                     active === tab.id
-                      ? "text-primary border-b-2 border-primary bg-primary/5"
+                      ? "text-gold border-b-2 border-gold"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -59,15 +59,15 @@ const EducationTabs = () => {
             </div>
 
             {/* Tab content */}
-            <div className="p-6 md:p-8">
-              <p className="text-foreground/80 leading-relaxed mb-6 max-w-2xl">
+            <div className="p-8 md:p-10">
+              <p className="text-foreground/75 leading-relaxed mb-6 max-w-2xl text-base">
                 {activeTab.content}
               </p>
               <Link
                 to={activeTab.cta.path}
-                className="text-sm font-semibold text-primary hover:underline"
+                className="text-sm font-semibold text-gold hover:text-gold-light transition-colors"
               >
-                {activeTab.cta.label} →
+                {activeTab.cta.label} &rarr;
               </Link>
             </div>
           </div>

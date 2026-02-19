@@ -59,7 +59,7 @@ const AdminLogin = () => {
             <button
               type="submit"
               disabled={submitting}
-              className={`w-full px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity ${submitting ? "opacity-50 cursor-not-allowed" : ""}`}
+              className={`w-full px-6 py-3 bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity ${submitting ? "opacity-50 cursor-not-allowed" : ""}`}
             >
               {submitting ? "Signing in..." : "Sign In"}
             </button>

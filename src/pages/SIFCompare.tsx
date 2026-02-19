@@ -41,10 +41,10 @@ const SIFCompare = () => {
       <SEOHead title="Compare SIF Funds" description="Side-by-side comparison of SIF strategies. Compare risk bands, benchmarks, fund managers, and allocation across schemes." />
       <div className="container mx-auto px-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-2">
-            Compare <span className="text-gradient-gold">SIF Funds</span>
+          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-3 text-foreground">
+            Compare SIF Funds
           </h1>
-          <p className="text-muted-foreground mb-8">Select 2-3 funds for side-by-side comparison.</p>
+          <p className="text-muted-foreground text-lg mb-8">Select 2-3 funds for side-by-side comparison.</p>
         </motion.div>
 
         {/* Fund selector */}
@@ -55,8 +55,8 @@ const SIFCompare = () => {
               onClick={() => toggle(fund.id)}
               className={`px-4 py-2 text-sm border transition-colors ${
                 selected.includes(fund.id)
-                  ? "border-primary bg-primary/10 text-primary font-semibold"
-                  : "border-border text-muted-foreground hover:text-foreground hover:border-primary/30"
+                  ? "border-gold bg-gold/10 text-gold font-semibold"
+                  : "border-border text-muted-foreground hover:text-foreground hover:border-gold/25"
               }`}
             >
               {fund.sifBrand}
@@ -71,7 +71,7 @@ const SIFCompare = () => {
               <tr className="border-b border-border">
                 <th className="text-left py-3 px-4 text-sm font-semibold text-muted-foreground min-w-[150px]">Field</th>
                 {selectedFunds.map((fund) => (
-                  <th key={fund.id} className="text-left py-3 px-4 text-sm font-semibold text-primary min-w-[200px]">
+                  <th key={fund.id} className="text-left py-3 px-4 text-sm font-semibold text-gold min-w-[200px]">
                     {fund.sifBrand}
                   </th>
                 ))}

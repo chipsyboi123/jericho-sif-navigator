@@ -20,10 +20,10 @@ const FundExplorer = () => {
       />
       <div className="container mx-auto px-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-2">
-            Fund <span className="text-gradient-gold">Explorer</span>
+          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-3 text-foreground">
+            Fund Explorer
           </h1>
-          <p className="text-muted-foreground mb-8">All launched SIF schemes across AMCs.</p>
+          <p className="text-muted-foreground text-lg mb-8">All launched SIF schemes across AMCs.</p>
         </motion.div>
 
         {/* Filters */}
@@ -33,7 +33,7 @@ const FundExplorer = () => {
               key={cat}
               onClick={() => setFilter(cat)}
               className={`px-4 py-2 text-sm font-medium transition-colors ${
-                filter === cat ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:text-foreground"
+                filter === cat ? "bg-gold text-white" : "bg-secondary text-muted-foreground hover:text-foreground"
               }`}
             >
               {cat}
@@ -49,11 +49,11 @@ const FundExplorer = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: i * 0.03 }}
-                className="bg-card border border-border p-6 hover:border-primary/30 transition-colors h-full"
+                className="bg-card border border-border p-6 hover:border-gold/25 transition-colors h-full"
               >
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <p className="text-xs font-semibold text-primary uppercase tracking-wider">{fund.amcName}</p>
+                    <p className="text-xs font-semibold text-gold uppercase tracking-wider">{fund.amcName}</p>
                     <h3 className="font-serif text-xl font-bold text-foreground mt-1">{fund.sifBrand}</h3>
                   </div>
                   <span className={`text-xs font-bold px-2 py-1 bg-secondary ${getRiskColor(fund.riskBand)}`}>

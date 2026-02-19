@@ -12,19 +12,19 @@ const comparisonData = [
 
 const ComparisonPreview = () => {
   return (
-    <section className="py-20 bg-secondary">
+    <section className="py-24 bg-navy">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10"
+          className="text-center mb-12"
         >
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-2">
-            How Does SIF <span className="text-gradient-gold">Stack Up?</span>
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-3 text-white">
+            How Does SIF Stack Up?
           </h2>
-          <p className="text-muted-foreground">A quick comparison across investment vehicles.</p>
+          <p className="text-white/50 text-lg">A quick comparison across investment vehicles.</p>
         </motion.div>
 
         <motion.div
@@ -36,32 +36,32 @@ const ComparisonPreview = () => {
         >
           <table className="w-full min-w-[600px]">
             <thead>
-              <tr className="border-b border-border">
-                <th className="text-left py-3 px-4 text-sm font-semibold text-muted-foreground">Feature</th>
-                <th className="text-left py-3 px-4 text-sm font-semibold text-muted-foreground">Mutual Fund</th>
-                <th className="text-left py-3 px-4 text-sm font-semibold text-primary bg-primary/5">SIF</th>
-                <th className="text-left py-3 px-4 text-sm font-semibold text-muted-foreground">PMS</th>
-                <th className="text-left py-3 px-4 text-sm font-semibold text-muted-foreground">AIF</th>
+              <tr className="border-b border-white/10">
+                <th className="text-left py-4 px-4 text-sm font-semibold text-white/40">Feature</th>
+                <th className="text-left py-4 px-4 text-sm font-semibold text-white/40">Mutual Fund</th>
+                <th className="text-left py-4 px-4 text-sm font-semibold text-gold">SIF</th>
+                <th className="text-left py-4 px-4 text-sm font-semibold text-white/40">PMS</th>
+                <th className="text-left py-4 px-4 text-sm font-semibold text-white/40">AIF</th>
               </tr>
             </thead>
             <tbody>
               {comparisonData.map((row, i) => (
-                <tr key={i} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
-                  <td className="py-3 px-4 text-sm font-medium text-foreground">{row.feature}</td>
-                  <td className="py-3 px-4 text-sm text-muted-foreground">{row.mf}</td>
-                  <td className="py-3 px-4 text-sm font-medium text-primary bg-primary/5">{row.sif}</td>
-                  <td className="py-3 px-4 text-sm text-muted-foreground">{row.pms}</td>
-                  <td className="py-3 px-4 text-sm text-muted-foreground">{row.aif}</td>
+                <tr key={i} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                  <td className="py-4 px-4 text-sm font-medium text-white/80">{row.feature}</td>
+                  <td className="py-4 px-4 text-sm text-white/45">{row.mf}</td>
+                  <td className="py-4 px-4 text-sm font-medium text-gold/90">{row.sif}</td>
+                  <td className="py-4 px-4 text-sm text-white/45">{row.pms}</td>
+                  <td className="py-4 px-4 text-sm text-white/45">{row.aif}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </motion.div>
 
-        <div className="mt-8 text-center">
+        <div className="mt-10 text-center">
           <Link
             to="/compare"
-            className="px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity inline-block"
+            className="px-7 py-3.5 border border-white/15 text-white font-semibold hover:border-gold/40 hover:text-gold transition-colors inline-block"
           >
             See Detailed Comparison
           </Link>
