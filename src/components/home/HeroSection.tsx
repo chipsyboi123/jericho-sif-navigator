@@ -17,8 +17,8 @@ const HeroSection = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img src={heroImage} alt="City skyline at dusk" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy/95 via-navy/70 to-navy/20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-transparent to-navy/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy/75 via-navy/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
       </div>
 
       <div className="relative container mx-auto px-4 py-20">
