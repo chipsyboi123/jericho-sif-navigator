@@ -11,7 +11,7 @@ const navItems = [
   { label: "Compare", path: "/compare" },
   
   { label: "Knowledge Hub", path: "/knowledge" },
-  
+  { label: "Why Jericho", path: "/why-jericho" },
 ];
 
 const Navbar = () => {
@@ -33,7 +33,7 @@ const Navbar = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+              className={`px-3 py-2 text-sm font-medium transition-colors ${
                 location.pathname === item.path
                   ? "text-gold-light bg-gold/10"
                   : "text-accent-foreground/70 hover:text-accent-foreground hover:bg-accent-foreground/10"
@@ -48,7 +48,7 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center gap-3">
           <Link
             to="/contact"
-            className="px-5 py-2 text-sm font-semibold bg-gradient-gold text-primary-foreground rounded-md hover:opacity-90 transition-opacity"
+            className="px-5 py-2 text-sm font-semibold bg-gradient-gold text-primary-foreground hover:opacity-90 transition-opacity"
           >
             Invest Now →
           </Link>
@@ -78,7 +78,7 @@ const Navbar = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setMobileOpen(false)}
-                  className={`px-3 py-2.5 text-sm font-medium rounded-md ${
+                  className={`px-3 py-2.5 text-sm font-medium ${
                     location.pathname === item.path
                       ? "text-gold-light bg-gold/10"
                       : "text-accent-foreground/70 hover:text-accent-foreground"
@@ -90,7 +90,7 @@ const Navbar = () => {
               <Link
                 to="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 px-5 py-2.5 text-sm font-semibold bg-gradient-gold text-primary-foreground rounded-md text-center"
+                className="mt-2 px-5 py-2.5 text-sm font-semibold bg-gradient-gold text-primary-foreground text-center"
               >
                 Invest Now →
               </Link>

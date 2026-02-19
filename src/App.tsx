@@ -13,6 +13,8 @@ import SIFCompare from "./pages/SIFCompare";
 import KnowledgeHub from "./pages/KnowledgeHub";
 
 import Contact from "./pages/Contact";
+import WhyJerichoPage from "./pages/WhyJerichoPage";
+import FundDetail from "./pages/FundDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +35,8 @@ const App = () => (
             
             <Route path="/knowledge" element={<KnowledgeHub />} />
             
+            <Route path="/why-jericho" element={<WhyJerichoPage />} />
+            <Route path="/funds/:slug" element={<FundDetail />} />
             <Route path="/contact" element={<Contact />} />
           </Route>
           <Route path="*" element={<NotFound />} />

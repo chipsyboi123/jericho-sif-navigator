@@ -12,7 +12,7 @@ const cards = [
     icon: Shield,
     title: "Advisor-First Approach",
     description:
-      "Whether you're an investor or distributor, we guide you toward the right SIF strategy for your goals. Not every SIF is right for everyone.",
+      "We guide you toward the right SIF strategy for your goals. Not every SIF is right for every investor, and we help you find the fit.",
   },
   {
     icon: Eye,
@@ -46,7 +46,7 @@ const WhyJericho = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="bg-card border border-border rounded-lg p-6 hover:border-primary/30 transition-colors"
+              className="bg-card border border-border p-6 hover:border-primary/30 transition-colors"
             >
               <card.icon className="w-8 h-8 text-primary mb-4" />
               <h3 className="font-serif text-lg font-bold mb-2 text-foreground">{card.title}</h3>

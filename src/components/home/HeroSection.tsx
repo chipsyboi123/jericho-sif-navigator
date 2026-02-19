@@ -4,9 +4,9 @@ import heroImage from "@/assets/hero-sif.jpg";
 
 const HeroSection = () => {
   const tickerItems = [
-    "10 SIF Schemes Launched",
-    "7 AMCs Active",
-    "₹10L Minimum Investment",
+    "9 SIF Schemes Launched",
+    "6 AMCs Active",
+    "Rs 10L Minimum Investment",
     "Up to 25% Short Exposure",
     "SEBI Regulated",
     "Scheme-Level Taxation",
@@ -38,13 +38,13 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <Link
               to="/funds"
-              className="px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold rounded-md hover:opacity-90 transition-opacity text-center"
+              className="px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity text-center"
             >
               Explore SIF Funds
             </Link>
             <Link
               to="/sif-101"
-              className="px-6 py-3 border border-gold/30 text-accent-foreground font-semibold rounded-md hover:bg-gold/10 transition-colors text-center"
+              className="px-6 py-3 border border-gold/30 text-accent-foreground font-semibold hover:bg-gold/10 transition-colors text-center"
             >
               New to SIF? Start Here
             </Link>
@@ -57,7 +57,7 @@ const HeroSection = () => {
         <div className="animate-ticker flex whitespace-nowrap gap-8">
           {[...tickerItems, ...tickerItems].map((item, i) => (
             <span key={i} className="text-sm text-accent-foreground/60 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+              <span className="w-1.5 h-1.5 bg-primary" />
               {item}
             </span>
           ))}

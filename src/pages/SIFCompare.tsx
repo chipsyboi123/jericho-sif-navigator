@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { sifFunds } from "@/data/sifFunds";
+import { useLaunchedFunds } from "@/hooks/useFunds";
 
 const SIFCompare = () => {
-  const launched = sifFunds.filter((f) => f.status === "Launched");
-  const [selected, setSelected] = useState<string[]>([launched[0].id, launched[1].id]);
+  const { data: launched, isLoading } = useLaunchedFunds();
+  const [selected, setSelected] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (launched.length >= 2 && selected.length === 0) {
+      setSelected([launched[0].id, launched[1].id]);
+    }
+  }, [launched]);
 
   const toggle = (id: string) => {
     if (selected.includes(id)) {
@@ -45,7 +51,7 @@ const SIFCompare = () => {
             <button
               key={fund.id}
               onClick={() => toggle(fund.id)}
-              className={`px-4 py-2 text-sm rounded-md border transition-colors ${
+              className={`px-4 py-2 text-sm border transition-colors ${
                 selected.includes(fund.id)
                   ? "border-primary bg-primary/10 text-primary font-semibold"
                   : "border-border text-muted-foreground hover:text-foreground hover:border-primary/30"

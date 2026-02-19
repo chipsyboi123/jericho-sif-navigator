@@ -40,7 +40,7 @@ const Footer = () => {
             <div className="flex flex-col gap-2">
               {[
                 { label: "Knowledge Hub", path: "/knowledge" },
-                
+                { label: "Why Jericho", path: "/why-jericho" },
                 { label: "Contact Us", path: "/contact" },
               ].map((link) => (
                 <Link key={link.path} to={link.path} className="text-sm text-accent-foreground/60 hover:text-gold-light transition-colors">
@@ -55,7 +55,7 @@ const Footer = () => {
             <h4 className="font-serif text-sm font-semibold text-accent-foreground mb-4">Legal</h4>
             <p className="text-xs text-accent-foreground/50 leading-relaxed">
               All SIF investments are subject to market risks.
-              Read all scheme-related documents carefully before investing. Minimum investment ₹10 Lakh. Jericho is an AMFI-registered distributor.
+              Read all scheme-related documents carefully before investing. Minimum investment Rs 10 Lakh. Jericho Ventures is an AMFI-registered SIF distributor.
             </p>
             <p className="text-xs text-accent-foreground/50 mt-4">
               © {new Date().getFullYear()} Jericho Ventures. All rights reserved.

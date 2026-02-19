@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { sifFunds, getRiskColor, getRiskLabel } from "@/data/sifFunds";
+import { getRiskColor, getRiskLabel } from "@/data/sifFunds";
+import { useLaunchedFunds } from "@/hooks/useFunds";
 
 const FundCarousel = () => {
-  const launchedFunds = sifFunds.filter((f) => f.status === "Launched");
+  const { data: launchedFunds } = useLaunchedFunds();
 
   return (
     <section className="py-20 bg-background">
@@ -30,7 +31,7 @@ const FundCarousel = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="min-w-[300px] bg-card border border-border rounded-lg p-5 flex flex-col gap-3 hover:border-primary/30 hover:glow-gold transition-all"
+              className="min-w-[300px] bg-card border border-border p-5 flex flex-col gap-3 hover:border-primary/30 hover:glow-gold transition-all"
             >
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-primary uppercase tracking-wider">{fund.amcName}</span>
@@ -46,10 +47,10 @@ const FundCarousel = () => {
                   <p className="text-lg font-semibold text-foreground">{fund.nav}</p>
                 </div>
                 <Link
-                  to={`/funds#${fund.id}`}
+                  to={`/funds/${fund.id}`}
                   className="text-xs font-semibold text-primary hover:underline"
                 >
-                  Learn More →
+                  Learn More
                 </Link>
               </div>
             </motion.div>

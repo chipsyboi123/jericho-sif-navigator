@@ -40,7 +40,7 @@ const EducationTabs = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="bg-card border border-border rounded-lg overflow-hidden">
+          <div className="bg-card border border-border overflow-hidden">
             {/* Tab headers */}
             <div className="flex border-b border-border">
               {tabs.map((tab) => (

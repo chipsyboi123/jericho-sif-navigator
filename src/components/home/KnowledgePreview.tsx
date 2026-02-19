@@ -36,7 +36,7 @@ const KnowledgePreview = () => {
             >
               <Link
                 to="/knowledge"
-                className="block bg-card border border-border rounded-lg p-6 hover:border-primary/30 transition-colors group"
+                className="block bg-card border border-border p-6 hover:border-primary/30 transition-colors group"
               >
                 <span className={`text-xs font-semibold px-2 py-1 rounded ${article.color}`}>
                   {article.tag}

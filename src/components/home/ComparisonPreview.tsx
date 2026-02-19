@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const comparisonData = [
-  { feature: "Min Investment", mf: "₹100", sif: "₹10 Lakh", pms: "₹50 Lakh", aif: "₹1 Crore" },
+  { feature: "Min Investment", mf: "Rs 100", sif: "Rs 10 Lakh", pms: "Rs 50 Lakh", aif: "Rs 1 Crore" },
   { feature: "Short Selling", mf: "No", sif: "Up to 25%", pms: "Yes", aif: "Yes" },
   { feature: "Tax Efficiency", mf: "Scheme-level", sif: "Scheme-level", pms: "Transaction-level", aif: "Category-dependent" },
   { feature: "Strategy Flexibility", mf: "Limited", sif: "High", pms: "Full customization", aif: "Wide range" },
@@ -39,7 +39,7 @@ const ComparisonPreview = () => {
               <tr className="border-b border-border">
                 <th className="text-left py-3 px-4 text-sm font-semibold text-muted-foreground">Feature</th>
                 <th className="text-left py-3 px-4 text-sm font-semibold text-muted-foreground">Mutual Fund</th>
-                <th className="text-left py-3 px-4 text-sm font-semibold text-primary bg-primary/5 rounded-t-md">SIF</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-primary bg-primary/5">SIF</th>
                 <th className="text-left py-3 px-4 text-sm font-semibold text-muted-foreground">PMS</th>
                 <th className="text-left py-3 px-4 text-sm font-semibold text-muted-foreground">AIF</th>
               </tr>
@@ -61,7 +61,7 @@ const ComparisonPreview = () => {
         <div className="mt-8 text-center">
           <Link
             to="/compare"
-            className="px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold rounded-md hover:opacity-90 transition-opacity inline-block"
+            className="px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity inline-block"
           >
             See Detailed Comparison
           </Link>

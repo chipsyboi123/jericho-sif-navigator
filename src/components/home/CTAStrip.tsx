@@ -17,19 +17,19 @@ const CTAStrip = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/contact"
-              className="px-8 py-3 bg-gradient-gold text-primary-foreground font-semibold rounded-md hover:opacity-90 transition-opacity"
+              className="px-8 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
             >
               I Want to Invest in SIF
             </Link>
             <Link
               to="/compare"
-              className="px-8 py-3 border border-gold/30 text-accent-foreground font-semibold rounded-md hover:bg-gold/10 transition-colors"
+              className="px-8 py-3 border border-gold/30 text-accent-foreground font-semibold hover:bg-gold/10 transition-colors"
             >
               I Want to Compare SIF Funds
             </Link>
             <Link
               to="/sif-101"
-              className="px-8 py-3 border border-accent-foreground/20 text-accent-foreground/70 font-medium rounded-md hover:border-gold/30 hover:text-accent-foreground transition-colors"
+              className="px-8 py-3 border border-accent-foreground/20 text-accent-foreground/70 font-medium hover:border-gold/30 hover:text-accent-foreground transition-colors"
             >
               I Want to Learn About SIF
             </Link>
