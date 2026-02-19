@@ -79,15 +79,14 @@ const WhyJerichoPage = () => {
     <div>
       <SEOHead title="Why Jericho" description="Jericho is not an aggregator. We are your SIF advisor. Research-led conviction, full transparency, and guided investing for HNIs." />
       {/* Hero */}
-      <section className="py-20 bg-accent">
+      <section className="py-24 bg-navy">
         <div className="container mx-auto px-4">
           <motion.div {...fadeIn} transition={{ duration: 0.6 }} className="max-w-3xl">
-            <p className="text-primary font-semibold text-sm uppercase tracking-wider mb-4">Why Jericho</p>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-accent-foreground">
-              Not an aggregator.{" "}
-              <span className="text-gradient-gold">Your SIF advisor.</span>
+            <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-4">Why Jericho</p>
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold italic mb-6 text-white leading-tight">
+              Not an aggregator. Your SIF advisor.
             </h1>
-            <p className="text-lg text-accent-foreground/70 leading-relaxed max-w-2xl">
+            <p className="text-lg text-white/55 leading-relaxed max-w-2xl">
               SIF is new territory for most investors. You need more than a comparison table. You need someone who understands these strategies, tracks fund manager performance, and helps you build the right allocation.
             </p>
           </motion.div>
@@ -95,11 +94,11 @@ const WhyJerichoPage = () => {
       </section>
 
       {/* Three Pillars */}
-      <section className="py-20 bg-background">
+      <section className="py-24 bg-cream">
         <div className="container mx-auto px-4">
-          <motion.div {...fadeIn} transition={{ duration: 0.6 }} className="text-center mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-2">
-              What Sets Us <span className="text-gradient-gold">Apart</span>
+          <motion.div {...fadeIn} transition={{ duration: 0.6 }} className="text-center mb-14">
+            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-3 text-navy">
+              What Sets Us Apart
             </h2>
           </motion.div>
 
@@ -109,12 +108,12 @@ const WhyJerichoPage = () => {
                 key={i}
                 {...fadeIn}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="bg-card border border-border p-8 hover:border-primary/30 transition-colors"
+                className="bg-white border border-navy/5 p-8 hover:border-gold/20 transition-colors"
               >
-                <pillar.icon className="w-10 h-10 text-primary mb-5" />
-                <h3 className="font-serif text-xl font-bold mb-3 text-foreground">{pillar.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{pillar.description}</p>
-                <p className="text-sm text-foreground/70 leading-relaxed">{pillar.detail}</p>
+                <pillar.icon className="w-8 h-8 text-gold mb-5" strokeWidth={1.5} />
+                <h3 className="font-serif text-xl font-bold mb-3 text-navy">{pillar.title}</h3>
+                <p className="text-sm text-navy/55 leading-relaxed mb-4">{pillar.description}</p>
+                <p className="text-sm text-navy/40 leading-relaxed">{pillar.detail}</p>
               </motion.div>
             ))}
           </div>
@@ -122,13 +121,13 @@ const WhyJerichoPage = () => {
       </section>
 
       {/* Our Process */}
-      <section className="py-20 bg-secondary">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
-          <motion.div {...fadeIn} transition={{ duration: 0.6 }} className="text-center mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-2">
-              Our <span className="text-gradient-gold">Process</span>
+          <motion.div {...fadeIn} transition={{ duration: 0.6 }} className="text-center mb-14">
+            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-3 text-foreground">
+              Our Process
             </h2>
-            <p className="text-muted-foreground">From first conversation to ongoing portfolio monitoring.</p>
+            <p className="text-muted-foreground text-lg">From first conversation to ongoing portfolio monitoring.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -137,11 +136,11 @@ const WhyJerichoPage = () => {
                 key={i}
                 {...fadeIn}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="bg-card border border-border p-6"
+                className="bg-card border border-border p-7"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-2xl font-bold text-primary/30 font-serif">{step.step}</span>
-                  <step.icon className="w-6 h-6 text-primary" />
+                  <span className="text-2xl font-bold text-gold/25 font-serif">{step.step}</span>
+                  <step.icon className="w-6 h-6 text-gold" strokeWidth={1.5} />
                 </div>
                 <h3 className="font-serif text-lg font-bold mb-2 text-foreground">{step.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
@@ -152,39 +151,39 @@ const WhyJerichoPage = () => {
       </section>
 
       {/* Is SIF Right for You? */}
-      <section className="py-20 bg-background">
+      <section className="py-24 bg-cream">
         <div className="container mx-auto px-4">
-          <motion.div {...fadeIn} transition={{ duration: 0.6 }} className="text-center mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-2">
-              Is SIF Right for <span className="text-gradient-gold">You?</span>
+          <motion.div {...fadeIn} transition={{ duration: 0.6 }} className="text-center mb-14">
+            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-3 text-navy">
+              Is SIF Right for You?
             </h2>
-            <p className="text-muted-foreground">A quick self-check before you explore further.</p>
+            <p className="text-navy/50 text-lg">A quick self-check before you explore further.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <motion.div {...fadeIn} transition={{ duration: 0.4 }} className="bg-card border border-border p-8">
-              <h3 className="font-serif text-xl font-bold mb-6 text-foreground flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-green-400" />
+            <motion.div {...fadeIn} transition={{ duration: 0.4 }} className="bg-white border border-navy/5 p-8">
+              <h3 className="font-serif text-xl font-bold mb-6 text-navy flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-green-500" />
                 Consider SIF if you...
               </h3>
               <ul className="space-y-3">
                 {suitableFor.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-foreground/80">
-                    <span className="w-1.5 h-1.5 bg-green-400 mt-1.5 shrink-0" />
+                  <li key={i} className="flex items-start gap-3 text-sm text-navy/65">
+                    <span className="w-1.5 h-1.5 bg-green-500 mt-1.5 shrink-0" />
                     {item}
                   </li>
                 ))}
               </ul>
             </motion.div>
 
-            <motion.div {...fadeIn} transition={{ duration: 0.4, delay: 0.1 }} className="bg-card border border-border p-8">
-              <h3 className="font-serif text-xl font-bold mb-6 text-foreground flex items-center gap-2">
+            <motion.div {...fadeIn} transition={{ duration: 0.4, delay: 0.1 }} className="bg-white border border-navy/5 p-8">
+              <h3 className="font-serif text-xl font-bold mb-6 text-navy flex items-center gap-2">
                 <XCircle className="w-5 h-5 text-red-400" />
                 SIF may not be right if you...
               </h3>
               <ul className="space-y-3">
                 {notSuitableFor.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-foreground/80">
+                  <li key={i} className="flex items-start gap-3 text-sm text-navy/65">
                     <span className="w-1.5 h-1.5 bg-red-400 mt-1.5 shrink-0" />
                     {item}
                   </li>
@@ -196,25 +195,25 @@ const WhyJerichoPage = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-accent border-t border-accent-foreground/10">
+      <section className="py-24 bg-navy">
         <div className="container mx-auto px-4 text-center">
           <motion.div {...fadeIn} transition={{ duration: 0.6 }}>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4 text-accent-foreground">
-              Ready to explore <span className="text-gradient-gold">SIF?</span>
+            <h2 className="font-serif text-3xl md:text-5xl font-semibold italic mb-4 text-white leading-tight">
+              Ready to explore SIF?
             </h2>
-            <p className="text-accent-foreground/60 mb-8 max-w-xl mx-auto">
+            <p className="text-white/45 mb-10 max-w-xl mx-auto text-lg">
               Talk to our team. We will assess your profile, recommend the right strategies, and handle the rest.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/contact"
-                className="px-8 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                className="px-8 py-3.5 bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity"
               >
                 Schedule a Consultation
               </Link>
               <Link
                 to="/sif-101"
-                className="px-8 py-3 border border-gold/30 text-accent-foreground font-semibold hover:bg-gold/10 transition-colors"
+                className="px-8 py-3.5 border border-white/15 text-white/80 font-medium hover:text-white hover:border-white/30 transition-colors"
               >
                 Take the Risk Profiler
               </Link>

@@ -73,7 +73,7 @@ const PerformanceChart = ({ fundId, fundName }: Props) => {
               onClick={() => setFilter(f)}
               className={`px-3 py-1 text-xs font-medium transition-colors ${
                 filter === f
-                  ? "bg-primary text-primary-foreground"
+                  ? "bg-gold text-white"
                   : "bg-secondary text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -85,16 +85,16 @@ const PerformanceChart = ({ fundId, fundName }: Props) => {
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={filteredData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(215 18% 22%)" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(222 25% 20%)" vertical={false} />
             <XAxis
               dataKey="dateFormatted"
-              tick={{ fontSize: 11, fill: "hsl(215 12% 55%)" }}
+              tick={{ fontSize: 11, fill: "hsl(220 12% 58%)" }}
               tickLine={false}
               axisLine={false}
               interval="preserveStartEnd"
             />
             <YAxis
-              tick={{ fontSize: 11, fill: "hsl(215 12% 55%)" }}
+              tick={{ fontSize: 11, fill: "hsl(220 12% 58%)" }}
               tickLine={false}
               axisLine={false}
               domain={["auto", "auto"]}
@@ -102,22 +102,22 @@ const PerformanceChart = ({ fundId, fundName }: Props) => {
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "hsl(215 25% 15%)",
-                border: "1px solid hsl(215 18% 22%)",
+                backgroundColor: "hsl(222 40% 14%)",
+                border: "1px solid hsl(222 25% 20%)",
                 borderRadius: 0,
                 fontSize: 12,
               }}
-              labelStyle={{ color: "hsl(40 20% 92%)" }}
-              itemStyle={{ color: "hsl(38 70% 55%)" }}
+              labelStyle={{ color: "hsl(40 20% 93%)" }}
+              itemStyle={{ color: "hsl(38 70% 53%)" }}
               formatter={(value: number) => [`Rs ${value.toFixed(4)}`, "NAV"]}
             />
             <Line
               type="monotone"
               dataKey="nav"
-              stroke="hsl(38 70% 55%)"
+              stroke="hsl(38 70% 53%)"
               strokeWidth={2}
               dot={false}
-              activeDot={{ r: 4, fill: "hsl(38 70% 55%)" }}
+              activeDot={{ r: 4, fill: "hsl(38 70% 53%)" }}
             />
           </LineChart>
         </ResponsiveContainer>

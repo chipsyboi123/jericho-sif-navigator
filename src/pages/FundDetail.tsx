@@ -52,7 +52,7 @@ const FundDetail = () => {
         />
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-          <Link to="/funds" className="hover:text-primary transition-colors">Fund Explorer</Link>
+          <Link to="/funds" className="hover:text-gold transition-colors">Fund Explorer</Link>
           <span>/</span>
           <span className="text-foreground">{fund.sifBrand}</span>
         </div>
@@ -60,7 +60,7 @@ const FundDetail = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           {/* Header */}
           <div className="mb-10">
-            <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">{fund.amcName}</p>
+            <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-2">{fund.amcName}</p>
             <h1 className="font-serif text-4xl md:text-5xl font-bold mb-3 text-foreground">{fund.sifBrand}</h1>
             <div className="flex flex-wrap items-center gap-3">
               <span className="text-sm bg-secondary px-3 py-1 text-muted-foreground">{fund.strategyType}</span>
@@ -151,13 +151,13 @@ const FundDetail = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               to={`/contact?fund=${encodeURIComponent(fund.sifBrand)}`}
-              className="px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity text-center"
+              className="px-7 py-3.5 bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity text-center"
             >
-              Express Interest
+              Express Interest &rarr;
             </Link>
             <Link
               to="/compare"
-              className="px-6 py-3 border border-border text-foreground font-semibold hover:border-primary/30 transition-colors text-center"
+              className="px-7 py-3.5 border border-border text-foreground font-semibold hover:border-gold/25 transition-colors text-center"
             >
               Compare This Fund
             </Link>

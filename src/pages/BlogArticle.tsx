@@ -29,7 +29,7 @@ const BlogArticle = () => {
           </p>
           <Link
             to="/knowledge"
-            className="px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+            className="px-6 py-3 bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity"
           >
             Back to Knowledge Hub
           </Link>
@@ -55,7 +55,7 @@ const BlogArticle = () => {
       <div className="container mx-auto px-4 max-w-3xl">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-          <Link to="/knowledge" className="hover:text-primary transition-colors">
+          <Link to="/knowledge" className="hover:text-gold transition-colors">
             Knowledge Hub
           </Link>
           <span>/</span>
@@ -69,7 +69,7 @@ const BlogArticle = () => {
         >
           {/* Header */}
           <div className="mb-10">
-            <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+            <span className="text-xs font-semibold text-gold uppercase tracking-wider">
               {post.category}
             </span>
             <h1 className="font-serif text-3xl md:text-4xl font-bold mt-2 mb-3 text-foreground">
@@ -99,7 +99,7 @@ const BlogArticle = () => {
             </p>
             <Link
               to="/contact"
-              className="inline-block px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+              className="inline-block px-6 py-3 bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity"
             >
               Schedule a Consultation
             </Link>

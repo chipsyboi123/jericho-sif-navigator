@@ -24,18 +24,21 @@ const cards = [
 
 const WhyJericho = () => {
   return (
-    <section className="py-20 bg-secondary">
+    <section className="py-24 bg-cream">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-2">
-            Why Choose <span className="text-gradient-gold">Jericho</span>
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-3 text-navy">
+            Why Choose Jericho
           </h2>
+          <p className="text-navy/50 text-lg max-w-xl mx-auto">
+            A disciplined approach to navigating India's newest asset class.
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -46,11 +49,11 @@ const WhyJericho = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="bg-card border border-border p-6 hover:border-primary/30 transition-colors"
+              className="bg-white border border-navy/5 p-8 hover:border-gold/20 transition-colors"
             >
-              <card.icon className="w-8 h-8 text-primary mb-4" />
-              <h3 className="font-serif text-lg font-bold mb-2 text-foreground">{card.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{card.description}</p>
+              <card.icon className="w-7 h-7 text-gold mb-5" strokeWidth={1.5} />
+              <h3 className="font-serif text-lg font-bold mb-3 text-navy">{card.title}</h3>
+              <p className="text-sm text-navy/55 leading-relaxed">{card.description}</p>
             </motion.div>
           ))}
         </div>

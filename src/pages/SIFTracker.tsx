@@ -12,10 +12,10 @@ const SIFTracker = () => {
       <SEOHead title="SIF Tracker" description="Track all launched SIF funds and upcoming AMC launches in real time. NAV data, launch dates, and fund status." />
       <div className="container mx-auto px-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-2">
-            SIF <span className="text-gradient-gold">Tracker</span>
+          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-3 text-foreground">
+            SIF Tracker
           </h1>
-          <p className="text-muted-foreground mb-12">Track all SIF schemes: launched, NFOs, and upcoming.</p>
+          <p className="text-muted-foreground text-lg mb-12">Track all SIF schemes: launched, NFOs, and upcoming.</p>
         </motion.div>
 
         {/* Launched */}
@@ -57,16 +57,16 @@ const SIFTracker = () => {
         {/* Coming Soon */}
         <div>
           <h2 className="font-serif text-2xl font-bold mb-6 flex items-center gap-3">
-            <span className="w-2 h-2 bg-primary" />
+            <span className="w-2 h-2 bg-gold" />
             Coming Soon
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {comingSoon.map((fund) => (
               <div key={fund.id} className="bg-card border border-border p-5">
-                <p className="text-xs font-semibold text-primary uppercase tracking-wider">{fund.amcName}</p>
+                <p className="text-xs font-semibold text-gold uppercase tracking-wider">{fund.amcName}</p>
                 <h3 className="font-serif text-lg font-bold text-foreground mt-1">{fund.sifBrand}</h3>
                 <p className="text-sm text-muted-foreground mt-2">{fund.strategyType}</p>
-                <span className="inline-block mt-3 text-xs font-semibold px-2 py-1 rounded bg-primary/10 text-primary">
+                <span className="inline-block mt-3 text-xs font-semibold px-2 py-1 bg-gold/10 text-gold">
                   Approved, Awaiting Launch
                 </span>
               </div>

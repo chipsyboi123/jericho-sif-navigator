@@ -177,13 +177,13 @@ const RiskProfiler = () => {
     return (
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
         <div className="bg-card border border-border p-8 mb-6">
-          <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Your Score: {totalScore}/16</p>
+          <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-2">Your Score: {totalScore}/16</p>
           <h3 className={`font-serif text-2xl font-bold mb-3 ${result.color}`}>{result.title}</h3>
           <p className="text-foreground/80 leading-relaxed mb-6">{result.message}</p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
               to="/contact"
-              className="px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity text-center"
+              className="px-6 py-3 bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity text-center"
             >
               Talk to Our Team
             </Link>
@@ -213,8 +213,8 @@ const RiskProfiler = () => {
                 onClick={() => selectAnswer(qi, opt.points)}
                 className={`text-left px-4 py-3 text-sm border transition-colors ${
                   answers[qi] === opt.points
-                    ? "border-primary bg-primary/10 text-primary font-semibold"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-primary/30"
+                    ? "border-gold bg-gold/10 text-gold font-semibold"
+                    : "border-border text-muted-foreground hover:text-foreground hover:border-gold/25"
                 }`}
               >
                 {opt.label}
@@ -228,7 +228,7 @@ const RiskProfiler = () => {
         disabled={!allAnswered}
         className={`w-full px-6 py-3 font-semibold transition-opacity ${
           allAnswered
-            ? "bg-gradient-gold text-primary-foreground hover:opacity-90"
+            ? "bg-gradient-gold text-white hover:opacity-90"
             : "bg-secondary text-muted-foreground cursor-not-allowed"
         }`}
       >
@@ -246,10 +246,10 @@ const SIF101 = () => {
       <SEOHead title="SIF 101: What is a Specialized Investment Fund?" description="Learn everything about SIFs. Investment minimums, strategies, taxation, risk bands, and how SIFs compare to PMS and AIF." />
       <div className="container mx-auto px-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-2">
-            SIF <span className="text-gradient-gold">101</span>
+          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-3 text-foreground">
+            SIF 101
           </h1>
-          <p className="text-muted-foreground mb-12">Your complete learning path to understanding Specialized Investment Funds.</p>
+          <p className="text-muted-foreground text-lg mb-12">Your complete learning path to understanding Specialized Investment Funds.</p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -262,7 +262,7 @@ const SIF101 = () => {
                   onClick={() => setActiveModule(m.id)}
                   className={`w-full text-left px-4 py-3 text-sm transition-colors ${
                     activeModule === m.id
-                      ? "bg-primary/10 text-primary font-semibold"
+                      ? "bg-gold/10 text-gold font-semibold"
                       : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                   }`}
                 >
@@ -308,7 +308,7 @@ const SIF101 = () => {
                         {m.id < modules.length && (
                           <button
                             onClick={() => setActiveModule(m.id + 1)}
-                            className="px-4 py-2 text-sm bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+                            className="px-4 py-2 text-sm bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity"
                           >
                             Next Module
                           </button>

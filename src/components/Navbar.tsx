@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
@@ -9,7 +9,6 @@ const navItems = [
   { label: "Fund Explorer", path: "/funds" },
   { label: "SIF Tracker", path: "/tracker" },
   { label: "Compare", path: "/compare" },
-  
   { label: "Knowledge Hub", path: "/knowledge" },
   { label: "Why Jericho", path: "/why-jericho" },
 ];
@@ -19,24 +18,24 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-accent/95 backdrop-blur-md border-b border-accent-foreground/10">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-md border-b border-white/5">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-           <span className="font-serif text-xl font-bold text-gradient-gold">Jericho</span>
-           <span className="font-sans text-sm font-semibold tracking-widest text-accent-foreground/80 uppercase">SIF</span>
+        <Link to="/" className="flex items-center gap-2.5">
+          <span className="font-serif text-2xl italic text-gold">JV</span>
+          <span className="font-sans text-xs font-semibold tracking-[0.2em] text-white/70 uppercase">Jericho SIF</span>
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center gap-1">
+        <div className="hidden lg:flex items-center gap-0.5">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
               className={`px-3 py-2 text-sm font-medium transition-colors ${
                 location.pathname === item.path
-                  ? "text-gold-light bg-gold/10"
-                  : "text-accent-foreground/70 hover:text-accent-foreground hover:bg-accent-foreground/10"
+                  ? "text-gold"
+                  : "text-white/60 hover:text-white"
               }`}
             >
               {item.label}
@@ -48,15 +47,15 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center gap-3">
           <Link
             to="/contact"
-            className="px-5 py-2 text-sm font-semibold bg-gradient-gold text-primary-foreground hover:opacity-90 transition-opacity"
+            className="px-5 py-2 text-sm font-semibold border border-white/20 text-white hover:border-gold/50 hover:text-gold transition-colors"
           >
-            Invest Now →
+            Talk to Us &rarr;
           </Link>
         </div>
 
         {/* Mobile toggle */}
         <button
-          className="lg:hidden text-accent-foreground"
+          className="lg:hidden text-white/80"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -70,7 +69,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-accent border-b border-accent-foreground/10 overflow-hidden"
+            className="lg:hidden bg-navy border-b border-white/5 overflow-hidden"
           >
             <div className="px-4 py-4 flex flex-col gap-1">
               {navItems.map((item) => (
@@ -80,8 +79,8 @@ const Navbar = () => {
                   onClick={() => setMobileOpen(false)}
                   className={`px-3 py-2.5 text-sm font-medium ${
                     location.pathname === item.path
-                      ? "text-gold-light bg-gold/10"
-                      : "text-accent-foreground/70 hover:text-accent-foreground"
+                      ? "text-gold"
+                      : "text-white/60 hover:text-white"
                   }`}
                 >
                   {item.label}
@@ -90,9 +89,9 @@ const Navbar = () => {
               <Link
                 to="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 px-5 py-2.5 text-sm font-semibold bg-gradient-gold text-primary-foreground text-center"
+                className="mt-2 px-5 py-2.5 text-sm font-semibold border border-white/20 text-white text-center hover:border-gold/50 transition-colors"
               >
-                Invest Now →
+                Talk to Us &rarr;
               </Link>
             </div>
           </motion.div>
