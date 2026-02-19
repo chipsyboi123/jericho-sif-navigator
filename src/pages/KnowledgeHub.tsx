@@ -16,16 +16,16 @@ const placeholderArticles = [
 
 const categoryColors: Record<string, string> = {
   Guide: "bg-gold/10 text-gold",
-  Comparison: "bg-blue-500/10 text-blue-400",
-  Strategy: "bg-emerald-500/10 text-emerald-400",
-  Tax: "bg-orange-500/10 text-orange-400",
-  Regulatory: "bg-purple-500/10 text-purple-400",
-  Updates: "bg-cyan-500/10 text-cyan-400",
-  Advisory: "bg-yellow-500/10 text-yellow-400",
+  Comparison: "bg-blue-500/10 text-blue-600",
+  Strategy: "bg-emerald-500/10 text-emerald-600",
+  Tax: "bg-orange-500/10 text-orange-600",
+  Regulatory: "bg-purple-500/10 text-purple-600",
+  Updates: "bg-cyan-500/10 text-cyan-600",
+  Advisory: "bg-yellow-500/10 text-yellow-700",
   education: "bg-gold/10 text-gold",
-  strategy: "bg-emerald-500/10 text-emerald-400",
-  tax: "bg-orange-500/10 text-orange-400",
-  updates: "bg-cyan-500/10 text-cyan-400",
+  strategy: "bg-emerald-500/10 text-emerald-600",
+  tax: "bg-orange-500/10 text-orange-600",
+  updates: "bg-cyan-500/10 text-cyan-600",
 };
 
 const KnowledgeHub = () => {
@@ -53,10 +53,10 @@ const KnowledgeHub = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: i * 0.05 }}
-                className="bg-card border border-border p-6 hover:border-gold/25 transition-colors cursor-pointer h-full"
+                className="bg-white border border-[#E5E2DB] shadow-card hover:shadow-card-hover hover:border-gold/30 p-6 transition-all cursor-pointer h-full"
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <span className={`text-xs font-semibold px-2 py-1 ${categoryColors[post.category] || "bg-secondary text-muted-foreground"}`}>
+                  <span className={`text-xs font-semibold px-2 py-1 ${categoryColors[post.category] || "bg-[#F8F6F1] text-muted-foreground"}`}>
                     {post.category}
                   </span>
                   <span className="text-xs text-muted-foreground">{post.publishedAt}</span>
@@ -80,10 +80,10 @@ const KnowledgeHub = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: (publishedPosts?.length || 0 + i) * 0.05 }}
-                className="bg-card border border-border p-6 opacity-60"
+                className="bg-white border border-[#E5E2DB] p-6 opacity-60"
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <span className={`text-xs font-semibold px-2 py-1 ${categoryColors[article.category] || "bg-secondary text-muted-foreground"}`}>
+                  <span className={`text-xs font-semibold px-2 py-1 ${categoryColors[article.category] || "bg-[#F8F6F1] text-muted-foreground"}`}>
                     {article.category}
                   </span>
                   <span className="text-xs text-muted-foreground">{article.date}</span>

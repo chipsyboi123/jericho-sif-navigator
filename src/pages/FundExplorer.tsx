@@ -33,7 +33,7 @@ const FundExplorer = () => {
               key={cat}
               onClick={() => setFilter(cat)}
               className={`px-4 py-2 text-sm font-medium transition-colors ${
-                filter === cat ? "bg-gold text-white" : "bg-secondary text-muted-foreground hover:text-foreground"
+                filter === cat ? "bg-gold text-white" : "bg-[#F8F6F1] text-muted-foreground hover:text-foreground"
               }`}
             >
               {cat}
@@ -49,14 +49,14 @@ const FundExplorer = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: i * 0.03 }}
-                className="bg-card border border-border p-6 hover:border-gold/25 transition-colors h-full"
+                className="bg-white border border-[#E5E2DB] shadow-card hover:shadow-card-hover hover:border-gold/30 p-6 transition-all h-full"
               >
                 <div className="flex justify-between items-start mb-3">
                   <div>
                     <p className="text-xs font-semibold text-gold uppercase tracking-wider">{fund.amcName}</p>
                     <h3 className="font-serif text-xl font-bold text-foreground mt-1">{fund.sifBrand}</h3>
                   </div>
-                  <span className={`text-xs font-bold px-2 py-1 bg-secondary ${getRiskColor(fund.riskBand)}`}>
+                  <span className={`text-xs font-bold px-2 py-1 bg-[#F8F6F1] ${getRiskColor(fund.riskBand)}`}>
                     {getRiskLabel(fund.riskBand)}
                   </span>
                 </div>
@@ -84,7 +84,7 @@ const FundExplorer = () => {
                   </div>
                 </div>
                 {/* Allocation bar */}
-                <div className="mt-4 pt-3 border-t border-border">
+                <div className="mt-4 pt-3 border-t border-[#E5E2DB]">
                   <p className="text-xs text-muted-foreground mb-2">Allocation</p>
                   <div className="flex h-2 overflow-hidden">
                     <div className="bg-primary" style={{ width: `${fund.allocation.equity}%` }} />

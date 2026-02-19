@@ -40,7 +40,7 @@ const PerformanceChart = ({ fundId, fundName }: Props) => {
 
   if (isLoading) {
     return (
-      <div className="bg-card border border-border p-6 mb-6">
+      <div className="bg-white border border-[#E5E2DB] shadow-card p-6 mb-6">
         <h3 className="font-serif text-lg font-bold mb-2 text-foreground">Performance</h3>
         <div className="h-64 flex items-center justify-center">
           <p className="text-muted-foreground text-sm">Loading chart data...</p>
@@ -51,7 +51,7 @@ const PerformanceChart = ({ fundId, fundName }: Props) => {
 
   if (!filteredData.length) {
     return (
-      <div className="bg-card border border-border p-6 mb-6">
+      <div className="bg-white border border-[#E5E2DB] shadow-card p-6 mb-6">
         <h3 className="font-serif text-lg font-bold mb-2 text-foreground">Performance</h3>
         <p className="text-muted-foreground text-sm">
           Performance data will be available after sufficient trading history. Check back soon or contact us for the latest figures.
@@ -63,7 +63,7 @@ const PerformanceChart = ({ fundId, fundName }: Props) => {
   const filters: TimeFilter[] = ["1M", "3M", "6M", "1Y", "ALL"];
 
   return (
-    <div className="bg-card border border-border p-6 mb-6">
+    <div className="bg-white border border-[#E5E2DB] shadow-card p-6 mb-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-serif text-lg font-bold text-foreground">Performance</h3>
         <div className="flex gap-1">
@@ -74,7 +74,7 @@ const PerformanceChart = ({ fundId, fundName }: Props) => {
               className={`px-3 py-1 text-xs font-medium transition-colors ${
                 filter === f
                   ? "bg-gold text-white"
-                  : "bg-secondary text-muted-foreground hover:text-foreground"
+                  : "bg-[#F8F6F1] text-muted-foreground hover:text-foreground"
               }`}
             >
               {f}
@@ -85,16 +85,16 @@ const PerformanceChart = ({ fundId, fundName }: Props) => {
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={filteredData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(222 25% 20%)" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#E5E2DB" vertical={false} />
             <XAxis
               dataKey="dateFormatted"
-              tick={{ fontSize: 11, fill: "hsl(220 12% 58%)" }}
+              tick={{ fontSize: 11, fill: "#7A7A9A" }}
               tickLine={false}
               axisLine={false}
               interval="preserveStartEnd"
             />
             <YAxis
-              tick={{ fontSize: 11, fill: "hsl(220 12% 58%)" }}
+              tick={{ fontSize: 11, fill: "#7A7A9A" }}
               tickLine={false}
               axisLine={false}
               domain={["auto", "auto"]}
@@ -102,22 +102,22 @@ const PerformanceChart = ({ fundId, fundName }: Props) => {
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "hsl(222 40% 14%)",
-                border: "1px solid hsl(222 25% 20%)",
+                backgroundColor: "#FFFFFF",
+                border: "1px solid #E5E2DB",
                 borderRadius: 0,
                 fontSize: 12,
               }}
-              labelStyle={{ color: "hsl(40 20% 93%)" }}
-              itemStyle={{ color: "hsl(38 70% 53%)" }}
+              labelStyle={{ color: "#1A1A2E" }}
+              itemStyle={{ color: "#C9960C" }}
               formatter={(value: number) => [`Rs ${value.toFixed(4)}`, "NAV"]}
             />
             <Line
               type="monotone"
               dataKey="nav"
-              stroke="hsl(38 70% 53%)"
+              stroke="#C9960C"
               strokeWidth={2}
               dot={false}
-              activeDot={{ r: 4, fill: "hsl(38 70% 53%)" }}
+              activeDot={{ r: 4, fill: "#C9960C" }}
             />
           </LineChart>
         </ResponsiveContainer>

@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-navy border-t border-white/5">
+    <footer className="bg-[#1A1A2E] border-t border-white/5">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div>
             <Link to="/" className="inline-flex items-center gap-2.5 mb-5">
-              <span className="font-serif text-2xl italic text-gold">JV</span>
+              <span className="font-serif text-2xl italic text-[#C9960C]">JV</span>
               <span className="font-sans text-xs font-semibold tracking-[0.2em] text-white/50 uppercase">Jericho SIF</span>
             </Link>
             <p className="text-sm text-white/40 leading-relaxed">
@@ -22,7 +22,7 @@ const Footer = () => {
 
           {/* Explore */}
           <div>
-            <h4 className="font-sans text-xs font-semibold text-gold/80 tracking-[0.15em] uppercase mb-5">Explore</h4>
+            <h4 className="font-sans text-xs font-semibold text-[#C9960C]/80 tracking-[0.15em] uppercase mb-5">Explore</h4>
             <div className="flex flex-col gap-2.5">
               {[
                 { label: "What is SIF?", path: "/sif-101" },
@@ -39,7 +39,7 @@ const Footer = () => {
 
           {/* Resources */}
           <div>
-            <h4 className="font-sans text-xs font-semibold text-gold/80 tracking-[0.15em] uppercase mb-5">Resources</h4>
+            <h4 className="font-sans text-xs font-semibold text-[#C9960C]/80 tracking-[0.15em] uppercase mb-5">Resources</h4>
             <div className="flex flex-col gap-2.5">
               {[
                 { label: "Knowledge Hub", path: "/knowledge" },
@@ -55,7 +55,7 @@ const Footer = () => {
 
           {/* Legal */}
           <div>
-            <h4 className="font-sans text-xs font-semibold text-gold/80 tracking-[0.15em] uppercase mb-5">Regulatory</h4>
+            <h4 className="font-sans text-xs font-semibold text-[#C9960C]/80 tracking-[0.15em] uppercase mb-5">Regulatory</h4>
             <p className="text-xs text-white/30 leading-relaxed">
               All SIF investments are subject to market risks.
               Read all scheme-related documents carefully before investing. Minimum investment Rs 10 Lakh. Jericho Ventures is an AMFI-registered SIF distributor.

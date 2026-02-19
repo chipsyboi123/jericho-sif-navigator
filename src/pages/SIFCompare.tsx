@@ -56,7 +56,7 @@ const SIFCompare = () => {
               className={`px-4 py-2 text-sm border transition-colors ${
                 selected.includes(fund.id)
                   ? "border-gold bg-gold/10 text-gold font-semibold"
-                  : "border-border text-muted-foreground hover:text-foreground hover:border-gold/25"
+                  : "border-[#E5E2DB] text-muted-foreground hover:text-foreground hover:border-gold/25"
               }`}
             >
               {fund.sifBrand}
@@ -65,10 +65,10 @@ const SIFCompare = () => {
         </div>
 
         {/* Comparison table */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto bg-white border border-[#E5E2DB] shadow-card">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border">
+              <tr className="border-b border-[#E5E2DB]">
                 <th className="text-left py-3 px-4 text-sm font-semibold text-muted-foreground min-w-[150px]">Field</th>
                 {selectedFunds.map((fund) => (
                   <th key={fund.id} className="text-left py-3 px-4 text-sm font-semibold text-gold min-w-[200px]">
@@ -79,7 +79,7 @@ const SIFCompare = () => {
             </thead>
             <tbody>
               {fields.map((field) => (
-                <tr key={field.key} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
+                <tr key={field.key} className="border-b border-[#E5E2DB]/50 hover:bg-[#F8F6F1] transition-colors">
                   <td className="py-3 px-4 text-sm font-medium text-foreground">{field.label}</td>
                   {selectedFunds.map((fund) => {
                     const val = (fund as any)[field.key];
@@ -91,7 +91,7 @@ const SIFCompare = () => {
                 </tr>
               ))}
               {/* Allocation row */}
-              <tr className="border-b border-border/50">
+              <tr className="border-b border-[#E5E2DB]/50">
                 <td className="py-3 px-4 text-sm font-medium text-foreground">Allocation</td>
                 {selectedFunds.map((fund) => (
                   <td key={fund.id} className="py-3 px-4 text-sm text-muted-foreground">

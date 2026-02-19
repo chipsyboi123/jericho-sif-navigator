@@ -1,7 +1,6 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
@@ -55,6 +54,8 @@ export default {
           DEFAULT: "hsl(var(--gold))",
           light: "hsl(var(--gold-light))",
           dark: "hsl(var(--gold-dark))",
+          muted: "hsl(var(--gold-muted))",
+          surface: "hsl(var(--gold-surface))",
         },
         navy: {
           DEFAULT: "hsl(var(--navy))",
@@ -63,6 +64,7 @@ export default {
         },
         cream: {
           DEFAULT: "hsl(var(--cream))",
+          warm: "hsl(var(--cream-warm))",
           muted: "hsl(var(--cream-muted))",
         },
         sidebar: {
@@ -75,6 +77,11 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      boxShadow: {
+        card: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
+        "card-hover": "0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04)",
+        "card-lg": "0 10px 25px rgba(0,0,0,0.08)",
       },
       borderRadius: {
         lg: "0",

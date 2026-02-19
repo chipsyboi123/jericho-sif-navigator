@@ -68,7 +68,7 @@ const Contact = () => {
     );
   }
 
-  const inputClasses = "w-full px-4 py-3 bg-secondary border border-border text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/30 transition-colors";
+  const inputClasses = "w-full px-4 py-3 bg-[#F8F6F1] border border-[#E5E2DB] text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/30 transition-colors";
 
   return (
     <div className="py-24">
@@ -81,7 +81,7 @@ const Contact = () => {
           <p className="text-muted-foreground text-lg mb-10">Tell us about yourself and we will guide you to the right SIF strategy.</p>
         </motion.div>
 
-        <div className="bg-card border border-border p-8 md:p-10">
+        <div className="bg-white border border-[#E5E2DB] shadow-card p-8 md:p-10">
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -136,7 +136,7 @@ const Contact = () => {
               <textarea rows={3} value={message} onChange={(e) => setMessage(e.target.value)} className={`${inputClasses} resize-none`} />
             </div>
 
-            {error && <p className="text-sm text-red-400">{error}</p>}
+            {error && <p className="text-sm text-red-500">{error}</p>}
 
             <button
               type="submit"

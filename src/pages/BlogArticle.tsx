@@ -83,14 +83,14 @@ const BlogArticle = () => {
           </div>
 
           {/* Markdown Content */}
-          <div className="prose prose-invert prose-gold max-w-none">
+          <div className="prose prose-gold max-w-none">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {post.content}
             </ReactMarkdown>
           </div>
 
           {/* CTA */}
-          <div className="mt-12 p-6 bg-card border border-border">
+          <div className="mt-12 p-6 bg-white border border-[#E5E2DB] shadow-card">
             <h3 className="font-serif text-lg font-bold text-foreground mb-2">
               Ready to explore SIF?
             </h3>

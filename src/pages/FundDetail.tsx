@@ -25,7 +25,7 @@ const FundDetail = () => {
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-serif text-4xl font-bold mb-4">Fund Not Found</h1>
           <p className="text-muted-foreground mb-8">The fund you are looking for does not exist or may have been removed.</p>
-          <Link to="/funds" className="px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
+          <Link to="/funds" className="px-6 py-3 bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity">
             Back to Fund Explorer
           </Link>
         </div>
@@ -63,23 +63,23 @@ const FundDetail = () => {
             <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-2">{fund.amcName}</p>
             <h1 className="font-serif text-4xl md:text-5xl font-bold mb-3 text-foreground">{fund.sifBrand}</h1>
             <div className="flex flex-wrap items-center gap-3">
-              <span className="text-sm bg-secondary px-3 py-1 text-muted-foreground">{fund.strategyType}</span>
-              <span className="text-sm bg-secondary px-3 py-1 text-muted-foreground">{fund.category}</span>
-              <span className={`text-sm font-bold px-3 py-1 bg-secondary ${getRiskColor(fund.riskBand)}`}>
+              <span className="text-sm bg-[#F8F6F1] px-3 py-1 text-muted-foreground">{fund.strategyType}</span>
+              <span className="text-sm bg-[#F8F6F1] px-3 py-1 text-muted-foreground">{fund.category}</span>
+              <span className={`text-sm font-bold px-3 py-1 bg-[#F8F6F1] ${getRiskColor(fund.riskBand)}`}>
                 Risk: {getRiskLabel(fund.riskBand)} ({fund.riskBand}/5)
               </span>
             </div>
           </div>
 
           {/* Objective */}
-          <div className="bg-card border border-border p-6 mb-6">
+          <div className="bg-white border border-[#E5E2DB] shadow-card p-6 mb-6">
             <h2 className="font-serif text-lg font-bold mb-2 text-foreground">Objective</h2>
             <p className="text-foreground/80 leading-relaxed">{fund.objective}</p>
           </div>
 
           {/* Key Details Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div className="bg-card border border-border p-6">
+            <div className="bg-white border border-[#E5E2DB] shadow-card p-6">
               <h3 className="font-serif text-lg font-bold mb-4 text-foreground">Fund Details</h3>
               <div className="space-y-3">
                 <DetailRow label="AMC" value={fund.amcName} />
@@ -91,7 +91,7 @@ const FundDetail = () => {
               </div>
             </div>
 
-            <div className="bg-card border border-border p-6">
+            <div className="bg-white border border-[#E5E2DB] shadow-card p-6">
               <h3 className="font-serif text-lg font-bold mb-4 text-foreground">Terms</h3>
               <div className="space-y-3">
                 <DetailRow label="Exit Load" value={fund.exitLoad} />
@@ -102,10 +102,10 @@ const FundDetail = () => {
               {/* Risk Band Visual */}
               <div className="mt-6">
                 <p className="text-sm font-medium text-foreground mb-2">Risk Band</p>
-                <div className="h-3 bg-secondary w-full">
+                <div className="h-3 bg-[#F0EDE6] w-full">
                   <div
                     className={`h-full transition-all ${
-                      fund.riskBand <= 2 ? "bg-green-400" : fund.riskBand <= 3 ? "bg-yellow-400" : fund.riskBand <= 4 ? "bg-orange-400" : "bg-red-400"
+                      fund.riskBand <= 2 ? "bg-green-500" : fund.riskBand <= 3 ? "bg-yellow-500" : fund.riskBand <= 4 ? "bg-orange-500" : "bg-red-500"
                     }`}
                     style={{ width: `${riskBarWidth}%` }}
                   />
@@ -119,7 +119,7 @@ const FundDetail = () => {
           </div>
 
           {/* Allocation */}
-          <div className="bg-card border border-border p-6 mb-6">
+          <div className="bg-white border border-[#E5E2DB] shadow-card p-6 mb-6">
             <h3 className="font-serif text-lg font-bold mb-4 text-foreground">Indicative Allocation</h3>
             <div className="flex h-4 overflow-hidden mb-3">
               <div className="bg-primary" style={{ width: `${fund.allocation.equity}%` }} />
@@ -157,7 +157,7 @@ const FundDetail = () => {
             </Link>
             <Link
               to="/compare"
-              className="px-7 py-3.5 border border-border text-foreground font-semibold hover:border-gold/25 transition-colors text-center"
+              className="px-7 py-3.5 border border-foreground/20 text-foreground font-semibold hover:border-gold hover:text-gold transition-colors text-center"
             >
               Compare This Fund
             </Link>

@@ -334,11 +334,11 @@ export const sifFunds: SIFFund[] = [
 
 export const getRiskColor = (band: number): string => {
   switch (band) {
-    case 1: return "text-green-400";
-    case 2: return "text-emerald-400";
-    case 3: return "text-yellow-400";
-    case 4: return "text-orange-400";
-    case 5: return "text-red-400";
+    case 1: return "text-green-600";
+    case 2: return "text-emerald-600";
+    case 3: return "text-yellow-600";
+    case 4: return "text-orange-600";
+    case 5: return "text-red-600";
     default: return "text-muted-foreground";
   }
 };

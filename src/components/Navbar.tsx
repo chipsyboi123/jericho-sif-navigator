@@ -18,12 +18,12 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-md border-b border-white/5">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#E5E2DB]">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5">
           <span className="font-serif text-2xl italic text-gold">JV</span>
-          <span className="font-sans text-xs font-semibold tracking-[0.2em] text-white/70 uppercase">Jericho SIF</span>
+          <span className="font-sans text-xs font-semibold tracking-[0.2em] text-foreground/50 uppercase">Jericho SIF</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -35,7 +35,7 @@ const Navbar = () => {
               className={`px-3 py-2 text-sm font-medium transition-colors ${
                 location.pathname === item.path
                   ? "text-gold"
-                  : "text-white/60 hover:text-white"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {item.label}
@@ -47,7 +47,7 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center gap-3">
           <Link
             to="/contact"
-            className="px-5 py-2 text-sm font-semibold border border-white/20 text-white hover:border-gold/50 hover:text-gold transition-colors"
+            className="px-5 py-2 text-sm font-semibold border border-foreground/20 text-foreground hover:border-gold hover:text-gold transition-colors"
           >
             Talk to Us &rarr;
           </Link>
@@ -55,7 +55,7 @@ const Navbar = () => {
 
         {/* Mobile toggle */}
         <button
-          className="lg:hidden text-white/80"
+          className="lg:hidden text-foreground/80"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -69,7 +69,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-navy border-b border-white/5 overflow-hidden"
+            className="lg:hidden bg-white border-b border-[#E5E2DB] overflow-hidden"
           >
             <div className="px-4 py-4 flex flex-col gap-1">
               {navItems.map((item) => (
@@ -80,7 +80,7 @@ const Navbar = () => {
                   className={`px-3 py-2.5 text-sm font-medium ${
                     location.pathname === item.path
                       ? "text-gold"
-                      : "text-white/60 hover:text-white"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {item.label}
@@ -89,7 +89,7 @@ const Navbar = () => {
               <Link
                 to="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 px-5 py-2.5 text-sm font-semibold border border-white/20 text-white text-center hover:border-gold/50 transition-colors"
+                className="mt-2 px-5 py-2.5 text-sm font-semibold border border-foreground/20 text-foreground text-center hover:border-gold hover:text-gold transition-colors"
               >
                 Talk to Us &rarr;
               </Link>
