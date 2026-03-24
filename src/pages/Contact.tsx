@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { supabase } from "@/lib/supabase";
+import { apiFetch } from "@/lib/api";
 import SEOHead from "@/components/SEOHead";
 
 const Contact = () => {
@@ -26,18 +26,21 @@ const Contact = () => {
     setSubmitting(true);
     setError("");
 
-    const { error: dbError } = await supabase.from("leads").insert({
-      name: `${firstName} ${lastName}`.trim(),
-      email,
-      phone: phone || null,
-      investment_range: investableAmount || null,
-      investment_horizon: horizon || null,
-      source: howHeard || null,
-      message: message || null,
-      source_page: "/contact",
-    });
-
-    if (dbError) {
+    try {
+      await apiFetch("/api/leads", {
+        method: "POST",
+        body: JSON.stringify({
+          name: `${firstName} ${lastName}`.trim(),
+          email,
+          phone: phone || null,
+          investment_range: investableAmount || null,
+          investment_horizon: horizon || null,
+          source: howHeard || null,
+          message: message || null,
+          source_page: "/contact",
+        }),
+      });
+    } catch (dbError: any) {
       console.error("Lead submission failed:", dbError);
     }
 

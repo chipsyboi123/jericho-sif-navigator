@@ -11,7 +11,7 @@ const AdminLogin = () => {
   const navigate = useNavigate();
 
   if (isAuthenticated) {
-    navigate("/admin/nav-upload", { replace: true });
+    navigate("/admin/dashboard", { replace: true });
     return null;
   }
 
@@ -25,7 +25,7 @@ const AdminLogin = () => {
       setError(err.message);
       setSubmitting(false);
     } else {
-      navigate("/admin/nav-upload", { replace: true });
+      navigate("/admin/dashboard", { replace: true });
     }
   };
 

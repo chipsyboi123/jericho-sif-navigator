@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabase";
-import { useAuth } from "@/hooks/useAuth";
+import { useState, useEffect, useCallback } from "react";
+import { apiFetch, apiUpload } from "@/lib/api";
 
 interface FundOption {
   id: string;
@@ -19,11 +18,20 @@ interface RecentNav {
   nav: number;
 }
 
+interface FileParseResult {
+  fileName: string;
+  sheetName: string;
+  totalRows: number;
+  parsedCount: number;
+  errors: string[];
+  entries: NavEntry[];
+  detectedColumns: { date: string; nav: string };
+}
+
 const NavUpload = () => {
-  const { logout } = useAuth();
   const [funds, setFunds] = useState<FundOption[]>([]);
   const [selectedFund, setSelectedFund] = useState("");
-  const [mode, setMode] = useState<"single" | "bulk">("single");
+  const [mode, setMode] = useState<"single" | "bulk" | "file">("single");
 
   // Single entry
   const [navDate, setNavDate] = useState("");
@@ -31,6 +39,11 @@ const NavUpload = () => {
 
   // Bulk entry
   const [csvText, setCsvText] = useState("");
+
+  // File upload
+  const [dragOver, setDragOver] = useState(false);
+  const [fileParseResult, setFileParseResult] = useState<FileParseResult | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -42,28 +55,26 @@ const NavUpload = () => {
   }, []);
 
   async function fetchFunds() {
-    const { data } = await supabase
-      .from("sif_funds")
-      .select("id, name, slug")
-      .order("name");
-    if (data) setFunds(data);
+    try {
+      const data = await apiFetch<FundOption[]>("/api/funds");
+      setFunds(data.map((f: any) => ({ id: f.id, name: f.name, slug: f.slug })));
+    } catch (err) {
+      console.error("Failed to fetch funds:", err);
+    }
   }
 
   async function fetchRecentNavs() {
-    const { data } = await supabase
-      .from("nav_history")
-      .select("date, nav, sif_funds(name)")
-      .order("date", { ascending: false })
-      .limit(20);
-
-    if (data) {
+    try {
+      const data = await apiFetch<any[]>("/api/nav/recent");
       setRecentNavs(
         data.map((r: any) => ({
-          fund_name: r.sif_funds?.name || "Unknown",
+          fund_name: r.fund_name || "Unknown",
           date: r.date,
           nav: parseFloat(r.nav),
         }))
       );
+    } catch (err) {
+      console.error("Failed to fetch recent navs:", err);
     }
   }
 
@@ -73,7 +84,7 @@ const NavUpload = () => {
 
     for (const line of lines) {
       const trimmed = line.trim();
-      if (!trimmed || trimmed.toLowerCase().startsWith("date")) continue; // skip header
+      if (!trimmed || trimmed.toLowerCase().startsWith("date")) continue;
 
       const parts = trimmed.split(/[,\t]/);
       if (parts.length < 2) continue;
@@ -83,7 +94,6 @@ const NavUpload = () => {
       const nav = parseFloat(navStr);
       if (isNaN(nav)) continue;
 
-      // Support DD-MM-YYYY, DD/MM/YYYY, YYYY-MM-DD formats
       let isoDate = dateStr;
       if (/^\d{2}[-/]\d{2}[-/]\d{4}$/.test(dateStr)) {
         const sep = dateStr.includes("/") ? "/" : "-";
@@ -111,23 +121,17 @@ const NavUpload = () => {
       return;
     }
 
-    const { error } = await supabase
-      .from("nav_history")
-      .upsert({ fund_id: selectedFund, date: navDate, nav }, { onConflict: "fund_id,date" });
-
-    if (error) {
-      setMessage({ type: "error", text: error.message });
-    } else {
-      // Update current_nav on the fund if this is the latest date
-      await supabase
-        .from("sif_funds")
-        .update({ current_nav: nav, nav_date: navDate })
-        .eq("id", selectedFund);
-
+    try {
+      await apiFetch("/api/nav", {
+        method: "POST",
+        body: JSON.stringify({ fund_id: selectedFund, date: navDate, nav }),
+      });
       setMessage({ type: "success", text: "NAV entry saved successfully" });
       setNavDate("");
       setNavValue("");
       fetchRecentNavs();
+    } catch (err: any) {
+      setMessage({ type: "error", text: err.message });
     }
 
     setSubmitting(false);
@@ -147,54 +151,90 @@ const NavUpload = () => {
       return;
     }
 
-    const rows = entries.map((e) => ({
-      fund_id: selectedFund,
-      date: e.date,
-      nav: e.nav,
-    }));
-
-    const { error } = await supabase
-      .from("nav_history")
-      .upsert(rows, { onConflict: "fund_id,date" });
-
-    if (error) {
-      setMessage({ type: "error", text: error.message });
-    } else {
-      // Update current_nav with the latest date entry
-      const sorted = entries.sort((a, b) => b.date.localeCompare(a.date));
-      await supabase
-        .from("sif_funds")
-        .update({ current_nav: sorted[0].nav, nav_date: sorted[0].date })
-        .eq("id", selectedFund);
-
-      setMessage({ type: "success", text: `${entries.length} NAV entries uploaded successfully` });
+    try {
+      const result = await apiFetch<{ count: number }>("/api/nav/bulk", {
+        method: "POST",
+        body: JSON.stringify({ fund_id: selectedFund, entries }),
+      });
+      setMessage({ type: "success", text: `${result.count} NAV entries uploaded successfully` });
       setCsvText("");
       fetchRecentNavs();
+    } catch (err: any) {
+      setMessage({ type: "error", text: err.message });
+    }
+
+    setSubmitting(false);
+  }
+
+  const handleFileDrop = useCallback(async (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(false);
+
+    const file = e.dataTransfer.files[0];
+    if (!file) return;
+    await parseFile(file);
+  }, []);
+
+  const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    await parseFile(file);
+  }, []);
+
+  async function parseFile(file: File) {
+    setUploading(true);
+    setMessage(null);
+    setFileParseResult(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const result = await apiUpload<FileParseResult>("/api/upload/nav-file", formData);
+      setFileParseResult(result);
+
+      if (result.errors.length > 0) {
+        setMessage({ type: "error", text: `${result.errors.length} rows had errors (see below)` });
+      }
+    } catch (err: any) {
+      setMessage({ type: "error", text: `Failed to parse file: ${err.message}` });
+    }
+
+    setUploading(false);
+  }
+
+  async function handleFileUploadCommit() {
+    if (!selectedFund || !fileParseResult?.entries.length) return;
+
+    setSubmitting(true);
+    setMessage(null);
+
+    try {
+      const result = await apiFetch<{ count: number }>("/api/nav/bulk", {
+        method: "POST",
+        body: JSON.stringify({ fund_id: selectedFund, entries: fileParseResult.entries }),
+      });
+      setMessage({ type: "success", text: `${result.count} NAV entries uploaded from ${fileParseResult.fileName}` });
+      setFileParseResult(null);
+      fetchRecentNavs();
+    } catch (err: any) {
+      setMessage({ type: "error", text: err.message });
     }
 
     setSubmitting(false);
   }
 
   return (
-    <div className="py-20">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="font-serif text-3xl font-bold text-foreground">NAV Upload</h1>
-          <button
-            onClick={logout}
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Sign Out
-          </button>
-        </div>
+    <div>
+      <div className="max-w-3xl">
+        <h1 className="font-serif text-2xl font-bold text-foreground mb-6">NAV Upload</h1>
 
         {/* Fund selector */}
-        <div className="bg-card border border-border p-6 mb-6">
+        <div className="bg-card border border-border p-6 mb-6 rounded-lg">
           <label className="text-sm font-medium text-foreground mb-2 block">Select Fund</label>
           <select
             value={selectedFund}
             onChange={(e) => setSelectedFund(e.target.value)}
-            className="w-full px-4 py-2.5 bg-secondary border border-border text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full px-4 py-2.5 bg-secondary border border-border text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-primary rounded"
           >
             <option value="">Choose a fund...</option>
             {funds.map((f) => (
@@ -207,27 +247,24 @@ const NavUpload = () => {
 
         {/* Mode toggle */}
         <div className="flex gap-2 mb-6">
-          <button
-            onClick={() => setMode("single")}
-            className={`px-4 py-2 text-sm font-medium transition-colors ${
-              mode === "single" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Single Entry
-          </button>
-          <button
-            onClick={() => setMode("bulk")}
-            className={`px-4 py-2 text-sm font-medium transition-colors ${
-              mode === "bulk" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Bulk Upload (CSV)
-          </button>
+          {(["single", "bulk", "file"] as const).map((m) => (
+            <button
+              key={m}
+              onClick={() => setMode(m)}
+              className={`px-4 py-2 text-sm font-medium transition-colors rounded ${
+                mode === m
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-secondary text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {m === "single" ? "Single Entry" : m === "bulk" ? "Bulk CSV" : "File Upload"}
+            </button>
+          ))}
         </div>
 
         {/* Single entry form */}
         {mode === "single" && (
-          <div className="bg-card border border-border p-6 mb-6">
+          <div className="bg-card border border-border p-6 mb-6 rounded-lg">
             <form onSubmit={handleSingleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -237,7 +274,7 @@ const NavUpload = () => {
                     required
                     value={navDate}
                     onChange={(e) => setNavDate(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-secondary border border-border text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+                    className="w-full px-4 py-2.5 bg-secondary border border-border text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-primary rounded"
                   />
                 </div>
                 <div>
@@ -249,14 +286,14 @@ const NavUpload = () => {
                     value={navValue}
                     onChange={(e) => setNavValue(e.target.value)}
                     placeholder="e.g. 10.2345"
-                    className="w-full px-4 py-2.5 bg-secondary border border-border text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+                    className="w-full px-4 py-2.5 bg-secondary border border-border text-foreground text-sm focus:outline-none focus:ring-1 focus:ring-primary rounded"
                   />
                 </div>
               </div>
               <button
                 type="submit"
                 disabled={submitting || !selectedFund}
-                className={`px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity ${
+                className={`px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity rounded ${
                   submitting || !selectedFund ? "opacity-50 cursor-not-allowed" : ""
                 }`}
               >
@@ -268,7 +305,7 @@ const NavUpload = () => {
 
         {/* Bulk upload form */}
         {mode === "bulk" && (
-          <div className="bg-card border border-border p-6 mb-6">
+          <div className="bg-card border border-border p-6 mb-6 rounded-lg">
             <form onSubmit={handleBulkSubmit} className="space-y-4">
               <div>
                 <label className="text-sm font-medium text-foreground mb-1 block">
@@ -282,13 +319,13 @@ const NavUpload = () => {
                   value={csvText}
                   onChange={(e) => setCsvText(e.target.value)}
                   placeholder={"Date,NAV\n2025-04-15,10.1234\n2025-04-16,10.2500\n2025-04-17,10.3100"}
-                  className="w-full px-4 py-2.5 bg-secondary border border-border text-foreground text-sm font-mono focus:outline-none focus:ring-1 focus:ring-primary resize-none"
+                  className="w-full px-4 py-2.5 bg-secondary border border-border text-foreground text-sm font-mono focus:outline-none focus:ring-1 focus:ring-primary resize-none rounded"
                 />
               </div>
               <button
                 type="submit"
                 disabled={submitting || !selectedFund}
-                className={`px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity ${
+                className={`px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity rounded ${
                   submitting || !selectedFund ? "opacity-50 cursor-not-allowed" : ""
                 }`}
               >
@@ -298,10 +335,103 @@ const NavUpload = () => {
           </div>
         )}
 
+        {/* File upload (drag & drop) */}
+        {mode === "file" && (
+          <div className="bg-card border border-border p-6 mb-6 rounded-lg">
+            <div
+              onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+              onDragLeave={() => setDragOver(false)}
+              onDrop={handleFileDrop}
+              className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+                dragOver ? "border-primary bg-primary/5" : "border-border"
+              }`}
+            >
+              <p className="text-foreground font-medium mb-2">
+                {uploading ? "Parsing file..." : "Drag & drop an Excel or CSV file here"}
+              </p>
+              <p className="text-sm text-muted-foreground mb-4">
+                Supports .xlsx, .csv files. Date and NAV columns are auto-detected.
+              </p>
+              <label className="inline-block px-4 py-2 bg-secondary text-foreground text-sm font-medium rounded cursor-pointer hover:bg-secondary/80">
+                Or click to browse
+                <input
+                  type="file"
+                  accept=".xlsx,.xls,.csv"
+                  onChange={handleFileSelect}
+                  className="hidden"
+                />
+              </label>
+            </div>
+
+            {/* Parse result preview */}
+            {fileParseResult && (
+              <div className="mt-4 space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-foreground font-medium">{fileParseResult.fileName}</span>
+                  <span className="text-muted-foreground">
+                    {fileParseResult.parsedCount} of {fileParseResult.totalRows} rows parsed
+                  </span>
+                </div>
+
+                <p className="text-xs text-muted-foreground">
+                  Detected columns: Date = "{fileParseResult.detectedColumns.date}", NAV = "{fileParseResult.detectedColumns.nav}"
+                </p>
+
+                {fileParseResult.errors.length > 0 && (
+                  <div className="bg-red-500/10 border border-red-500/30 p-3 rounded text-xs text-red-400 max-h-32 overflow-y-auto">
+                    {fileParseResult.errors.map((err, i) => (
+                      <div key={i}>{err}</div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Preview table */}
+                <div className="max-h-48 overflow-y-auto border border-border rounded">
+                  <table className="w-full text-sm">
+                    <thead className="sticky top-0 bg-secondary">
+                      <tr>
+                        <th className="text-left py-1.5 px-3 text-xs font-semibold text-muted-foreground">Date</th>
+                        <th className="text-left py-1.5 px-3 text-xs font-semibold text-muted-foreground">NAV</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {fileParseResult.entries.slice(0, 20).map((e, i) => (
+                        <tr key={i} className="border-t border-border/50">
+                          <td className="py-1 px-3 text-foreground">{e.date}</td>
+                          <td className="py-1 px-3 text-foreground font-mono">{e.nav.toFixed(4)}</td>
+                        </tr>
+                      ))}
+                      {fileParseResult.entries.length > 20 && (
+                        <tr>
+                          <td colSpan={2} className="py-1 px-3 text-muted-foreground text-center">
+                            ...and {fileParseResult.entries.length - 20} more rows
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+
+                <button
+                  onClick={handleFileUploadCommit}
+                  disabled={submitting || !selectedFund || fileParseResult.parsedCount === 0}
+                  className={`px-6 py-3 bg-gradient-gold text-primary-foreground font-semibold hover:opacity-90 transition-opacity rounded ${
+                    submitting || !selectedFund ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                >
+                  {submitting
+                    ? "Uploading..."
+                    : `Upload ${fileParseResult.parsedCount} NAV Entries`}
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Status message */}
         {message && (
           <div
-            className={`p-4 mb-6 border text-sm ${
+            className={`p-4 mb-6 border text-sm rounded ${
               message.type === "success"
                 ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
                 : "border-red-500/30 bg-red-500/10 text-red-400"
@@ -312,7 +442,7 @@ const NavUpload = () => {
         )}
 
         {/* Recent uploads */}
-        <div className="bg-card border border-border p-6">
+        <div className="bg-card border border-border p-6 rounded-lg">
           <h2 className="font-serif text-lg font-bold text-foreground mb-4">Recent NAV Entries</h2>
           {recentNavs.length === 0 ? (
             <p className="text-sm text-muted-foreground">No NAV data uploaded yet.</p>

@@ -1,32 +1,47 @@
-import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabase";
-import type { Session } from "@supabase/supabase-js";
+import { useState, useEffect, useCallback } from "react";
+import { apiFetch } from "@/lib/api";
 
 export function useAuth() {
-  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
+    const token = localStorage.getItem("admin_token");
+    if (!token) {
       setLoading(false);
-    });
+      return;
+    }
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
+    // Verify token is still valid
+    apiFetch<{ email: string }>("/api/auth/me")
+      .then(() => {
+        setIsAuthenticated(true);
+      })
+      .catch(() => {
+        localStorage.removeItem("admin_token");
+        setIsAuthenticated(false);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
-  const login = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    return error;
-  };
+  const login = useCallback(async (email: string, password: string) => {
+    try {
+      const data = await apiFetch<{ token: string; email: string }>("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      });
+      localStorage.setItem("admin_token", data.token);
+      setIsAuthenticated(true);
+      return null; // no error
+    } catch (err: any) {
+      return { message: err.message || "Login failed" };
+    }
+  }, []);
 
-  const logout = async () => {
-    await supabase.auth.signOut();
-  };
+  const logout = useCallback(async () => {
+    localStorage.removeItem("admin_token");
+    setIsAuthenticated(false);
+  }, []);
 
-  return { session, loading, login, logout, isAuthenticated: !!session };
+  return { session: null, loading, login, logout, isAuthenticated };
 }

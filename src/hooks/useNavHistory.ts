@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/lib/supabase";
+import { apiFetch } from "@/lib/api";
 
 export interface NavDataPoint {
   date: string;
@@ -8,22 +8,21 @@ export interface NavDataPoint {
 }
 
 async function fetchNavHistory(fundId: string): Promise<NavDataPoint[]> {
-  const { data, error } = await supabase
-    .from("nav_history")
-    .select("date, nav")
-    .eq("fund_id", fundId)
-    .order("date", { ascending: true });
+  try {
+    const data = await apiFetch<any[]>(`/api/nav/${fundId}`);
+    if (!data) return [];
 
-  if (error || !data) return [];
-
-  return data.map((row) => ({
-    date: row.date,
-    nav: parseFloat(row.nav),
-    dateFormatted: new Date(row.date).toLocaleDateString("en-IN", {
-      month: "short",
-      day: "numeric",
-    }),
-  }));
+    return data.map((row) => ({
+      date: row.date,
+      nav: parseFloat(row.nav),
+      dateFormatted: new Date(row.date).toLocaleDateString("en-IN", {
+        month: "short",
+        day: "numeric",
+      }),
+    }));
+  } catch {
+    return [];
+  }
 }
 
 export function useNavHistory(fundId: string | undefined) {

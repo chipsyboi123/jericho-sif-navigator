@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/lib/supabase";
+import { apiFetch } from "@/lib/api";
 
 export interface BlogPost {
   id: string;
@@ -31,26 +31,23 @@ function mapDbPost(row: any): BlogPost {
 }
 
 async function fetchPublishedPosts(): Promise<BlogPost[]> {
-  const { data, error } = await supabase
-    .from("blog_posts")
-    .select("*")
-    .eq("published", true)
-    .order("published_at", { ascending: false });
-
-  if (error || !data) return [];
-  return data.map(mapDbPost);
+  try {
+    const data = await apiFetch<any[]>("/api/blog");
+    if (!data) return [];
+    return data.map(mapDbPost);
+  } catch {
+    return [];
+  }
 }
 
 async function fetchPostBySlug(slug: string): Promise<BlogPost | null> {
-  const { data, error } = await supabase
-    .from("blog_posts")
-    .select("*")
-    .eq("slug", slug)
-    .eq("published", true)
-    .single();
-
-  if (error || !data) return null;
-  return mapDbPost(data);
+  try {
+    const data = await apiFetch<any>(`/api/blog/${slug}`);
+    if (!data) return null;
+    return mapDbPost(data);
+  } catch {
+    return null;
+  }
 }
 
 export function useBlogPosts() {

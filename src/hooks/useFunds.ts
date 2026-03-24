@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/lib/supabase";
+import { apiFetch } from "@/lib/api";
 import { sifFunds as fallbackFunds, type SIFFund } from "@/data/sifFunds";
 
-// Map Supabase DB row to the SIFFund interface used by components
+// Map API row to the SIFFund interface used by components
 function mapDbFund(row: any): SIFFund {
   const categoryMap: Record<string, "Equity" | "Hybrid" | "Debt"> = {
     equity_long_short: "Equity",
@@ -27,7 +27,7 @@ function mapDbFund(row: any): SIFFund {
   return {
     dbId: row.id,
     id: row.slug,
-    amcName: row.amcs?.name || "",
+    amcName: row.amc_name || "",
     sifBrand: row.name,
     strategyType: row.category
       ? row.category.split("_").map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
@@ -55,17 +55,17 @@ function mapDbFund(row: any): SIFFund {
 }
 
 async function fetchFunds(): Promise<SIFFund[]> {
-  const { data, error } = await supabase
-    .from("sif_funds")
-    .select("*, amcs(name)")
-    .order("name");
-
-  if (error || !data || data.length === 0) {
-    console.warn("Falling back to hardcoded fund data:", error?.message);
+  try {
+    const data = await apiFetch<any[]>("/api/funds");
+    if (!data || data.length === 0) {
+      console.warn("No funds from API, falling back to hardcoded data");
+      return fallbackFunds;
+    }
+    return data.map(mapDbFund);
+  } catch (err: any) {
+    console.warn("Falling back to hardcoded fund data:", err.message);
     return fallbackFunds;
   }
-
-  return data.map(mapDbFund);
 }
 
 export function useFunds() {
