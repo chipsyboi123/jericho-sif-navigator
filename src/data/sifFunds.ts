@@ -1,4 +1,11 @@
 // Static SIF fund data — corrected per JERICHO-SIF-HANDOVER-V2.md
+export interface FundManagerDetail {
+  name: string;
+  designation: string;
+  experience: string;
+  bio: string;
+}
+
 export interface SIFFund {
   dbId?: string;
   id: string;
@@ -18,6 +25,28 @@ export interface SIFFund {
   objective: string;
   redemptionTerms: string;
   allocation: { equity: number; debt: number; derivatives: number };
+  // Enriched fields from presentations
+  tagline?: string;
+  investmentApproach?: string;
+  subscriptionFrequency?: string;
+  plansAndOptions?: string;
+  minSipAmount?: string;
+  sipOptions?: Record<string, string>;
+  features?: string;
+  exchangeListing?: string;
+  noticePeriod?: string;
+  taxation?: { stcg: string; ltcg: string };
+  whyInvest?: string[];
+  derivativeStrategies?: string[];
+  alphaStrategies?: string[];
+  riskManagement?: string;
+  fundManagerDetails?: FundManagerDetail[];
+  benchmarkRiskBand?: number;
+  websiteUrl?: string;
+  backTestedPerformance?: any;
+  researchTeamSize?: string;
+  aumInfo?: string;
+  portfolioStrategyDetail?: any;
 }
 
 export const sifFunds: SIFFund[] = [

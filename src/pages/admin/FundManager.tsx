@@ -272,6 +272,62 @@ const FundManager = () => {
                   onChange={(e) => setEditing({ ...editing, indicative_allocation: { ...editing.indicative_allocation!, derivatives: parseInt(e.target.value) } })}
                   className="w-full px-3 py-2 bg-secondary border border-border text-foreground text-sm rounded" />
               </div>
+
+              {/* Enriched fields */}
+              <div className="col-span-2 border-t border-border pt-4 mt-2">
+                <p className="text-xs font-bold text-muted-foreground uppercase mb-3">Presentation Details</p>
+              </div>
+              <div className="col-span-2">
+                <label className="text-xs font-medium text-muted-foreground">Tagline</label>
+                <input value={(editing as any).tagline || ""} onChange={(e) => setEditing({ ...editing, tagline: e.target.value })}
+                  placeholder="e.g. Balancing convictions in unbalanced markets"
+                  className="w-full px-3 py-2 bg-secondary border border-border text-foreground text-sm rounded" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-muted-foreground">Subscription Frequency</label>
+                <input value={(editing as any).subscription_frequency || ""} onChange={(e) => setEditing({ ...editing, subscription_frequency: e.target.value })}
+                  placeholder="e.g. Daily"
+                  className="w-full px-3 py-2 bg-secondary border border-border text-foreground text-sm rounded" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-muted-foreground">Plans & Options</label>
+                <input value={(editing as any).plans_and_options || ""} onChange={(e) => setEditing({ ...editing, plans_and_options: e.target.value })}
+                  placeholder="e.g. Direct, Regular / Growth, IDCW"
+                  className="w-full px-3 py-2 bg-secondary border border-border text-foreground text-sm rounded" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-muted-foreground">Features</label>
+                <input value={(editing as any).features || ""} onChange={(e) => setEditing({ ...editing, features: e.target.value })}
+                  placeholder="e.g. Lumpsum, SIP, SWP, STP"
+                  className="w-full px-3 py-2 bg-secondary border border-border text-foreground text-sm rounded" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-muted-foreground">Website URL</label>
+                <input value={(editing as any).website_url || ""} onChange={(e) => setEditing({ ...editing, website_url: e.target.value })}
+                  className="w-full px-3 py-2 bg-secondary border border-border text-foreground text-sm rounded" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-muted-foreground">Min SIP Amount</label>
+                <input value={(editing as any).min_sip_amount || ""} onChange={(e) => setEditing({ ...editing, min_sip_amount: e.target.value })}
+                  className="w-full px-3 py-2 bg-secondary border border-border text-foreground text-sm rounded" />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-muted-foreground">Exchange Listing</label>
+                <input value={(editing as any).exchange_listing || ""} onChange={(e) => setEditing({ ...editing, exchange_listing: e.target.value })}
+                  className="w-full px-3 py-2 bg-secondary border border-border text-foreground text-sm rounded" />
+              </div>
+              <div className="col-span-2">
+                <label className="text-xs font-medium text-muted-foreground">Investment Approach</label>
+                <textarea rows={4} value={(editing as any).investment_approach || ""}
+                  onChange={(e) => setEditing({ ...editing, investment_approach: e.target.value })}
+                  className="w-full px-3 py-2 bg-secondary border border-border text-foreground text-sm rounded resize-none" />
+              </div>
+              <div className="col-span-2">
+                <label className="text-xs font-medium text-muted-foreground">Risk Management</label>
+                <textarea rows={3} value={(editing as any).risk_management || ""}
+                  onChange={(e) => setEditing({ ...editing, risk_management: e.target.value })}
+                  className="w-full px-3 py-2 bg-secondary border border-border text-foreground text-sm rounded resize-none" />
+              </div>
             </div>
 
             <div className="flex gap-3 mt-6 justify-end">

@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { getRiskColor, getRiskLabel } from "@/data/sifFunds";
+import { getRiskColor, getRiskLabel, type FundManagerDetail } from "@/data/sifFunds";
 import { useFundBySlug } from "@/hooks/useFunds";
 import PerformanceChart from "@/components/PerformanceChart";
 import SEOHead from "@/components/SEOHead";
@@ -62,24 +62,47 @@ const FundDetail = () => {
           <div className="mb-10">
             <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-2">{fund.amcName}</p>
             <h1 className="font-serif text-4xl md:text-5xl font-bold mb-3 text-foreground">{fund.sifBrand}</h1>
+            {fund.tagline && (
+              <p className="text-lg text-muted-foreground italic mb-3">{fund.tagline}</p>
+            )}
             <div className="flex flex-wrap items-center gap-3">
-              <span className="text-sm bg-[#F8F6F1] px-3 py-1 text-muted-foreground">{fund.strategyType}</span>
-              <span className="text-sm bg-[#F8F6F1] px-3 py-1 text-muted-foreground">{fund.category}</span>
-              <span className={`text-sm font-bold px-3 py-1 bg-[#F8F6F1] ${getRiskColor(fund.riskBand)}`}>
+              <span className="text-sm bg-[#F8F6F1] px-3 py-1 text-muted-foreground rounded">{fund.strategyType}</span>
+              <span className="text-sm bg-[#F8F6F1] px-3 py-1 text-muted-foreground rounded">{fund.category}</span>
+              <span className={`text-sm font-bold px-3 py-1 bg-[#F8F6F1] rounded ${getRiskColor(fund.riskBand)}`}>
                 Risk: {getRiskLabel(fund.riskBand)} ({fund.riskBand}/5)
               </span>
+              {fund.status === "NFO" && (
+                <span className="text-sm font-bold px-3 py-1 bg-blue-50 text-blue-600 rounded">NFO Open</span>
+              )}
             </div>
           </div>
 
           {/* Objective */}
-          <div className="bg-white border border-[#E5E2DB] shadow-card p-6 mb-6">
-            <h2 className="font-serif text-lg font-bold mb-2 text-foreground">Objective</h2>
+          <Section title="Investment Objective">
             <p className="text-foreground/80 leading-relaxed">{fund.objective}</p>
-          </div>
+          </Section>
+
+          {/* Why Invest */}
+          {fund.whyInvest && fund.whyInvest.length > 0 && (
+            <Section title="Why Invest?">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {fund.whyInvest.map((reason, i) => {
+                  const [title, ...descParts] = reason.split(" - ");
+                  const desc = descParts.join(" - ");
+                  return (
+                    <div key={i} className="bg-[#FDFCF9] border border-[#E5E2DB] p-4 rounded-lg">
+                      <p className="text-sm font-semibold text-foreground mb-1">{title}</p>
+                      {desc && <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>}
+                    </div>
+                  );
+                })}
+              </div>
+            </Section>
+          )}
 
           {/* Key Details Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div className="bg-white border border-[#E5E2DB] shadow-card p-6">
+            <div className="bg-white border border-[#E5E2DB] shadow-card p-6 rounded-lg">
               <h3 className="font-serif text-lg font-bold mb-4 text-foreground">Fund Details</h3>
               <div className="space-y-3">
                 <DetailRow label="AMC" value={fund.amcName} />
@@ -88,23 +111,29 @@ const FundDetail = () => {
                 <DetailRow label="Launch Date" value={fund.launchDate} />
                 <DetailRow label="NAV" value={fund.nav} />
                 <DetailRow label="Fund Managers" value={fund.fundManagers.join(", ")} />
+                {fund.subscriptionFrequency && <DetailRow label="Subscription" value={fund.subscriptionFrequency} />}
+                {fund.plansAndOptions && <DetailRow label="Plans & Options" value={fund.plansAndOptions} />}
+                {fund.features && <DetailRow label="Features" value={fund.features} />}
+                {fund.exchangeListing && <DetailRow label="Exchange Listing" value={fund.exchangeListing} />}
               </div>
             </div>
 
-            <div className="bg-white border border-[#E5E2DB] shadow-card p-6">
-              <h3 className="font-serif text-lg font-bold mb-4 text-foreground">Terms</h3>
+            <div className="bg-white border border-[#E5E2DB] shadow-card p-6 rounded-lg">
+              <h3 className="font-serif text-lg font-bold mb-4 text-foreground">Terms & Conditions</h3>
               <div className="space-y-3">
                 <DetailRow label="Exit Load" value={fund.exitLoad} />
                 <DetailRow label="Redemption" value={fund.redemptionTerms} />
                 <DetailRow label="Status" value={fund.status} />
+                {fund.noticePeriod && <DetailRow label="Notice Period" value={fund.noticePeriod} />}
+                {fund.minSipAmount && <DetailRow label="SIP Details" value={fund.minSipAmount} />}
               </div>
 
               {/* Risk Band Visual */}
               <div className="mt-6">
-                <p className="text-sm font-medium text-foreground mb-2">Risk Band</p>
-                <div className="h-3 bg-[#F0EDE6] w-full">
+                <p className="text-sm font-medium text-foreground mb-2">Fund Risk Band</p>
+                <div className="h-3 bg-[#F0EDE6] w-full rounded">
                   <div
-                    className={`h-full transition-all ${
+                    className={`h-full rounded transition-all ${
                       fund.riskBand <= 2 ? "bg-green-500" : fund.riskBand <= 3 ? "bg-yellow-500" : fund.riskBand <= 4 ? "bg-orange-500" : "bg-red-500"
                     }`}
                     style={{ width: `${riskBarWidth}%` }}
@@ -112,52 +141,234 @@ const FundDetail = () => {
                 </div>
                 <div className="flex justify-between text-xs text-muted-foreground mt-1">
                   <span>Low</span>
+                  <span>{getRiskLabel(fund.riskBand)} ({fund.riskBand}/5)</span>
                   <span>High</span>
                 </div>
               </div>
+
+              {fund.benchmarkRiskBand && (
+                <div className="mt-4">
+                  <p className="text-sm font-medium text-foreground mb-2">Benchmark Risk Band</p>
+                  <div className="h-3 bg-[#F0EDE6] w-full rounded">
+                    <div
+                      className={`h-full rounded transition-all ${
+                        fund.benchmarkRiskBand <= 2 ? "bg-green-500" : fund.benchmarkRiskBand <= 3 ? "bg-yellow-500" : fund.benchmarkRiskBand <= 4 ? "bg-orange-500" : "bg-red-500"
+                      }`}
+                      style={{ width: `${(fund.benchmarkRiskBand / 5) * 100}%` }}
+                    />
+                  </div>
+                  <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                    <span>Low</span>
+                    <span>{getRiskLabel(fund.benchmarkRiskBand)} ({fund.benchmarkRiskBand}/5)</span>
+                    <span>High</span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
           {/* Allocation */}
-          <div className="bg-white border border-[#E5E2DB] shadow-card p-6 mb-6">
-            <h3 className="font-serif text-lg font-bold mb-4 text-foreground">Indicative Allocation</h3>
-            <div className="flex h-4 overflow-hidden mb-3">
+          <Section title="Indicative Allocation">
+            <div className="flex h-5 overflow-hidden mb-3 rounded">
               <div className="bg-primary" style={{ width: `${fund.allocation.equity}%` }} />
               <div className="bg-blue-500" style={{ width: `${fund.allocation.debt}%` }} />
               <div className="bg-orange-500" style={{ width: `${fund.allocation.derivatives}%` }} />
             </div>
             <div className="flex gap-6 text-sm text-muted-foreground">
               <span className="flex items-center gap-2">
-                <span className="w-3 h-3 bg-primary" />
-                Equity {fund.allocation.equity}%
+                <span className="w-3 h-3 bg-primary rounded" /> Equity {fund.allocation.equity}%
               </span>
               <span className="flex items-center gap-2">
-                <span className="w-3 h-3 bg-blue-500" />
-                Debt {fund.allocation.debt}%
+                <span className="w-3 h-3 bg-blue-500 rounded" /> Debt {fund.allocation.debt}%
               </span>
               <span className="flex items-center gap-2">
-                <span className="w-3 h-3 bg-orange-500" />
-                Derivatives {fund.allocation.derivatives}%
+                <span className="w-3 h-3 bg-orange-500 rounded" /> Derivatives {fund.allocation.derivatives}%
               </span>
             </div>
-          </div>
+          </Section>
+
+          {/* Investment Approach */}
+          {fund.investmentApproach && (
+            <Section title="Investment Approach">
+              <p className="text-foreground/80 leading-relaxed whitespace-pre-line">{fund.investmentApproach}</p>
+            </Section>
+          )}
+
+          {/* Derivative Strategies */}
+          {fund.derivativeStrategies && fund.derivativeStrategies.length > 0 && (
+            <Section title="Derivative Strategies">
+              <div className="flex flex-wrap gap-2">
+                {fund.derivativeStrategies.map((strategy, i) => (
+                  <span key={i} className="text-sm bg-[#F8F6F1] border border-[#E5E2DB] px-3 py-1.5 rounded-full text-foreground">
+                    {strategy}
+                  </span>
+                ))}
+              </div>
+            </Section>
+          )}
+
+          {/* Alpha Strategies */}
+          {fund.alphaStrategies && fund.alphaStrategies.length > 0 && (
+            <Section title="Alpha Generation Strategies">
+              <div className="space-y-3">
+                {fund.alphaStrategies.map((strategy, i) => {
+                  const [title, ...descParts] = strategy.split(" - ");
+                  const desc = descParts.join(" - ");
+                  return (
+                    <div key={i} className="flex gap-3">
+                      <span className="text-gold font-bold mt-0.5 shrink-0">{i + 1}.</span>
+                      <div>
+                        <span className="text-sm font-medium text-foreground">{title}</span>
+                        {desc && <span className="text-sm text-muted-foreground"> - {desc}</span>}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </Section>
+          )}
+
+          {/* Risk Management */}
+          {fund.riskManagement && (
+            <Section title="Risk Management">
+              <p className="text-foreground/80 leading-relaxed whitespace-pre-line">{fund.riskManagement}</p>
+            </Section>
+          )}
+
+          {/* Taxation */}
+          {fund.taxation && (
+            <Section title="Taxation">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-[#FDFCF9] border border-[#E5E2DB] p-4 rounded-lg">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase mb-1">Short-Term Capital Gains (STCG)</p>
+                  <p className="text-sm text-foreground">{fund.taxation.stcg}</p>
+                </div>
+                <div className="bg-[#FDFCF9] border border-[#E5E2DB] p-4 rounded-lg">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase mb-1">Long-Term Capital Gains (LTCG)</p>
+                  <p className="text-sm text-foreground">{fund.taxation.ltcg}</p>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">Please consult your tax advisor for details. Tax rates are exclusive of applicable cess and surcharge.</p>
+            </Section>
+          )}
 
           {/* Performance Chart */}
           <div className="mb-10">
             <PerformanceChart fundId={fund.dbId} fundName={fund.sifBrand} />
           </div>
 
+          {/* Back-tested Performance */}
+          {fund.backTestedPerformance?.summary && (
+            <Section title="Back-Tested Performance">
+              <p className="text-foreground/80 leading-relaxed mb-4">{fund.backTestedPerformance.summary}</p>
+              {fund.backTestedPerformance.annual && (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-[#E5E2DB]">
+                        <th className="text-left py-2 px-3 text-xs font-semibold text-muted-foreground">Year</th>
+                        <th className="text-right py-2 px-3 text-xs font-semibold text-muted-foreground">Strategy Return</th>
+                        <th className="text-right py-2 px-3 text-xs font-semibold text-muted-foreground">Benchmark Return</th>
+                        {fund.backTestedPerformance.annual[0]?.equity_level && (
+                          <th className="text-right py-2 px-3 text-xs font-semibold text-muted-foreground">Equity Level</th>
+                        )}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {fund.backTestedPerformance.annual.map((row: any, i: number) => (
+                        <tr key={i} className="border-b border-[#E5E2DB]/50">
+                          <td className="py-2 px-3 text-foreground font-medium">{row.year}</td>
+                          <td className={`py-2 px-3 text-right font-mono ${row.return?.startsWith("-") ? "text-red-500" : "text-emerald-600"}`}>{row.return}</td>
+                          <td className={`py-2 px-3 text-right font-mono ${row.benchmark?.startsWith("-") ? "text-red-500" : "text-muted-foreground"}`}>{row.benchmark}</td>
+                          {row.equity_level && <td className="py-2 px-3 text-right text-muted-foreground">{row.equity_level}</td>}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+              {fund.backTestedPerformance.rolling_returns && (
+                <div className="mt-4 overflow-x-auto">
+                  <p className="text-sm font-semibold text-foreground mb-2">Rolling Returns</p>
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-[#E5E2DB]">
+                        <th className="text-left py-2 px-3 text-xs font-semibold text-muted-foreground">Period</th>
+                        <th className="text-right py-2 px-3 text-xs font-semibold text-muted-foreground">Min</th>
+                        <th className="text-right py-2 px-3 text-xs font-semibold text-muted-foreground">Max</th>
+                        <th className="text-right py-2 px-3 text-xs font-semibold text-muted-foreground">Average</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {fund.backTestedPerformance.rolling_returns.map((row: any, i: number) => (
+                        <tr key={i} className="border-b border-[#E5E2DB]/50">
+                          <td className="py-2 px-3 text-foreground font-medium">{row.period}</td>
+                          <td className={`py-2 px-3 text-right font-mono ${row.min?.startsWith("-") ? "text-red-500" : "text-emerald-600"}`}>{row.min}</td>
+                          <td className="py-2 px-3 text-right font-mono text-emerald-600">{row.max}</td>
+                          <td className="py-2 px-3 text-right font-mono text-foreground font-semibold">{row.avg}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+              <p className="text-xs text-muted-foreground mt-3">Past performance may or may not be sustained in future. Back-tested performance is hypothetical and does not represent actual returns.</p>
+            </Section>
+          )}
+
+          {/* Fund Manager Profiles */}
+          {fund.fundManagerDetails && fund.fundManagerDetails.length > 0 && (
+            <Section title="Fund Management Team">
+              {fund.researchTeamSize && (
+                <p className="text-sm text-muted-foreground mb-4">{fund.researchTeamSize}</p>
+              )}
+              {fund.aumInfo && (
+                <p className="text-sm text-muted-foreground mb-4">{fund.aumInfo}</p>
+              )}
+              <div className="space-y-4">
+                {fund.fundManagerDetails.map((manager: FundManagerDetail, i: number) => (
+                  <div key={i} className="bg-[#FDFCF9] border border-[#E5E2DB] p-5 rounded-lg">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+                      <h4 className="font-serif text-base font-bold text-foreground">{manager.name}</h4>
+                      <span className="text-xs text-gold font-medium">{manager.designation}</span>
+                    </div>
+                    {manager.experience && (
+                      <p className="text-xs text-muted-foreground mb-2">{manager.experience}</p>
+                    )}
+                    <p className="text-sm text-foreground/80 leading-relaxed">{manager.bio}</p>
+                  </div>
+                ))}
+              </div>
+            </Section>
+          )}
+
+          {/* Links */}
+          {fund.websiteUrl && (
+            <Section title="Links">
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href={fund.websiteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-gold hover:underline font-medium"
+                >
+                  Fund Website &rarr;
+                </a>
+              </div>
+            </Section>
+          )}
+
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 mt-10">
             <Link
               to={`/contact?fund=${encodeURIComponent(fund.sifBrand)}`}
-              className="px-7 py-3.5 bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity text-center"
+              className="px-7 py-3.5 bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity text-center rounded"
             >
               Express Interest &rarr;
             </Link>
             <Link
               to="/compare"
-              className="px-7 py-3.5 border border-foreground/20 text-foreground font-semibold hover:border-gold hover:text-gold transition-colors text-center"
+              className="px-7 py-3.5 border border-foreground/20 text-foreground font-semibold hover:border-gold hover:text-gold transition-colors text-center rounded"
             >
               Compare This Fund
             </Link>
@@ -167,6 +378,13 @@ const FundDetail = () => {
     </div>
   );
 };
+
+const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div className="bg-white border border-[#E5E2DB] shadow-card p-6 mb-6 rounded-lg">
+    <h2 className="font-serif text-lg font-bold mb-4 text-foreground">{title}</h2>
+    {children}
+  </div>
+);
 
 const DetailRow = ({ label, value }: { label: string; value: string }) => (
   <div className="flex justify-between gap-4">

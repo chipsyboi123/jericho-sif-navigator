@@ -51,6 +51,28 @@ function mapDbFund(row: any): SIFFund {
       debt: allocation.debt || 0,
       derivatives: allocation.derivatives || 0,
     },
+    // Enriched fields
+    tagline: row.tagline || undefined,
+    investmentApproach: row.investment_approach || undefined,
+    subscriptionFrequency: row.subscription_frequency || undefined,
+    plansAndOptions: row.plans_and_options || undefined,
+    minSipAmount: row.min_sip_amount || undefined,
+    sipOptions: row.sip_options || undefined,
+    features: row.features || undefined,
+    exchangeListing: row.exchange_listing || undefined,
+    noticePeriod: row.notice_period || undefined,
+    taxation: row.taxation || undefined,
+    whyInvest: Array.isArray(row.why_invest) ? row.why_invest : undefined,
+    derivativeStrategies: Array.isArray(row.derivative_strategies) ? row.derivative_strategies : undefined,
+    alphaStrategies: Array.isArray(row.alpha_strategies) ? row.alpha_strategies : undefined,
+    riskManagement: row.risk_management || undefined,
+    fundManagerDetails: Array.isArray(row.fund_manager_details) ? row.fund_manager_details : undefined,
+    benchmarkRiskBand: row.benchmark_risk_band || undefined,
+    websiteUrl: row.website_url || undefined,
+    backTestedPerformance: row.back_tested_performance || undefined,
+    researchTeamSize: row.research_team_size || undefined,
+    aumInfo: row.aum_info || undefined,
+    portfolioStrategyDetail: row.portfolio_strategy_detail || undefined,
   };
 }
 
