@@ -11,7 +11,7 @@ const FundDetail = () => {
 
   if (isLoading) {
     return (
-      <div className="py-20">
+      <div className="py-20 bg-cream">
         <div className="container mx-auto px-4 text-center">
           <p className="text-muted-foreground">Loading fund details...</p>
         </div>
@@ -21,11 +21,11 @@ const FundDetail = () => {
 
   if (!fund) {
     return (
-      <div className="py-20">
+      <div className="py-20 bg-cream">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="font-serif text-4xl font-bold mb-4">Fund Not Found</h1>
+          <h1 className="font-heading text-4xl font-bold mb-4">Fund Not Found</h1>
           <p className="text-muted-foreground mb-8">The fund you are looking for does not exist or may have been removed.</p>
-          <Link to="/funds" className="px-6 py-3 bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity">
+          <Link to="/funds" className="px-6 py-3 bg-gradient-gold text-white font-semibold rounded-xl hover:shadow-gold-glow hover:opacity-90 transition-all">
             Back to Fund Explorer
           </Link>
         </div>
@@ -36,7 +36,7 @@ const FundDetail = () => {
   const riskBarWidth = (fund.riskBand / 5) * 100;
 
   return (
-    <div className="py-20">
+    <div className="py-20 bg-cream">
       <div className="container mx-auto px-4 max-w-4xl">
         <SEOHead
           title={fund.sifBrand}
@@ -61,18 +61,18 @@ const FundDetail = () => {
           {/* Header */}
           <div className="mb-10">
             <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-2">{fund.amcName}</p>
-            <h1 className="font-serif text-4xl md:text-5xl font-bold mb-3 text-foreground">{fund.sifBrand}</h1>
+            <h1 className="font-heading text-4xl md:text-5xl font-bold mb-3 text-foreground">{fund.sifBrand}</h1>
             {fund.tagline && (
               <p className="text-lg text-muted-foreground italic mb-3">{fund.tagline}</p>
             )}
             <div className="flex flex-wrap items-center gap-3">
-              <span className="text-sm bg-[#F8F6F1] px-3 py-1 text-muted-foreground rounded">{fund.strategyType}</span>
-              <span className="text-sm bg-[#F8F6F1] px-3 py-1 text-muted-foreground rounded">{fund.category}</span>
-              <span className={`text-sm font-bold px-3 py-1 bg-[#F8F6F1] rounded ${getRiskColor(fund.riskBand)}`}>
+              <span className="text-sm bg-secondary px-3 py-1 text-muted-foreground rounded-full">{fund.strategyType}</span>
+              <span className="text-sm bg-secondary px-3 py-1 text-muted-foreground rounded-full">{fund.category}</span>
+              <span className={`text-sm font-bold px-3 py-1 bg-secondary rounded-full ${getRiskColor(fund.riskBand)}`}>
                 Risk: {getRiskLabel(fund.riskBand)} ({fund.riskBand}/5)
               </span>
               {fund.status === "NFO" && (
-                <span className="text-sm font-bold px-3 py-1 bg-blue-50 text-blue-600 rounded">NFO Open</span>
+                <span className="text-sm font-bold px-3 py-1 bg-blue-50 text-blue-600 rounded-full">NFO Open</span>
               )}
             </div>
           </div>
@@ -90,7 +90,7 @@ const FundDetail = () => {
                   const [title, ...descParts] = reason.split(" - ");
                   const desc = descParts.join(" - ");
                   return (
-                    <div key={i} className="bg-[#FDFCF9] border border-[#E5E2DB] p-4 rounded-lg">
+                    <div key={i} className="glass-gold rounded-2xl p-4 border border-border">
                       <p className="text-sm font-semibold text-foreground mb-1">{title}</p>
                       {desc && <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>}
                     </div>
@@ -102,8 +102,8 @@ const FundDetail = () => {
 
           {/* Key Details Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div className="bg-white border border-[#E5E2DB] shadow-card p-6 rounded-lg">
-              <h3 className="font-serif text-lg font-bold mb-4 text-foreground">Fund Details</h3>
+            <div className="bg-white border border-border shadow-card p-6 rounded-2xl">
+              <h3 className="font-heading text-lg font-bold mb-4 text-foreground">Fund Details</h3>
               <div className="space-y-3">
                 <DetailRow label="AMC" value={fund.amcName} />
                 <DetailRow label="Benchmark" value={fund.benchmark} />
@@ -118,8 +118,8 @@ const FundDetail = () => {
               </div>
             </div>
 
-            <div className="bg-white border border-[#E5E2DB] shadow-card p-6 rounded-lg">
-              <h3 className="font-serif text-lg font-bold mb-4 text-foreground">Terms & Conditions</h3>
+            <div className="bg-white border border-border shadow-card p-6 rounded-2xl">
+              <h3 className="font-heading text-lg font-bold mb-4 text-foreground">Terms & Conditions</h3>
               <div className="space-y-3">
                 <DetailRow label="Exit Load" value={fund.exitLoad} />
                 <DetailRow label="Redemption" value={fund.redemptionTerms} />
@@ -131,9 +131,9 @@ const FundDetail = () => {
               {/* Risk Band Visual */}
               <div className="mt-6">
                 <p className="text-sm font-medium text-foreground mb-2">Fund Risk Band</p>
-                <div className="h-3 bg-[#F0EDE6] w-full rounded">
+                <div className="h-3 bg-secondary w-full rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded transition-all ${
+                    className={`h-full rounded-full transition-all ${
                       fund.riskBand <= 2 ? "bg-green-500" : fund.riskBand <= 3 ? "bg-yellow-500" : fund.riskBand <= 4 ? "bg-orange-500" : "bg-red-500"
                     }`}
                     style={{ width: `${riskBarWidth}%` }}
@@ -149,9 +149,9 @@ const FundDetail = () => {
               {fund.benchmarkRiskBand && (
                 <div className="mt-4">
                   <p className="text-sm font-medium text-foreground mb-2">Benchmark Risk Band</p>
-                  <div className="h-3 bg-[#F0EDE6] w-full rounded">
+                  <div className="h-3 bg-secondary w-full rounded-full overflow-hidden">
                     <div
-                      className={`h-full rounded transition-all ${
+                      className={`h-full rounded-full transition-all ${
                         fund.benchmarkRiskBand <= 2 ? "bg-green-500" : fund.benchmarkRiskBand <= 3 ? "bg-yellow-500" : fund.benchmarkRiskBand <= 4 ? "bg-orange-500" : "bg-red-500"
                       }`}
                       style={{ width: `${(fund.benchmarkRiskBand / 5) * 100}%` }}
@@ -169,20 +169,20 @@ const FundDetail = () => {
 
           {/* Allocation */}
           <Section title="Indicative Allocation">
-            <div className="flex h-5 overflow-hidden mb-3 rounded">
+            <div className="flex h-5 rounded-full overflow-hidden mb-3">
               <div className="bg-primary" style={{ width: `${fund.allocation.equity}%` }} />
               <div className="bg-blue-500" style={{ width: `${fund.allocation.debt}%` }} />
               <div className="bg-orange-500" style={{ width: `${fund.allocation.derivatives}%` }} />
             </div>
             <div className="flex gap-6 text-sm text-muted-foreground">
               <span className="flex items-center gap-2">
-                <span className="w-3 h-3 bg-primary rounded" /> Equity {fund.allocation.equity}%
+                <span className="w-3 h-3 bg-primary rounded-full" /> Equity {fund.allocation.equity}%
               </span>
               <span className="flex items-center gap-2">
-                <span className="w-3 h-3 bg-blue-500 rounded" /> Debt {fund.allocation.debt}%
+                <span className="w-3 h-3 bg-blue-500 rounded-full" /> Debt {fund.allocation.debt}%
               </span>
               <span className="flex items-center gap-2">
-                <span className="w-3 h-3 bg-orange-500 rounded" /> Derivatives {fund.allocation.derivatives}%
+                <span className="w-3 h-3 bg-orange-500 rounded-full" /> Derivatives {fund.allocation.derivatives}%
               </span>
             </div>
           </Section>
@@ -199,7 +199,7 @@ const FundDetail = () => {
             <Section title="Derivative Strategies">
               <div className="flex flex-wrap gap-2">
                 {fund.derivativeStrategies.map((strategy, i) => (
-                  <span key={i} className="text-sm bg-[#F8F6F1] border border-[#E5E2DB] px-3 py-1.5 rounded-full text-foreground">
+                  <span key={i} className="text-sm bg-secondary border border-border px-3 py-1.5 rounded-full text-foreground">
                     {strategy}
                   </span>
                 ))}
@@ -239,11 +239,11 @@ const FundDetail = () => {
           {fund.taxation && (
             <Section title="Taxation">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-[#FDFCF9] border border-[#E5E2DB] p-4 rounded-lg">
+                <div className="glass-gold rounded-2xl border border-border p-4">
                   <p className="text-xs font-semibold text-muted-foreground uppercase mb-1">Short-Term Capital Gains (STCG)</p>
                   <p className="text-sm text-foreground">{fund.taxation.stcg}</p>
                 </div>
-                <div className="bg-[#FDFCF9] border border-[#E5E2DB] p-4 rounded-lg">
+                <div className="glass-gold rounded-2xl border border-border p-4">
                   <p className="text-xs font-semibold text-muted-foreground uppercase mb-1">Long-Term Capital Gains (LTCG)</p>
                   <p className="text-sm text-foreground">{fund.taxation.ltcg}</p>
                 </div>
@@ -262,21 +262,21 @@ const FundDetail = () => {
             <Section title="Back-Tested Performance">
               <p className="text-foreground/80 leading-relaxed mb-4">{fund.backTestedPerformance.summary}</p>
               {fund.backTestedPerformance.annual && (
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto rounded-2xl border border-border">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-[#E5E2DB]">
-                        <th className="text-left py-2 px-3 text-xs font-semibold text-muted-foreground">Year</th>
-                        <th className="text-right py-2 px-3 text-xs font-semibold text-muted-foreground">Strategy Return</th>
-                        <th className="text-right py-2 px-3 text-xs font-semibold text-muted-foreground">Benchmark Return</th>
+                      <tr className="border-b border-border bg-secondary/50">
+                        <th className="text-left py-2.5 px-3 text-xs font-semibold text-muted-foreground">Year</th>
+                        <th className="text-right py-2.5 px-3 text-xs font-semibold text-muted-foreground">Strategy Return</th>
+                        <th className="text-right py-2.5 px-3 text-xs font-semibold text-muted-foreground">Benchmark Return</th>
                         {fund.backTestedPerformance.annual[0]?.equity_level && (
-                          <th className="text-right py-2 px-3 text-xs font-semibold text-muted-foreground">Equity Level</th>
+                          <th className="text-right py-2.5 px-3 text-xs font-semibold text-muted-foreground">Equity Level</th>
                         )}
                       </tr>
                     </thead>
                     <tbody>
                       {fund.backTestedPerformance.annual.map((row: any, i: number) => (
-                        <tr key={i} className="border-b border-[#E5E2DB]/50">
+                        <tr key={i} className="border-b border-border/50">
                           <td className="py-2 px-3 text-foreground font-medium">{row.year}</td>
                           <td className={`py-2 px-3 text-right font-mono ${row.return?.startsWith("-") ? "text-red-500" : "text-emerald-600"}`}>{row.return}</td>
                           <td className={`py-2 px-3 text-right font-mono ${row.benchmark?.startsWith("-") ? "text-red-500" : "text-muted-foreground"}`}>{row.benchmark}</td>
@@ -288,20 +288,20 @@ const FundDetail = () => {
                 </div>
               )}
               {fund.backTestedPerformance.rolling_returns && (
-                <div className="mt-4 overflow-x-auto">
-                  <p className="text-sm font-semibold text-foreground mb-2">Rolling Returns</p>
+                <div className="mt-4 overflow-x-auto rounded-2xl border border-border">
+                  <p className="text-sm font-semibold text-foreground px-3 pt-3 mb-2">Rolling Returns</p>
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-[#E5E2DB]">
-                        <th className="text-left py-2 px-3 text-xs font-semibold text-muted-foreground">Period</th>
-                        <th className="text-right py-2 px-3 text-xs font-semibold text-muted-foreground">Min</th>
-                        <th className="text-right py-2 px-3 text-xs font-semibold text-muted-foreground">Max</th>
-                        <th className="text-right py-2 px-3 text-xs font-semibold text-muted-foreground">Average</th>
+                      <tr className="border-b border-border bg-secondary/50">
+                        <th className="text-left py-2.5 px-3 text-xs font-semibold text-muted-foreground">Period</th>
+                        <th className="text-right py-2.5 px-3 text-xs font-semibold text-muted-foreground">Min</th>
+                        <th className="text-right py-2.5 px-3 text-xs font-semibold text-muted-foreground">Max</th>
+                        <th className="text-right py-2.5 px-3 text-xs font-semibold text-muted-foreground">Average</th>
                       </tr>
                     </thead>
                     <tbody>
                       {fund.backTestedPerformance.rolling_returns.map((row: any, i: number) => (
-                        <tr key={i} className="border-b border-[#E5E2DB]/50">
+                        <tr key={i} className="border-b border-border/50">
                           <td className="py-2 px-3 text-foreground font-medium">{row.period}</td>
                           <td className={`py-2 px-3 text-right font-mono ${row.min?.startsWith("-") ? "text-red-500" : "text-emerald-600"}`}>{row.min}</td>
                           <td className="py-2 px-3 text-right font-mono text-emerald-600">{row.max}</td>
@@ -327,9 +327,9 @@ const FundDetail = () => {
               )}
               <div className="space-y-4">
                 {fund.fundManagerDetails.map((manager: FundManagerDetail, i: number) => (
-                  <div key={i} className="bg-[#FDFCF9] border border-[#E5E2DB] p-5 rounded-lg">
+                  <div key={i} className="glass-card rounded-2xl border border-border p-5">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-                      <h4 className="font-serif text-base font-bold text-foreground">{manager.name}</h4>
+                      <h4 className="font-heading text-base font-bold text-foreground">{manager.name}</h4>
                       <span className="text-xs text-gold font-medium">{manager.designation}</span>
                     </div>
                     {manager.experience && (
@@ -362,13 +362,13 @@ const FundDetail = () => {
           <div className="flex flex-col sm:flex-row gap-4 mt-10">
             <Link
               to={`/contact?fund=${encodeURIComponent(fund.sifBrand)}`}
-              className="px-7 py-3.5 bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity text-center rounded"
+              className="px-7 py-3.5 bg-gradient-gold text-white font-semibold rounded-xl hover:shadow-gold-glow hover:opacity-90 transition-all text-center"
             >
               Express Interest &rarr;
             </Link>
             <Link
               to="/compare"
-              className="px-7 py-3.5 border border-foreground/20 text-foreground font-semibold hover:border-gold hover:text-gold transition-colors text-center rounded"
+              className="px-7 py-3.5 border border-foreground/20 text-foreground font-semibold rounded-xl hover:border-gold hover:text-gold transition-all text-center"
             >
               Compare This Fund
             </Link>
@@ -380,8 +380,8 @@ const FundDetail = () => {
 };
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <div className="bg-white border border-[#E5E2DB] shadow-card p-6 mb-6 rounded-lg">
-    <h2 className="font-serif text-lg font-bold mb-4 text-foreground">{title}</h2>
+  <div className="bg-white border border-border shadow-card p-6 mb-6 rounded-2xl">
+    <h2 className="font-heading text-lg font-bold mb-4 text-foreground">{title}</h2>
     {children}
   </div>
 );

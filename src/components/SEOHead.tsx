@@ -9,9 +9,9 @@ interface SEOHeadProps {
   noIndex?: boolean;
 }
 
-const SITE_NAME = "Jericho SIF";
+const SITE_NAME = "SIF Insider";
 const DEFAULT_DESCRIPTION =
-  "Compare SIF strategies, track fund performance, and invest through Jericho. India's newest SEBI-regulated asset class.";
+  "India's go-to platform for Specialized Investment Funds. Compare SIF strategies, track performance, and make informed investment decisions.";
 
 const SEOHead = ({
   title,

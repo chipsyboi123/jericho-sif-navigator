@@ -47,8 +47,8 @@ const BlogArticle = () => {
           "@context": "https://schema.org",
           "@type": "Article",
           headline: post.title,
-          author: { "@type": "Organization", name: "Jericho Ventures" },
-          publisher: { "@type": "Organization", name: "Jericho Ventures" },
+          author: { "@type": "Organization", name: "SIF Insider" },
+          publisher: { "@type": "Organization", name: "SIF Insider" },
           description: post.excerpt,
         }}
       />

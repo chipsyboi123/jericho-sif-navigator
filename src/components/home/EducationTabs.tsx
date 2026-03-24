@@ -1,36 +1,32 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { BookOpen, TrendingUp, Receipt } from "lucide-react";
 
-const tabs = [
+const cards = [
   {
-    id: "what",
+    icon: BookOpen,
     title: "What is SIF?",
-    content:
-      "SIF is a new SEBI-regulated investment category launched in April 2025. It bridges the gap between mutual funds and PMS by allowing AMCs to offer advanced strategies like long-short equity, sector rotation, and tactical allocation. Minimum investment is \u20B910 lakh.",
-    cta: { label: "Read the Full Guide", path: "/sif-101" },
+    description:
+      "SEBI's newest investment category bridges mutual funds and PMS with advanced strategies like long-short equity. Starting at just Rs 10 lakh.",
+    link: "/learn",
   },
   {
-    id: "tax",
-    title: "How SIF Taxation Works",
-    content:
-      "SIFs are taxed at the scheme level, like mutual funds. For equity-oriented SIFs held over 12 months, LTCG is taxed at 12.5% on gains above \u20B91.25 lakh. For debt-oriented SIFs, gains are taxed at slab rates. This makes SIFs significantly more tax-efficient than most AIF categories.",
-    cta: { label: "Use Tax Calculator", path: "/calculator" },
+    icon: TrendingUp,
+    title: "How Long-Short Works",
+    description:
+      "SIFs can short up to 25% of AUM, enabling hedged strategies that aim to generate alpha in both rising and falling markets.",
+    link: "/learn",
   },
   {
-    id: "vs",
-    title: "SIF vs PMS",
-    content:
-      "PMS requires \u20B950 lakh minimum and charges tax at the transaction level. SIF requires \u20B910 lakh and benefits from scheme-level taxation (same as mutual funds). PMS offers full customization but SIF provides advanced strategies within SEBI's mutual fund framework.",
-    cta: { label: "Compare in Detail", path: "/compare" },
+    icon: Receipt,
+    title: "Tax Advantage",
+    description:
+      "Scheme-level taxation like mutual funds. Equity SIFs held 12+ months get LTCG at 12.5% on gains above Rs 1.25 lakh — far better than PMS.",
+    link: "/learn",
   },
 ];
 
 const EducationTabs = () => {
-  const [active, setActive] = useState("what");
-
-  const activeTab = tabs.find((t) => t.id === active)!;
-
   return (
     <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
@@ -39,39 +35,57 @@ const EducationTabs = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
+          className="text-center mb-12"
         >
-          <div className="bg-white border border-[#E5E2DB] shadow-card overflow-hidden">
-            {/* Tab headers */}
-            <div className="flex border-b border-[#E5E2DB]">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActive(tab.id)}
-                  className={`flex-1 py-4 px-4 text-sm font-semibold transition-colors ${
-                    active === tab.id
-                      ? "text-gold border-b-2 border-gold"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {tab.title}
-                </button>
-              ))}
-            </div>
-
-            {/* Tab content */}
-            <div className="p-8 md:p-10">
-              <p className="text-foreground/75 leading-relaxed mb-6 max-w-2xl text-base">
-                {activeTab.content}
-              </p>
-              <Link
-                to={activeTab.cta.path}
-                className="text-sm font-semibold text-gold hover:text-gold-dark transition-colors"
-              >
-                {activeTab.cta.label} &rarr;
-              </Link>
-            </div>
-          </div>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-3 text-foreground">
+            Understand SIF in Minutes
+          </h2>
+          <p className="text-muted-foreground text-lg">
+            Everything you need to know before investing.
+          </p>
         </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {cards.map((card, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.12 }}
+            >
+              <Link
+                to={card.link}
+                className="group block rounded-2xl glass-card p-8 border border-white/20 hover:shadow-card-hover hover:border-gold/30 transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition-colors">
+                  <card.icon className="w-6 h-6 text-gold" strokeWidth={1.5} />
+                </div>
+
+                <h3 className="font-heading text-lg font-bold text-foreground mb-3">
+                  {card.title}
+                </h3>
+
+                <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                  {card.description}
+                </p>
+
+                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-gold group-hover:gap-2.5 transition-all duration-300">
+                  Learn more
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

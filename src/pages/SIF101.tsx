@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 
@@ -57,7 +57,7 @@ const modules: Module[] = [
     content: [
       "Through AMC platforms: Visit the mutual fund website (e.g., SBI MF, Quant MF) and look for SIF schemes under their product offerings.",
       "Through RTAs: Use CAMS or KFintech platforms to subscribe to SIF schemes through your existing folio or a new one.",
-      "Through AMFI-registered SIF distributors: Work with a registered distributor (like Jericho) who can guide you on scheme selection and handle the paperwork.",
+      "Through AMFI-registered SIF distributors: Work with a registered distributor (like Jericho Ventures) who can guide you on scheme selection and handle the paperwork.",
       "SIP/SWP/STP options are available but must meet the Rs 10 lakh minimum threshold. You can start a SIP of Rs 25,000/month if you commit to the Rs 10 lakh minimum over the SIP tenure.",
     ],
   },
@@ -158,6 +158,12 @@ function getResult(score: number) {
   };
 }
 
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5 },
+};
+
 const RiskProfiler = () => {
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(questions.length).fill(null));
   const [showResult, setShowResult] = useState(false);
@@ -176,20 +182,20 @@ const RiskProfiler = () => {
   if (showResult) {
     return (
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-        <div className="bg-white border border-[#E5E2DB] shadow-card p-8 mb-6">
-          <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-2">Your Score: {totalScore}/16</p>
-          <h3 className={`font-serif text-2xl font-bold mb-3 ${result.color}`}>{result.title}</h3>
+        <div className="glass-gold rounded-2xl p-8 mb-6">
+          <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-2 font-heading">Your Score: {totalScore}/16</p>
+          <h3 className={`font-heading text-2xl font-bold mb-3 ${result.color}`}>{result.title}</h3>
           <p className="text-foreground/80 leading-relaxed mb-6">{result.message}</p>
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
               to="/contact"
-              className="px-6 py-3 bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity text-center"
+              className="px-6 py-3 bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity text-center rounded-xl"
             >
               Talk to Our Team
             </Link>
             <button
               onClick={() => { setAnswers(new Array(questions.length).fill(null)); setShowResult(false); }}
-              className="px-6 py-3 border border-[#E5E2DB] text-muted-foreground font-semibold hover:text-foreground transition-colors text-center"
+              className="px-6 py-3 border border-border text-muted-foreground font-semibold hover:text-foreground transition-colors text-center rounded-xl"
             >
               Retake Assessment
             </button>
@@ -202,8 +208,14 @@ const RiskProfiler = () => {
   return (
     <div className="space-y-6">
       {questions.map((q, qi) => (
-        <div key={qi} className="bg-white border border-[#E5E2DB] shadow-card p-6">
-          <p className="text-sm font-semibold text-foreground mb-4">
+        <motion.div
+          key={qi}
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, delay: qi * 0.05 }}
+          className="bg-white/60 backdrop-blur-sm border border-border rounded-2xl shadow-card p-6"
+        >
+          <p className="text-sm font-semibold text-foreground mb-4 font-heading">
             {qi + 1}. {q.question}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -211,25 +223,25 @@ const RiskProfiler = () => {
               <button
                 key={oi}
                 onClick={() => selectAnswer(qi, opt.points)}
-                className={`text-left px-4 py-3 text-sm border transition-colors ${
+                className={`text-left px-4 py-3 text-sm border transition-all rounded-xl ${
                   answers[qi] === opt.points
-                    ? "border-gold bg-gold/10 text-gold font-semibold"
-                    : "border-[#E5E2DB] text-muted-foreground hover:text-foreground hover:border-gold/25"
+                    ? "border-gold bg-gradient-to-r from-[#C9960C] to-[#E2B93B] text-white font-semibold shadow-md"
+                    : "border-border text-muted-foreground hover:text-foreground hover:border-gold/25 hover:bg-secondary"
                 }`}
               >
                 {opt.label}
               </button>
             ))}
           </div>
-        </div>
+        </motion.div>
       ))}
       <button
         onClick={() => setShowResult(true)}
         disabled={!allAnswered}
-        className={`w-full px-6 py-3 font-semibold transition-opacity ${
+        className={`w-full px-6 py-3 font-semibold transition-all rounded-xl ${
           allAnswered
-            ? "bg-gradient-gold text-white hover:opacity-90"
-            : "bg-[#F0EDE6] text-muted-foreground cursor-not-allowed"
+            ? "bg-gradient-gold text-white hover:opacity-90 shadow-md"
+            : "bg-secondary text-muted-foreground cursor-not-allowed"
         }`}
       >
         {allAnswered ? "See My Result" : "Answer all questions to continue"}
@@ -245,8 +257,8 @@ const SIF101 = () => {
     <div className="py-20">
       <SEOHead title="SIF 101: What is a Specialized Investment Fund?" description="Learn everything about SIFs. Investment minimums, strategies, taxation, risk bands, and how SIFs compare to PMS and AIF." />
       <div className="container mx-auto px-4">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-3 text-foreground">
+        <motion.div {...fadeUp}>
+          <h1 className="font-display text-4xl md:text-5xl font-bold mb-3 text-foreground">
             SIF 101
           </h1>
           <p className="text-muted-foreground text-lg mb-12">Your complete learning path to understanding Specialized Investment Funds.</p>
@@ -255,69 +267,85 @@ const SIF101 = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar nav */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 space-y-1">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="sticky top-24 glass-card rounded-2xl p-3 space-y-1"
+            >
               {modules.map((m) => (
                 <button
                   key={m.id}
                   onClick={() => setActiveModule(m.id)}
-                  className={`w-full text-left px-4 py-3 text-sm transition-colors ${
+                  className={`w-full text-left px-4 py-3 text-sm transition-all rounded-xl ${
                     activeModule === m.id
-                      ? "bg-gold/10 text-gold font-semibold"
-                      : "text-muted-foreground hover:text-foreground hover:bg-[#F8F6F1]"
+                      ? "bg-gradient-to-r from-[#C9960C] to-[#E2B93B] text-white font-semibold shadow-md"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                   }`}
                 >
-                  Module {m.id}: {m.title}
+                  <span className="font-heading">Module {m.id}:</span> {m.title}
                 </button>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           {/* Content */}
           <div className="lg:col-span-3">
-            {modules
-              .filter((m) => m.id === activeModule)
-              .map((m) => (
-                <motion.div
-                  key={m.id}
-                  initial={{ opacity: 0, x: 10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <h2 className="font-serif text-2xl md:text-3xl font-bold mb-6 text-foreground">
-                    Module {m.id}: {m.title}
-                  </h2>
+            <AnimatePresence mode="wait">
+              {modules
+                .filter((m) => m.id === activeModule)
+                .map((m) => (
+                  <motion.div
+                    key={m.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <h2 className="font-heading text-2xl md:text-3xl font-bold mb-6 text-foreground">
+                      Module {m.id}: {m.title}
+                    </h2>
 
-                  {m.isQuestionnaire ? (
-                    <RiskProfiler />
-                  ) : (
-                    <>
-                      <div className="space-y-4">
-                        {m.content.map((para, i) => (
-                          <p key={i} className="text-foreground/80 leading-relaxed">{para}</p>
-                        ))}
-                      </div>
-                      <div className="mt-8 flex gap-3">
-                        {m.id > 1 && (
-                          <button
-                            onClick={() => setActiveModule(m.id - 1)}
-                            className="px-4 py-2 text-sm border border-[#E5E2DB] text-muted-foreground hover:text-foreground transition-colors"
-                          >
-                            Previous
-                          </button>
-                        )}
-                        {m.id < modules.length && (
-                          <button
-                            onClick={() => setActiveModule(m.id + 1)}
-                            className="px-4 py-2 text-sm bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity"
-                          >
-                            Next Module
-                          </button>
-                        )}
-                      </div>
-                    </>
-                  )}
-                </motion.div>
-              ))}
+                    {m.isQuestionnaire ? (
+                      <RiskProfiler />
+                    ) : (
+                      <>
+                        <div className="space-y-4 rounded-2xl border border-border bg-white/60 backdrop-blur-sm p-6 md:p-8">
+                          {m.content.map((para, i) => (
+                            <motion.p
+                              key={i}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.3, delay: i * 0.08 }}
+                              className="text-foreground/80 leading-relaxed"
+                            >
+                              {para}
+                            </motion.p>
+                          ))}
+                        </div>
+                        <div className="mt-8 flex gap-3">
+                          {m.id > 1 && (
+                            <button
+                              onClick={() => setActiveModule(m.id - 1)}
+                              className="px-4 py-2 text-sm border border-border text-muted-foreground hover:text-foreground transition-colors rounded-xl"
+                            >
+                              Previous
+                            </button>
+                          )}
+                          {m.id < modules.length && (
+                            <button
+                              onClick={() => setActiveModule(m.id + 1)}
+                              className="px-4 py-2 text-sm bg-gradient-gold text-white font-semibold hover:opacity-90 transition-opacity rounded-xl"
+                            >
+                              Next Module
+                            </button>
+                          )}
+                        </div>
+                      </>
+                    )}
+                  </motion.div>
+                ))}
+            </AnimatePresence>
           </div>
         </div>
       </div>

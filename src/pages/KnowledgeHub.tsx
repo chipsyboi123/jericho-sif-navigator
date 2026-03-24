@@ -28,6 +28,11 @@ const categoryColors: Record<string, string> = {
   updates: "bg-cyan-500/10 text-cyan-600",
 };
 
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+};
+
 const KnowledgeHub = () => {
   const { data: publishedPosts } = useBlogPosts();
 
@@ -38,8 +43,8 @@ const KnowledgeHub = () => {
     <div className="py-20">
       <SEOHead title="Knowledge Hub" description="Deep-dive articles on SIF strategies, taxation, market updates, and investment education for Indian HNIs." />
       <div className="container mx-auto px-4">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-3 text-foreground">
+        <motion.div {...fadeUp} transition={{ duration: 0.6 }}>
+          <h1 className="font-display text-4xl md:text-5xl font-bold mb-3 text-foreground">
             Knowledge Hub
           </h1>
           <p className="text-muted-foreground text-lg mb-12">Deep-dive articles on SIF strategies, taxation, and market updates.</p>
@@ -53,15 +58,15 @@ const KnowledgeHub = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: i * 0.05 }}
-                className="bg-white border border-[#E5E2DB] shadow-card hover:shadow-card-hover hover:border-gold/30 p-6 transition-all cursor-pointer h-full"
+                className="bg-white/70 backdrop-blur-sm border border-border rounded-2xl shadow-card hover:shadow-card-hover hover:border-gold/30 hover:-translate-y-1 p-6 transition-all cursor-pointer h-full"
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <span className={`text-xs font-semibold px-2 py-1 ${categoryColors[post.category] || "bg-[#F8F6F1] text-muted-foreground"}`}>
+                  <span className={`text-xs font-semibold px-3 py-1 rounded-full ${categoryColors[post.category] || "bg-gold/10 text-gold"}`}>
                     {post.category}
                   </span>
                   <span className="text-xs text-muted-foreground">{post.publishedAt}</span>
                 </div>
-                <h3 className="font-serif text-lg font-bold text-foreground hover:text-gold transition-colors">
+                <h3 className="font-heading text-lg font-bold text-foreground hover:text-gold transition-colors">
                   {post.title}
                 </h3>
                 {post.excerpt && (
@@ -80,15 +85,15 @@ const KnowledgeHub = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: (publishedPosts?.length || 0 + i) * 0.05 }}
-                className="bg-white border border-[#E5E2DB] p-6 opacity-60"
+                className="bg-white/50 backdrop-blur-sm border border-border rounded-2xl p-6 opacity-60"
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <span className={`text-xs font-semibold px-2 py-1 ${categoryColors[article.category] || "bg-[#F8F6F1] text-muted-foreground"}`}>
+                  <span className={`text-xs font-semibold px-3 py-1 rounded-full ${categoryColors[article.category] || "bg-gold/10 text-gold"}`}>
                     {article.category}
                   </span>
                   <span className="text-xs text-muted-foreground">{article.date}</span>
                 </div>
-                <h3 className="font-serif text-lg font-bold text-foreground">
+                <h3 className="font-heading text-lg font-bold text-foreground">
                   {article.title}
                 </h3>
                 <p className="text-sm text-muted-foreground mt-2">Coming soon, article in preparation.</p>

@@ -37,12 +37,14 @@ const App = () => (
           {/* Public routes with main layout (navbar + footer) */}
           <Route element={<Layout />}>
             <Route path="/" element={<Index />} />
-            <Route path="/sif-101" element={<SIF101 />} />
+            <Route path="/learn" element={<SIF101 />} />
+            <Route path="/sif-101" element={<Navigate to="/learn" replace />} />
             <Route path="/funds" element={<FundExplorer />} />
             <Route path="/tracker" element={<SIFTracker />} />
             <Route path="/compare" element={<SIFCompare />} />
             <Route path="/knowledge" element={<KnowledgeHub />} />
-            <Route path="/why-jericho" element={<WhyJerichoPage />} />
+            <Route path="/about" element={<WhyJerichoPage />} />
+            <Route path="/why-jericho" element={<Navigate to="/about" replace />} />
             <Route path="/funds/:slug" element={<FundDetail />} />
             <Route path="/knowledge/:slug" element={<BlogArticle />} />
             <Route path="/contact" element={<Contact />} />

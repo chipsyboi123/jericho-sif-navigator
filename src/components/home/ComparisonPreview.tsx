@@ -12,7 +12,7 @@ const comparisonData = [
 
 const ComparisonPreview = () => {
   return (
-    <section className="py-24 bg-[#F8F6F1]">
+    <section className="py-24 bg-cream">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -21,10 +21,12 @@ const ComparisonPreview = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-3 text-foreground">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-3 text-foreground">
             How Does SIF Stack Up?
           </h2>
-          <p className="text-muted-foreground text-lg">A quick comparison across investment vehicles.</p>
+          <p className="text-muted-foreground text-lg">
+            A quick comparison across investment vehicles.
+          </p>
         </motion.div>
 
         <motion.div
@@ -32,26 +34,49 @@ const ComparisonPreview = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="overflow-x-auto bg-white border border-[#E5E2DB] shadow-card"
+          className="overflow-x-auto rounded-2xl glass shadow-card border border-white/20"
         >
           <table className="w-full min-w-[600px]">
             <thead>
-              <tr className="border-b border-[#E5E2DB]">
-                <th className="text-left py-4 px-4 text-sm font-semibold text-muted-foreground">Feature</th>
-                <th className="text-left py-4 px-4 text-sm font-semibold text-muted-foreground">Mutual Fund</th>
-                <th className="text-left py-4 px-4 text-sm font-semibold text-gold">SIF</th>
-                <th className="text-left py-4 px-4 text-sm font-semibold text-muted-foreground">PMS</th>
-                <th className="text-left py-4 px-4 text-sm font-semibold text-muted-foreground">AIF</th>
+              <tr className="border-b border-foreground/10">
+                <th className="text-left py-4 px-5 text-sm font-heading font-semibold text-muted-foreground">
+                  Feature
+                </th>
+                <th className="text-left py-4 px-5 text-sm font-heading font-semibold text-muted-foreground">
+                  Mutual Fund
+                </th>
+                <th className="text-left py-4 px-5 text-sm font-heading font-semibold text-gold">
+                  SIF
+                </th>
+                <th className="text-left py-4 px-5 text-sm font-heading font-semibold text-muted-foreground">
+                  PMS
+                </th>
+                <th className="text-left py-4 px-5 text-sm font-heading font-semibold text-muted-foreground">
+                  AIF
+                </th>
               </tr>
             </thead>
             <tbody>
               {comparisonData.map((row, i) => (
-                <tr key={i} className="border-b border-[#E5E2DB]/50 hover:bg-[#F8F6F1] transition-colors">
-                  <td className="py-4 px-4 text-sm font-medium text-foreground">{row.feature}</td>
-                  <td className="py-4 px-4 text-sm text-muted-foreground">{row.mf}</td>
-                  <td className="py-4 px-4 text-sm font-medium text-gold bg-[#FDF8EC]/50">{row.sif}</td>
-                  <td className="py-4 px-4 text-sm text-muted-foreground">{row.pms}</td>
-                  <td className="py-4 px-4 text-sm text-muted-foreground">{row.aif}</td>
+                <tr
+                  key={i}
+                  className="border-b border-foreground/5 last:border-b-0 hover:bg-foreground/[0.02] transition-colors"
+                >
+                  <td className="py-4 px-5 text-sm font-medium text-foreground">
+                    {row.feature}
+                  </td>
+                  <td className="py-4 px-5 text-sm text-muted-foreground">
+                    {row.mf}
+                  </td>
+                  <td className="py-4 px-5 text-sm font-semibold text-gold glass-gold">
+                    {row.sif}
+                  </td>
+                  <td className="py-4 px-5 text-sm text-muted-foreground">
+                    {row.pms}
+                  </td>
+                  <td className="py-4 px-5 text-sm text-muted-foreground">
+                    {row.aif}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -61,7 +86,7 @@ const ComparisonPreview = () => {
         <div className="mt-10 text-center">
           <Link
             to="/compare"
-            className="px-7 py-3.5 border border-foreground/20 text-foreground font-semibold hover:border-gold hover:text-gold transition-colors inline-block"
+            className="inline-block px-7 py-3.5 rounded-xl border border-foreground/20 text-foreground font-heading font-semibold hover:border-gold hover:text-gold hover:shadow-gold-glow transition-all duration-300"
           >
             See Detailed Comparison
           </Link>

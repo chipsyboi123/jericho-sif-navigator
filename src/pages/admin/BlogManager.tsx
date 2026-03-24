@@ -34,7 +34,7 @@ const BlogManager = () => {
   function startCreate() {
     setEditing({
       title: "", slug: "", category: "updates", content: "", excerpt: "",
-      author: "Jericho SIF Team", published: false,
+      author: "SIF Insider Team", published: false,
     });
     setIsNew(true);
   }

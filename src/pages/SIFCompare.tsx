@@ -3,6 +3,11 @@ import { motion } from "framer-motion";
 import { useLaunchedFunds } from "@/hooks/useFunds";
 import SEOHead from "@/components/SEOHead";
 
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+};
+
 const SIFCompare = () => {
   const { data: launched, isLoading } = useLaunchedFunds();
   const [selected, setSelected] = useState<string[]>([]);
@@ -40,68 +45,78 @@ const SIFCompare = () => {
     <div className="py-20">
       <SEOHead title="Compare SIF Funds" description="Side-by-side comparison of SIF strategies. Compare risk bands, benchmarks, fund managers, and allocation across schemes." />
       <div className="container mx-auto px-4">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-3 text-foreground">
+        <motion.div {...fadeUp} transition={{ duration: 0.6 }}>
+          <h1 className="font-display text-4xl md:text-5xl font-bold mb-3 text-foreground">
             Compare SIF Funds
           </h1>
           <p className="text-muted-foreground text-lg mb-8">Select 2-3 funds for side-by-side comparison.</p>
         </motion.div>
 
         {/* Fund selector */}
-        <div className="flex flex-wrap gap-2 mb-10">
+        <motion.div {...fadeUp} transition={{ duration: 0.5, delay: 0.15 }} className="flex flex-wrap gap-2 mb-10">
           {launched.map((fund) => (
             <button
               key={fund.id}
               onClick={() => toggle(fund.id)}
-              className={`px-4 py-2 text-sm border transition-colors ${
+              className={`px-5 py-2.5 text-sm transition-all rounded-full ${
                 selected.includes(fund.id)
-                  ? "border-gold bg-gold/10 text-gold font-semibold"
-                  : "border-[#E5E2DB] text-muted-foreground hover:text-foreground hover:border-gold/25"
+                  ? "bg-gradient-to-r from-[#C9960C] to-[#E2B93B] text-white font-semibold shadow-md"
+                  : "border border-border text-muted-foreground hover:text-foreground hover:border-gold/25 hover:bg-secondary"
               }`}
             >
               {fund.sifBrand}
             </button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Comparison table */}
-        <div className="overflow-x-auto bg-white border border-[#E5E2DB] shadow-card">
+        <motion.div
+          {...fadeUp}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="overflow-x-auto rounded-2xl border border-border bg-white/70 backdrop-blur-sm shadow-card overflow-hidden"
+        >
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#E5E2DB]">
-                <th className="text-left py-3 px-4 text-sm font-semibold text-muted-foreground min-w-[150px]">Field</th>
+              <tr className="border-b border-border bg-secondary/50">
+                <th className="text-left py-3.5 px-5 text-sm font-semibold text-muted-foreground min-w-[150px] font-heading">Field</th>
                 {selectedFunds.map((fund) => (
-                  <th key={fund.id} className="text-left py-3 px-4 text-sm font-semibold text-gold min-w-[200px]">
+                  <th key={fund.id} className="text-left py-3.5 px-5 text-sm font-semibold text-gold min-w-[200px] font-heading">
                     {fund.sifBrand}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {fields.map((field) => (
-                <tr key={field.key} className="border-b border-[#E5E2DB]/50 hover:bg-[#F8F6F1] transition-colors">
-                  <td className="py-3 px-4 text-sm font-medium text-foreground">{field.label}</td>
+              {fields.map((field, i) => (
+                <motion.tr
+                  key={field.key}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25, delay: 0.3 + i * 0.04 }}
+                  className="border-b border-border/50 hover:bg-secondary/40 transition-colors"
+                >
+                  <td className="py-3.5 px-5 text-sm font-medium text-foreground font-heading">{field.label}</td>
                   {selectedFunds.map((fund) => {
                     const val = (fund as any)[field.key];
                     const display = Array.isArray(val) ? val.join(", ") : String(val);
                     return (
-                      <td key={fund.id} className="py-3 px-4 text-sm text-muted-foreground">{display}</td>
+                      <td key={fund.id} className="py-3.5 px-5 text-sm text-muted-foreground">{display}</td>
                     );
                   })}
-                </tr>
+                </motion.tr>
               ))}
               {/* Allocation row */}
-              <tr className="border-b border-[#E5E2DB]/50">
-                <td className="py-3 px-4 text-sm font-medium text-foreground">Allocation</td>
+              <tr className="border-b border-border/50 hover:bg-secondary/40 transition-colors">
+                <td className="py-3.5 px-5 text-sm font-medium text-foreground font-heading">Allocation</td>
                 {selectedFunds.map((fund) => (
-                  <td key={fund.id} className="py-3 px-4 text-sm text-muted-foreground">
+                  <td key={fund.id} className="py-3.5 px-5 text-sm text-muted-foreground">
                     Eq {fund.allocation.equity}% | Debt {fund.allocation.debt}% | Der {fund.allocation.derivatives}%
                   </td>
                 ))}
               </tr>
             </tbody>
           </table>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

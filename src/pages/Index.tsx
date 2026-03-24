@@ -14,8 +14,8 @@ const Index = () => {
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "Jericho SIF",
-          description: "Compare SIF strategies, track fund performance, and invest through Jericho.",
+          name: "SIF Insider",
+          description: "India's go-to platform for Specialized Investment Funds.",
           publisher: { "@type": "Organization", name: "Jericho Ventures" },
         }}
       />

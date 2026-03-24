@@ -13,8 +13,10 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['DM Sans', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        sans: ['Inter', 'sans-serif'],
+        heading: ['Satoshi', 'Inter', 'sans-serif'],
+        display: ['Clash Display', 'Satoshi', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -79,14 +81,19 @@ export default {
         },
       },
       boxShadow: {
-        card: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
-        "card-hover": "0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04)",
-        "card-lg": "0 10px 25px rgba(0,0,0,0.08)",
+        card: "0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02)",
+        "card-hover": "0 8px 25px rgba(201,150,12,0.08), 0 4px 10px rgba(0,0,0,0.04)",
+        "card-lg": "0 12px 30px rgba(0,0,0,0.06)",
+        "glass": "0 8px 32px rgba(0,0,0,0.06)",
+        "gold-glow": "0 0 20px rgba(201,150,12,0.15), 0 0 60px rgba(201,150,12,0.05)",
       },
       borderRadius: {
-        lg: "0",
-        md: "0",
-        sm: "0",
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+        xl: "1rem",
+        "2xl": "1.25rem",
+        "3xl": "1.5rem",
       },
       keyframes: {
         "accordion-down": {
@@ -101,11 +108,21 @@ export default {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        "float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(30px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "ticker": "ticker-scroll 30s linear infinite",
+        "float": "float 6s ease-in-out infinite",
+        "fade-up": "fade-up 0.6s ease-out forwards",
       },
     },
   },
