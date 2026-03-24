@@ -2,105 +2,119 @@ import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 
-function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
+function CountUp({ target, suffix = "", prefix = "" }: { target: number; suffix?: string; prefix?: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
 
   useEffect(() => {
     if (!inView) return;
-    let start = 0;
-    const duration = 1500;
-    const startTime = performance.now();
-
-    function animate(now: number) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      start = Math.floor(eased * target);
-      setCount(start);
-      if (progress < 1) requestAnimationFrame(animate);
+    const duration = 1800;
+    const start = performance.now();
+    function tick(now: number) {
+      const p = Math.min((now - start) / duration, 1);
+      setCount(Math.floor((1 - Math.pow(1 - p, 4)) * target));
+      if (p < 1) requestAnimationFrame(tick);
     }
-    requestAnimationFrame(animate);
+    requestAnimationFrame(tick);
   }, [inView, target]);
 
-  return <span ref={ref} className="font-mono-data">{count}{suffix}</span>;
+  return <span ref={ref}>{prefix}{count}{suffix}</span>;
 }
-
-const stats = [
-  { value: 4, suffix: "", label: "Funds Live" },
-  { value: 10, suffix: "L", label: "Min Investment" },
-  { value: 25, suffix: "%", label: "Short Exposure" },
-];
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-[#0F1629]">
-      {/* Gradient orbs */}
-      <div className="gradient-orb w-[500px] h-[500px] bg-[#C9960C] top-[-10%] right-[-5%]" />
-      <div className="gradient-orb w-[400px] h-[400px] bg-[#C9960C]/60 bottom-[10%] left-[-8%]" />
-      <div className="gradient-orb w-[200px] h-[200px] bg-[#F0C842]/50 top-[40%] right-[30%]" />
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-mesh-dark noise-overlay">
+      {/* Decorative gradient orbs */}
+      <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[#C9960C] opacity-[0.04] blur-[120px]" />
+      <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] rounded-full bg-[#C9960C] opacity-[0.06] blur-[100px]" />
 
-      <div className="relative container mx-auto px-4 py-24">
+      {/* Thin gold line at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 hr-gold" />
+
+      <div className="relative container mx-auto px-4 py-32 md:py-40">
+        {/* Eyebrow */}
         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="flex items-center gap-3 mb-8"
+        >
+          <span className="inline-block w-8 h-px bg-[#C9960C]" />
+          <span className="text-[#C9960C] text-xs font-semibold tracking-[0.25em] uppercase">
+            India's first SIF platform
+          </span>
+        </motion.div>
+
+        {/* Main headline — CRED-style massive serif */}
+        <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
-          className="max-w-3xl"
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="font-serif-display text-[3.2rem] md:text-[4.5rem] lg:text-[6rem] leading-[1.05] text-white mb-8 max-w-4xl"
         >
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-sm font-semibold text-[#C9960C] tracking-widest uppercase mb-6"
+          not your father's
+          <br />
+          <span className="text-gradient-gold italic">mutual fund.</span>
+        </motion.h1>
+
+        {/* Subtitle — conversational, not corporate */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="text-white/50 text-lg md:text-xl max-w-xl mb-12 leading-relaxed"
+        >
+          SIFs let you go long <em>and</em> short. Hedge with derivatives.
+          Get PMS-level strategies at mutual fund taxation.
+          We break it all down — no jargon, no 85-page PDFs.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="flex flex-col sm:flex-row gap-4 mb-20"
+        >
+          <Link
+            to="/funds"
+            className="group px-8 py-4 bg-[#C9960C] text-[#0a0e1a] font-bold rounded-full hover:bg-[#d4a41a] transition-all text-center text-sm tracking-wide uppercase"
           >
-            India's SIF Intelligence Platform
-          </motion.p>
-
-          <h1 className="font-display text-5xl md:text-6xl lg:text-[5.5rem] font-bold leading-[1.05] mb-8 text-white">
-            The Insider's Guide to India's{" "}
-            <span className="text-gradient-gold">Newest Asset Class</span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-white/60 leading-relaxed mb-10 max-w-xl">
-            Specialized Investment Funds, decoded. Compare strategies, understand risks, and make confident investment decisions.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 mb-16">
-            <Link
-              to="/funds"
-              className="px-8 py-4 bg-gradient-gold text-white font-semibold rounded-xl hover:opacity-90 transition-all hover:shadow-gold-glow text-center animate-gold-pulse"
-            >
-              Explore Funds
-            </Link>
-            <Link
-              to="/learn"
-              className="px-8 py-4 glass-dark text-white font-medium rounded-xl hover:border-[#C9960C]/30 transition-all text-center"
-            >
-              What is SIF?
-            </Link>
-          </div>
-
-          {/* Stat counters */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="flex gap-8 md:gap-12"
+            Explore Funds
+            <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">&rarr;</span>
+          </Link>
+          <Link
+            to="/learn"
+            className="px-8 py-4 border border-white/15 text-white/70 font-medium rounded-full hover:border-white/30 hover:text-white transition-all text-center text-sm tracking-wide uppercase"
           >
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-3xl md:text-4xl font-bold text-white">
-                  <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                </p>
-                <p className="text-xs text-white/40 mt-1 uppercase tracking-wider">{stat.label}</p>
-              </div>
-            ))}
-            <div className="text-center">
-              <p className="text-3xl md:text-4xl font-bold text-[#C9960C]">SEBI</p>
-              <p className="text-xs text-white/40 mt-1 uppercase tracking-wider">Regulated</p>
+            What is SIF?
+          </Link>
+        </motion.div>
+
+        {/* Stats bar — separated by thin lines */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
+          className="flex flex-wrap gap-0 divide-x divide-white/10"
+        >
+          {[
+            { value: 4, suffix: "", label: "Live Funds" },
+            { value: 10, suffix: "L+", prefix: "\u20B9", label: "Min. Investment" },
+            { value: 25, suffix: "%", label: "Short Exposure" },
+          ].map((stat, i) => (
+            <div key={i} className="px-6 first:pl-0">
+              <p className="text-2xl md:text-3xl font-bold text-white font-mono-data">
+                <CountUp target={stat.value} suffix={stat.suffix} prefix={stat.prefix} />
+              </p>
+              <p className="text-[11px] text-white/30 mt-1 tracking-wider uppercase">{stat.label}</p>
             </div>
-          </motion.div>
+          ))}
+          <div className="px-6">
+            <p className="text-2xl md:text-3xl font-bold text-[#C9960C] font-heading">SEBI</p>
+            <p className="text-[11px] text-white/30 mt-1 tracking-wider uppercase">Regulated</p>
+          </div>
         </motion.div>
       </div>
     </section>

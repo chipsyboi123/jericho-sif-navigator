@@ -1,86 +1,81 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { BookOpen, TrendingUp, Receipt } from "lucide-react";
+import { BookOpen, TrendingUp, Shield } from "lucide-react";
 
 const cards = [
   {
     icon: BookOpen,
-    title: "What is SIF?",
-    description:
-      "SEBI's newest investment category bridges mutual funds and PMS with advanced strategies like long-short equity. Starting at just Rs 10 lakh.",
+    number: "01",
+    title: "What even is a SIF?",
+    desc: "A new SEBI category that gives you hedge fund strategies with mutual fund taxation. Yes, really.",
     link: "/learn",
   },
   {
     icon: TrendingUp,
-    title: "How Long-Short Works",
-    description:
-      "SIFs can short up to 25% of AUM, enabling hedged strategies that aim to generate alpha in both rising and falling markets.",
+    number: "02",
+    title: "Long-short, explained simply.",
+    desc: "Make money when markets go up AND down. We explain the mechanics without the Wall Street jargon.",
     link: "/learn",
   },
   {
-    icon: Receipt,
-    title: "Tax Advantage",
-    description:
-      "Scheme-level taxation like mutual funds. Equity SIFs held 12+ months get LTCG at 12.5% on gains above Rs 1.25 lakh — far better than PMS.",
+    icon: Shield,
+    number: "03",
+    title: "Better tax than PMS.",
+    desc: "12.5% LTCG after 12 months. No fund-level tax. Same pass-through as your regular mutual fund.",
     link: "/learn",
   },
 ];
 
 const EducationTabs = () => {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-28 bg-[#FAF9F6]">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="mb-14"
         >
-          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-3 text-foreground">
-            Understand SIF in Minutes
+          <p className="text-[#C9960C] text-xs font-semibold tracking-[0.2em] uppercase mb-3">Learn</p>
+          <h2 className="font-serif-display text-3xl md:text-4xl text-foreground">
+            SIF, decoded.
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Everything you need to know before investing.
-          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="space-y-4">
           {cards.map((card, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.12 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
             >
               <Link
                 to={card.link}
-                className="group block rounded-2xl glass-card p-8 border border-white/20 hover:shadow-card-hover hover:border-gold/30 transition-all duration-300"
+                className="group flex items-center gap-6 md:gap-10 p-6 md:p-8 bg-white rounded-2xl border border-border hover:border-[#C9960C]/20 hover:shadow-lg transition-all"
               >
-                <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-5 group-hover:bg-gold/20 transition-colors">
-                  <card.icon className="w-6 h-6 text-gold" strokeWidth={1.5} />
+                {/* Number */}
+                <span className="hidden md:block text-5xl font-bold text-border font-heading shrink-0 w-16 group-hover:text-[#C9960C]/20 transition-colors">
+                  {card.number}
+                </span>
+
+                {/* Icon */}
+                <div className="w-12 h-12 rounded-xl bg-[#C9960C]/8 flex items-center justify-center shrink-0 group-hover:bg-[#C9960C]/15 transition-colors">
+                  <card.icon className="w-5 h-5 text-[#C9960C]" />
                 </div>
 
-                <h3 className="font-heading text-lg font-bold text-foreground mb-3">
-                  {card.title}
-                </h3>
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-heading text-lg md:text-xl font-bold text-foreground mb-1 group-hover:text-[#C9960C] transition-colors">
+                    {card.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
+                </div>
 
-                <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-                  {card.description}
-                </p>
-
-                <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-gold group-hover:gap-2.5 transition-all duration-300">
-                  Learn more
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
+                {/* Arrow */}
+                <span className="text-muted-foreground group-hover:text-[#C9960C] group-hover:translate-x-1 transition-all shrink-0 text-lg">
+                  &rarr;
                 </span>
               </Link>
             </motion.div>

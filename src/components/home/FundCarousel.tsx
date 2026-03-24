@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { getRiskColor, getRiskLabel } from "@/data/sifFunds";
+import { getRiskLabel } from "@/data/sifFunds";
 import { useFunds } from "@/hooks/useFunds";
 
 const FundCarousel = () => {
@@ -8,77 +8,102 @@ const FundCarousel = () => {
   const displayFunds = funds?.filter((f) => f.status === "Launched" || f.status === "NFO") || [];
 
   return (
-    <section className="py-24 bg-cream">
+    <section className="py-28 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
+          className="flex items-end justify-between mb-14"
         >
-          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-3 text-foreground">
-            Featured Funds
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Explore Specialized Investment Funds across India's top AMCs.
-          </p>
+          <div>
+            <p className="text-[#C9960C] text-xs font-semibold tracking-[0.2em] uppercase mb-3">Live Now</p>
+            <h2 className="font-serif-display text-3xl md:text-4xl text-foreground">
+              The funds. The strategies.
+            </h2>
+          </div>
+          <Link
+            to="/funds"
+            className="hidden md:inline-flex text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            View all &rarr;
+          </Link>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {displayFunds.map((fund, i) => (
             <motion.div
               key={fund.id}
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
               <Link
                 to={`/funds/${fund.id}`}
-                className="block bg-white border border-border rounded-2xl p-6 shadow-card hover:shadow-card-hover hover:-translate-y-1 hover:border-gold/30 transition-all group h-full"
+                className="group block relative bg-[#0a0e1a] rounded-2xl p-7 overflow-hidden hover:ring-1 hover:ring-[#C9960C]/20 transition-all"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold text-gold uppercase tracking-wider">{fund.amcName}</span>
-                  {fund.status === "NFO" && (
-                    <span className="text-[10px] font-bold text-white bg-gradient-gold px-2 py-0.5 rounded-full">NFO</span>
-                  )}
-                </div>
+                {/* Subtle gold gradient in corner */}
+                <div className="absolute top-0 right-0 w-40 h-40 bg-[#C9960C] opacity-[0.03] blur-[60px] rounded-full" />
 
-                <h3 className="font-heading text-lg font-bold text-foreground mb-2 group-hover:text-gold transition-colors">
-                  {fund.sifBrand}
-                </h3>
-
-                <span className="text-xs text-muted-foreground bg-secondary px-2.5 py-1 rounded-full inline-block mb-4">
-                  {fund.strategyType}
-                </span>
-
-                <div className="flex items-center gap-2 mb-4">
-                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full bg-secondary ${getRiskColor(fund.riskBand)}`}>
-                    {getRiskLabel(fund.riskBand)}
-                  </span>
-                  <span className="text-xs text-muted-foreground">&middot; {fund.category}</span>
-                </div>
-
-                {/* Mini allocation bar */}
-                <div className="flex h-2 rounded-full overflow-hidden mb-3">
-                  <div className="bg-gold" style={{ width: `${fund.allocation.equity}%` }} />
-                  <div className="bg-blue-400" style={{ width: `${fund.allocation.debt}%` }} />
-                  <div className="bg-orange-400" style={{ width: `${fund.allocation.derivatives}%` }} />
-                </div>
-
-                <div className="flex items-baseline justify-between pt-3 border-t border-border">
-                  <div>
-                    <p className="text-[10px] text-muted-foreground uppercase">NAV</p>
-                    <p className="text-base font-semibold font-mono-data text-foreground">{fund.nav}</p>
+                <div className="relative">
+                  {/* Top row: AMC + badges */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-white/40 text-xs font-medium tracking-wider uppercase">{fund.amcName}</span>
+                    <div className="flex gap-2">
+                      {fund.status === "NFO" && (
+                        <span className="text-[10px] font-bold text-[#0a0e1a] bg-[#C9960C] px-2.5 py-0.5 rounded-full">NFO</span>
+                      )}
+                      <span className="text-[10px] font-medium text-white/50 border border-white/10 px-2.5 py-0.5 rounded-full">
+                        {fund.category}
+                      </span>
+                    </div>
                   </div>
-                  <span className="text-xs font-semibold text-gold group-hover:translate-x-1 transition-transform">
-                    View Details &rarr;
-                  </span>
+
+                  {/* Fund name — big and bold */}
+                  <h3 className="font-heading text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-[#C9960C] transition-colors">
+                    {fund.sifBrand}
+                  </h3>
+
+                  <p className="text-white/35 text-sm mb-6">{fund.strategyType}</p>
+
+                  {/* Allocation bar */}
+                  <div className="flex h-1.5 rounded-full overflow-hidden mb-6 bg-white/5">
+                    <div className="bg-[#C9960C]" style={{ width: `${fund.allocation.equity}%` }} />
+                    <div className="bg-blue-400/60" style={{ width: `${fund.allocation.debt}%` }} />
+                    <div className="bg-orange-400/60" style={{ width: `${fund.allocation.derivatives}%` }} />
+                  </div>
+
+                  {/* Bottom row: metrics */}
+                  <div className="flex items-end justify-between pt-5 border-t border-white/5">
+                    <div className="flex gap-6">
+                      <div>
+                        <p className="text-[10px] text-white/30 uppercase tracking-wider">NAV</p>
+                        <p className="text-sm font-semibold text-white font-mono-data">{fund.nav}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-white/30 uppercase tracking-wider">Risk</p>
+                        <p className="text-sm font-semibold text-white">{getRiskLabel(fund.riskBand)}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-white/30 uppercase tracking-wider">Min</p>
+                        <p className="text-sm font-semibold text-white">{fund.minInvestment}</p>
+                      </div>
+                    </div>
+                    <span className="text-xs font-medium text-[#C9960C] opacity-0 group-hover:opacity-100 transition-opacity">
+                      View Details &rarr;
+                    </span>
+                  </div>
                 </div>
               </Link>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-8 text-center md:hidden">
+          <Link to="/funds" className="text-sm text-muted-foreground hover:text-foreground">
+            View all funds &rarr;
+          </Link>
         </div>
       </div>
     </section>
