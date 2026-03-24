@@ -1,60 +1,60 @@
 import { motion } from "framer-motion";
-import { Search, LayoutGrid, Zap } from "lucide-react";
 
 const pillars = [
   {
-    icon: Search,
-    title: "Independent research.",
-    desc: "We don't sell funds. We analyze them. Every fund on SIF Insider comes with a breakdown you can actually understand.",
+    title: "Independent.",
+    desc: "We don't sell funds. We don't earn commissions on what you pick. We analyze every SIF scheme so you don't have to read 85-page ISIDs.",
   },
   {
-    icon: LayoutGrid,
-    title: "Every SIF, one place.",
-    desc: "All 4 live SIF strategies, compared side-by-side. No switching between 6 AMC websites.",
+    title: "Complete.",
+    desc: "Every live SIF in India, on one platform. Compare allocations, risk bands, exit loads, and fund managers across AMCs in seconds.",
   },
   {
-    icon: Zap,
-    title: "Built for new-age investors.",
-    desc: "If you understand Nifty but not derivatives, this is for you. We translate 85-page PDFs into 2-minute reads.",
+    title: "Clear.",
+    desc: "We write for investors, not fund managers. No jargon. No caveats wrapped in caveats. If a fund is risky, we say it's risky.",
   },
 ];
 
 const WhyJericho = () => {
   return (
-    <section className="py-28 bg-white">
+    <section className="py-32 bg-white">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <p className="text-[#C9960C] text-xs font-semibold tracking-[0.2em] uppercase mb-3">Why Us</p>
-          <h2 className="font-serif-display text-3xl md:text-4xl text-foreground mb-4">
-            Why SIF Insider?
-          </h2>
-          <p className="text-muted-foreground max-w-md mx-auto">
-            Because understanding your investment shouldn't require a finance degree.
-          </p>
-        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16">
+          {/* Left — big statement */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="md:col-span-5"
+          >
+            <p className="text-gold text-[11px] tracking-[0.35em] uppercase mb-4">Why Us</p>
+            <h2 className="font-editorial text-4xl md:text-5xl text-foreground leading-tight mb-6">
+              we built what
+              <br />
+              we wished existed.
+            </h2>
+            <p className="text-muted-foreground text-[15px] leading-relaxed">
+              When SIFs launched in 2025, there was no single place to compare them.
+              No plain-English breakdowns. No independent analysis. So we made one.
+            </p>
+          </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {pillars.map((pillar, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="text-center p-8"
-            >
-              <div className="w-14 h-14 rounded-2xl bg-[#0a0e1a] flex items-center justify-center mx-auto mb-5">
-                <pillar.icon className="w-6 h-6 text-[#C9960C]" />
-              </div>
-              <h3 className="font-heading text-lg font-bold text-foreground mb-3">{pillar.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{pillar.desc}</p>
-            </motion.div>
-          ))}
+          {/* Right — three pillars */}
+          <div className="md:col-span-7 space-y-0">
+            {pillars.map((pillar, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="py-8 border-b border-border first:border-t"
+              >
+                <h3 className="text-lg font-semibold text-foreground mb-2 tracking-tight">{pillar.title}</h3>
+                <p className="text-muted-foreground text-[15px] leading-relaxed">{pillar.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

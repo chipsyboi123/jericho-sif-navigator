@@ -19,71 +19,64 @@ const Navbar = () => {
   const isHome = location.pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // On home page: transparent at top, glass on scroll. Other pages: always glass.
-  const navBg = !isHome || scrolled
-    ? "bg-white/90 backdrop-blur-xl border-b border-border/50"
-    : "bg-transparent border-b border-transparent";
-
-  const textColor = !isHome || scrolled ? "text-foreground" : "text-white";
-  const mutedColor = !isHome || scrolled ? "text-muted-foreground" : "text-white/50";
-  const logoColor = !isHome || scrolled ? "text-foreground" : "text-white";
-  const goldColor = "text-[#C9960C]";
+  const isDark = isHome && !scrolled;
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
-      <div className="container mx-auto flex items-center justify-between h-16 px-4">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      isDark
+        ? "bg-transparent"
+        : "bg-white/95 backdrop-blur-md border-b border-black/[0.04]"
+    }`}>
+      <div className="container mx-auto flex items-center justify-between h-14 px-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-1.5">
-          <span className={`font-heading text-lg font-bold tracking-tight ${logoColor}`}>
+        <Link to="/" className="flex items-center gap-0">
+          <span className={`text-[15px] font-semibold tracking-tight transition-colors ${
+            isDark ? "text-white" : "text-foreground"
+          }`}>
             SIF
           </span>
-          <span className={`font-heading text-lg font-bold tracking-tight ${goldColor}`}>
+          <span className="text-[15px] font-semibold tracking-tight text-gold">
             Insider
           </span>
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center gap-0.5">
+        <div className="hidden lg:flex items-center gap-7">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`relative px-3.5 py-2 text-[13px] font-medium transition-colors rounded-lg ${
+              className={`text-[13px] transition-colors ${
                 location.pathname === item.path
-                  ? goldColor
-                  : `${mutedColor} hover:${textColor}`
+                  ? "text-gold"
+                  : isDark
+                    ? "text-white/40 hover:text-white/80"
+                    : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {item.label}
-              {location.pathname === item.path && (
-                <motion.div
-                  layoutId="nav-active"
-                  className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#C9960C] rounded-full"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
             </Link>
           ))}
         </div>
 
         {/* CTA */}
-        <div className="hidden lg:flex items-center">
+        <div className="hidden lg:block">
           <Link
             to="/contact"
-            className="px-5 py-2 text-[13px] font-semibold bg-[#C9960C] text-[#0a0e1a] rounded-full hover:bg-[#d4a41a] transition-all"
+            className="text-[13px] font-medium text-gold hover:text-gold-light transition-colors"
           >
-            Get Started
+            Get Started &rarr;
           </Link>
         </div>
 
         {/* Mobile toggle */}
         <button
-          className={`lg:hidden p-2 rounded-lg ${mutedColor}`}
+          className={`lg:hidden ${isDark ? "text-white/60" : "text-foreground/60"}`}
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -99,16 +92,16 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden bg-white border-b border-border overflow-hidden"
           >
-            <div className="px-4 py-4 flex flex-col gap-1">
+            <div className="px-4 py-6 flex flex-col gap-1">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
                   onClick={() => setMobileOpen(false)}
-                  className={`px-4 py-3 text-sm font-medium rounded-xl transition-colors ${
+                  className={`px-3 py-2.5 text-sm ${
                     location.pathname === item.path
-                      ? "text-[#C9960C] bg-[#C9960C]/5"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                      ? "text-gold"
+                      : "text-muted-foreground"
                   }`}
                 >
                   {item.label}
@@ -117,7 +110,7 @@ const Navbar = () => {
               <Link
                 to="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 px-5 py-3 text-sm font-semibold bg-[#C9960C] text-[#0a0e1a] text-center rounded-full"
+                className="mt-3 px-6 py-3 text-sm font-medium bg-gold text-[#050505] text-center"
               >
                 Get Started
               </Link>

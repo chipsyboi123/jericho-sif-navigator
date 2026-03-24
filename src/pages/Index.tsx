@@ -1,5 +1,6 @@
 import SEOHead from "@/components/SEOHead";
 import HeroSection from "@/components/home/HeroSection";
+import Marquee from "@/components/home/Marquee";
 import FundCarousel from "@/components/home/FundCarousel";
 import ComparisonPreview from "@/components/home/ComparisonPreview";
 import EducationTabs from "@/components/home/EducationTabs";
@@ -20,6 +21,7 @@ const Index = () => {
         }}
       />
       <HeroSection />
+      <Marquee />
       <FundCarousel />
       <ComparisonPreview />
       <EducationTabs />

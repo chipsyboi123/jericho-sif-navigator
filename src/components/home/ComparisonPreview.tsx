@@ -1,89 +1,115 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Check, X, Minus } from "lucide-react";
 
-const rows = [
-  { feature: "Min. Investment", mf: "\u20B9500", sif: "\u20B910 Lakh", pms: "\u20B950 Lakh", aif: "\u20B91 Crore" },
-  { feature: "Short Selling", mf: false, sif: true, pms: true, aif: true },
-  { feature: "Derivative Hedging", mf: "limited", sif: true, pms: true, aif: true },
-  { feature: "SEBI Regulated", mf: true, sif: true, pms: true, aif: true },
-  { feature: "Equity Taxation", mf: true, sif: true, pms: false, aif: false },
-  { feature: "Fund-Level Tax", mf: false, sif: false, pms: false, aif: true },
-  { feature: "Leverage", mf: false, sif: false, pms: false, aif: true },
+const vehicles = [
+  {
+    name: "Mutual Fund",
+    min: "₹500",
+    shortSelling: false,
+    derivatives: "Hedging only",
+    taxation: "Equity: 12.5% LTCG",
+    highlight: false,
+  },
+  {
+    name: "SIF",
+    min: "₹10 Lakh",
+    shortSelling: true,
+    derivatives: "Hedging + 25% unhedged",
+    taxation: "Equity: 12.5% LTCG",
+    highlight: true,
+  },
+  {
+    name: "PMS",
+    min: "₹50 Lakh",
+    shortSelling: true,
+    derivatives: "Hedging + rebalancing",
+    taxation: "Taxed per transaction",
+    highlight: false,
+  },
+  {
+    name: "AIF Cat III",
+    min: "₹1 Crore",
+    shortSelling: true,
+    derivatives: "Full leverage (200%)",
+    taxation: "42.7% at fund level",
+    highlight: false,
+  },
 ];
-
-function Cell({ value }: { value: string | boolean }) {
-  if (value === true) return <Check className="w-4 h-4 text-emerald-400 mx-auto" />;
-  if (value === false) return <X className="w-4 h-4 text-white/20 mx-auto" />;
-  if (value === "limited") return <Minus className="w-4 h-4 text-white/30 mx-auto" />;
-  return <span className="text-sm text-white/70">{value}</span>;
-}
 
 const ComparisonPreview = () => {
   return (
-    <section className="py-28 bg-[#0a0e1a] relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,150,12,0.03),transparent_70%)]" />
-
-      <div className="relative container mx-auto px-4">
+    <section className="py-32 bg-[#050505] relative noise">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="text-center mb-20"
         >
-          <p className="text-[#C9960C] text-xs font-semibold tracking-[0.2em] uppercase mb-3">The Comparison</p>
-          <h2 className="font-serif-display text-3xl md:text-4xl text-white mb-4">
-            SIF sits in a sweet spot.
+          <p className="text-gold text-[11px] tracking-[0.35em] uppercase mb-4">The Landscape</p>
+          <h2 className="font-editorial text-4xl md:text-5xl text-white">
+            where SIF fits in.
           </h2>
-          <p className="text-white/40 max-w-lg mx-auto">
-            More flexibility than mutual funds. Better taxation than PMS. Lower ticket than AIF.
-          </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="max-w-3xl mx-auto"
-        >
-          <div className="overflow-x-auto rounded-2xl border border-white/5">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-white/5">
-                  <th className="text-left py-4 px-5 text-xs font-medium text-white/30 uppercase tracking-wider w-[30%]">Feature</th>
-                  <th className="py-4 px-4 text-xs font-medium text-white/30 uppercase tracking-wider text-center">MF</th>
-                  <th className="py-4 px-4 text-xs font-medium text-[#C9960C] uppercase tracking-wider text-center bg-[#C9960C]/5 border-x border-[#C9960C]/10">SIF</th>
-                  <th className="py-4 px-4 text-xs font-medium text-white/30 uppercase tracking-wider text-center">PMS</th>
-                  <th className="py-4 px-4 text-xs font-medium text-white/30 uppercase tracking-wider text-center">AIF</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row, i) => (
-                  <tr key={i} className="border-b border-white/5 last:border-0">
-                    <td className="py-3.5 px-5 text-sm text-white/60">{row.feature}</td>
-                    <td className="py-3.5 px-4 text-center"><Cell value={row.mf} /></td>
-                    <td className="py-3.5 px-4 text-center bg-[#C9960C]/5 border-x border-[#C9960C]/10 font-medium">
-                      <Cell value={row.sif} />
-                    </td>
-                    <td className="py-3.5 px-4 text-center"><Cell value={row.pms} /></td>
-                    <td className="py-3.5 px-4 text-center"><Cell value={row.aif} /></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </motion.div>
+        {/* Visual columns */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
+          {vehicles.map((v, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className={`p-6 md:p-8 border text-center ${
+                v.highlight
+                  ? "border-gold/30 bg-gold/[0.03]"
+                  : "border-white/[0.04] bg-white/[0.01]"
+              }`}
+            >
+              {/* Name */}
+              <p className={`text-[11px] tracking-[0.2em] uppercase mb-6 ${
+                v.highlight ? "text-gold" : "text-white/30"
+              }`}>
+                {v.name}
+              </p>
+
+              {/* Big number */}
+              <p className={`font-editorial text-3xl md:text-4xl mb-8 ${
+                v.highlight ? "text-gold" : "text-white"
+              }`}>
+                {v.min}
+              </p>
+
+              {/* Features */}
+              <div className="space-y-4 text-left">
+                <div>
+                  <p className="text-[10px] text-white/20 uppercase tracking-wider mb-1">Short Selling</p>
+                  <p className={`text-sm ${v.shortSelling ? "text-white/70" : "text-white/20"}`}>
+                    {v.shortSelling ? "Yes" : "No"}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-white/20 uppercase tracking-wider mb-1">Derivatives</p>
+                  <p className="text-sm text-white/50">{v.derivatives}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-white/20 uppercase tracking-wider mb-1">Taxation</p>
+                  <p className={`text-sm ${v.highlight ? "text-gold/80" : "text-white/50"}`}>{v.taxation}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="text-center mt-10"
+          className="text-center mt-14"
         >
-          <Link to="/learn" className="text-sm text-white/40 hover:text-white/70 transition-colors">
-            Deep dive into SIF vs alternatives &rarr;
+          <Link to="/compare" className="text-sm text-white/30 hover:text-white/60 transition-colors border-b border-white/10 pb-1">
+            Full comparison &rarr;
           </Link>
         </motion.div>
       </div>

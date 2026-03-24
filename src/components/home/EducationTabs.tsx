@@ -1,86 +1,82 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { BookOpen, TrendingUp, Shield } from "lucide-react";
 
-const cards = [
+const questions = [
   {
-    icon: BookOpen,
-    number: "01",
-    title: "What even is a SIF?",
-    desc: "A new SEBI category that gives you hedge fund strategies with mutual fund taxation. Yes, really.",
-    link: "/learn",
+    num: "01",
+    q: "What is a Specialized Investment Fund?",
+    a: "A new SEBI category that gives you hedge fund-level strategies — long-short, derivatives, tactical allocation — with the same pass-through taxation as your regular mutual fund. Entry at ₹10 lakh.",
   },
   {
-    icon: TrendingUp,
-    number: "02",
-    title: "Long-short, explained simply.",
-    desc: "Make money when markets go up AND down. We explain the mechanics without the Wall Street jargon.",
-    link: "/learn",
+    num: "02",
+    q: "Why should you care?",
+    a: "Because your FD returns 7%. Nifty swings 20% a year. SIFs aim to make money in both directions — up and down — with lower volatility than pure equity. It's the asset class between MFs and PMS that didn't exist until 2025.",
   },
   {
-    icon: Shield,
-    number: "03",
-    title: "Better tax than PMS.",
-    desc: "12.5% LTCG after 12 months. No fund-level tax. Same pass-through as your regular mutual fund.",
-    link: "/learn",
+    num: "03",
+    q: "How is it taxed?",
+    a: "Exactly like equity mutual funds. 12.5% LTCG after 12 months. 20% STCG before that. No fund-level taxation. That's what makes SIF dramatically better than a Cat III AIF, which gets taxed at 42.7%.",
   },
 ];
 
 const EducationTabs = () => {
   return (
-    <section className="py-28 bg-[#FAF9F6]">
+    <section className="py-32 bg-[#f5f5f0]">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mb-14"
+          className="text-gold text-[11px] tracking-[0.35em] uppercase mb-16"
         >
-          <p className="text-[#C9960C] text-xs font-semibold tracking-[0.2em] uppercase mb-3">Learn</p>
-          <h2 className="font-serif-display text-3xl md:text-4xl text-foreground">
-            SIF, decoded.
-          </h2>
-        </motion.div>
+          The Basics
+        </motion.p>
 
-        <div className="space-y-4">
-          {cards.map((card, i) => (
+        <div className="space-y-0">
+          {questions.map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="grid grid-cols-12 gap-6 md:gap-10 py-12 border-b border-black/[0.06] first:border-t"
             >
-              <Link
-                to={card.link}
-                className="group flex items-center gap-6 md:gap-10 p-6 md:p-8 bg-white rounded-2xl border border-border hover:border-[#C9960C]/20 hover:shadow-lg transition-all"
-              >
-                {/* Number */}
-                <span className="hidden md:block text-5xl font-bold text-border font-heading shrink-0 w-16 group-hover:text-[#C9960C]/20 transition-colors">
-                  {card.number}
-                </span>
+              {/* Number */}
+              <div className="col-span-2 md:col-span-1">
+                <span className="font-editorial text-4xl md:text-5xl text-gold/30">{item.num}</span>
+              </div>
 
-                {/* Icon */}
-                <div className="w-12 h-12 rounded-xl bg-[#C9960C]/8 flex items-center justify-center shrink-0 group-hover:bg-[#C9960C]/15 transition-colors">
-                  <card.icon className="w-5 h-5 text-[#C9960C]" />
-                </div>
+              {/* Question */}
+              <div className="col-span-10 md:col-span-4">
+                <h3 className="font-editorial text-2xl md:text-3xl text-foreground leading-snug">
+                  {item.q}
+                </h3>
+              </div>
 
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-heading text-lg md:text-xl font-bold text-foreground mb-1 group-hover:text-[#C9960C] transition-colors">
-                    {card.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
-                </div>
-
-                {/* Arrow */}
-                <span className="text-muted-foreground group-hover:text-[#C9960C] group-hover:translate-x-1 transition-all shrink-0 text-lg">
-                  &rarr;
-                </span>
-              </Link>
+              {/* Answer */}
+              <div className="col-span-12 md:col-span-7 md:col-start-6">
+                <p className="text-muted-foreground leading-relaxed text-[15px]">
+                  {item.a}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-12"
+        >
+          <Link
+            to="/learn"
+            className="text-sm text-foreground font-medium border-b border-foreground/20 pb-1 hover:border-gold hover:text-gold transition-colors"
+          >
+            Read the full SIF guide &rarr;
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

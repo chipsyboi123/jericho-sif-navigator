@@ -3,10 +3,8 @@ import { motion } from "framer-motion";
 
 const CTAStrip = () => {
   return (
-    <section className="py-28 bg-[#0a0e1a] relative overflow-hidden">
-      {/* Gold gradient accent */}
-      <div className="absolute top-0 left-0 right-0 hr-gold" />
-      <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#C9960C] opacity-[0.03] blur-[150px] rounded-full" />
+    <section className="py-40 bg-[#050505] relative noise">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
 
       <div className="relative container mx-auto px-4 text-center">
         <motion.div
@@ -14,29 +12,23 @@ const CTAStrip = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="font-serif-display text-3xl md:text-5xl text-white mb-6 max-w-2xl mx-auto leading-tight">
-            Ready to explore the
-            <br />
-            <span className="text-gradient-gold italic">new frontier?</span>
+          <h2 className="font-editorial text-4xl md:text-6xl text-white mb-8 leading-tight">
+            ready to be an <em className="text-gradient-gold">insider?</em>
           </h2>
-          <p className="text-white/40 mb-10 max-w-md mx-auto">
-            Compare funds, understand strategies, and take the first step toward smarter investing.
+          <p className="text-white/30 mb-12 max-w-sm mx-auto text-[15px]">
+            Compare funds, understand strategies, take the first step.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/contact"
-              className="px-8 py-4 bg-[#C9960C] text-[#0a0e1a] font-bold rounded-full hover:bg-[#d4a41a] transition-all text-sm tracking-wide uppercase"
-            >
-              Talk to an advisor
-            </Link>
-            <Link
-              to="/funds"
-              className="px-8 py-4 border border-white/15 text-white/60 font-medium rounded-full hover:border-white/30 hover:text-white transition-all text-sm tracking-wide uppercase"
-            >
-              Browse funds
-            </Link>
-          </div>
+          <Link
+            to="/contact"
+            className="inline-block px-10 py-4 bg-gold text-[#050505] text-sm font-semibold tracking-wide hover:bg-gold-light transition-colors"
+          >
+            Talk to an Advisor
+          </Link>
         </motion.div>
+
+        <p className="text-white/15 text-xs mt-20 tracking-widest uppercase">
+          Powered by Jericho Ventures
+        </p>
       </div>
     </section>
   );
