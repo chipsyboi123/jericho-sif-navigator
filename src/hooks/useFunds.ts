@@ -34,7 +34,9 @@ function mapDbFund(row: any): SIFFund {
       : "TBD",
     category: categoryMap[row.category] || "Hybrid",
     nav: row.current_nav ? `Rs ${row.current_nav}` : "Placeholder",
-    navDate: row.nav_date || "Placeholder",
+    navDate: row.nav_date
+      ? new Date(row.nav_date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })
+      : "Placeholder",
     riskBand: (row.risk_band || 3) as 1 | 2 | 3 | 4 | 5,
     benchmark: row.benchmark || "TBD",
     fundManagers: Array.isArray(row.fund_managers) ? row.fund_managers : ["TBD"],
