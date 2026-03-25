@@ -13,7 +13,7 @@ router.post("/login", (req: Request, res: Response) => {
     return;
   }
 
-  if (email !== env.ADMIN_EMAIL || password !== env.ADMIN_PASSWORD) {
+  if (email.toLowerCase() !== env.ADMIN_EMAIL.toLowerCase() || password !== env.ADMIN_PASSWORD) {
     res.status(401).json({ error: "Invalid credentials" });
     return;
   }
