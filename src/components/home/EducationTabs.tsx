@@ -6,23 +6,29 @@ const questions = [
   {
     num: "01",
     q: "What is a Specialized Investment Fund?",
-    a: "A new SEBI category that gives you hedge fund-level strategies — long-short, derivatives, tactical allocation — with the same pass-through taxation as your regular mutual fund. Entry at ₹10 lakh.",
+    a: "SIFs are a SEBI-regulated category designed to bridge the gap between traditional Mutual Funds and PMS. They bring hedge fund-level strategies — long-short, derivatives, tactical allocation — within a mutual fund structure. Entry at ₹10 lakh. SEBI also introduced SIFs in response to rising retail participation in F&O, channelling speculative flows into professionally managed, risk-supervised products.",
     expandable: null,
   },
   {
     num: "02",
     q: "Why should you care?",
-    a: "Because your FDs return 4.5% to 6.5% post-tax. Equity markets swing >20% a year. SIFs aim to make money in both directions — up and down — with lower volatility than pure equity. It's the asset class between Debt & Arbitrage MFs and Category III AIFs that didn't exist until 2025.",
+    a: "Because your FDs return 5–7% pre-tax. Equity markets swing >20% a year. SIFs aim to make money in both directions — up and down — with lower volatility than pure equity. It's the regulated middle ground between Debt & Arbitrage MFs and Category III AIFs that didn't exist until 2025. For investors with ₹10–50 lakh seeking sophisticated strategies, there was simply no option before SIFs.",
     expandable: null,
   },
   {
     num: "03",
     q: "How is it taxed?",
-    a: 'Just like mutual funds. Most products have 12.5% LTCG after 12 months, with STCG or Marginal Rate of Taxation if redeemed before 12 months. No fund-level taxation. That\'s what makes SIF dramatically better than a Cat III AIF, where the same strategy would get taxed at 42.7%.',
+    a: 'Taxed at the scheme level, identical to mutual funds. Equity-oriented SIFs (>65% equity): 20% STCG under 12 months, 12.5% LTCG over 12 months (gains up to ₹1.25L exempted). Debt-oriented SIFs: taxed at your income tax slab rate. Hybrid SIFs: 12.5% LTCG. No fund-level taxation — that\'s what makes SIF dramatically better than a Cat III AIF, where the same strategy gets taxed at ~43%.',
     expandable: {
       trigger: "No fund-level taxation",
-      content: "No tax needs to be paid when your Mutual Fund Managers buy and sell stocks within the fund — tax is paid only when you sell the units of the mutual fund. This is called pass-through taxation.\n\nConversely, in case of Category III AIFs, the fund pays tax on your behalf, which can often lead to a higher tax impact on returns due to portfolio movements within the fund.",
+      content: "No tax needs to be paid when your fund managers buy and sell stocks within the fund — tax is paid only when you sell the units. This is called pass-through taxation.\n\nConversely, in Category III AIFs, the fund pays tax on your behalf at the Maximum Marginal Tax Rate (~43%), which can significantly erode returns due to frequent portfolio movements within the fund.",
     },
+  },
+  {
+    num: "04",
+    q: "When do SIFs outperform Mutual Funds?",
+    a: "In raging bull markets, long-only MFs ride the full upside while SIF hedges create drag. But in corrections, bear markets, and volatile/rangebound conditions, SIFs outperform — protective puts, short futures, and options spreads reduce drawdowns and generate returns from both directions. SIFs are designed for more predictable returns across market cycles, not just bull runs.",
+    expandable: null,
   },
 ];
 

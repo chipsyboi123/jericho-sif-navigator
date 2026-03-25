@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 
 const vehicles = [
-  { name: "Fixed Deposits", returnRange: "5–7%", risk: "Low", min: "₹1,000", taxation: "Slab rate", shortSelling: false, derivatives: "None", liquidity: "Penalty on early exit", highlight: false },
-  { name: "Debt MFs", returnRange: "6–8%", risk: "Low to Moderate", min: "₹500", taxation: "Slab rate", shortSelling: false, derivatives: "None", liquidity: "T+1 to T+3", highlight: false },
-  { name: "Arbitrage MFs", returnRange: "6–8%", risk: "Low", min: "₹500", taxation: "Equity (12.5% LTCG)", shortSelling: false, derivatives: "Hedging only", liquidity: "T+1", highlight: false },
-  { name: "Hybrid MFs", returnRange: "8–12%", risk: "Moderate", min: "₹500", taxation: "Equity (12.5% LTCG)", shortSelling: false, derivatives: "Hedging only", liquidity: "T+1 to T+3", highlight: false },
-  { name: "SIF", returnRange: "10–15%+", risk: "Moderate", min: "₹10 Lakh", taxation: "Equity (12.5% LTCG)", shortSelling: true, derivatives: "Hedging + Unhedged", liquidity: "Weekly / Bi-weekly", highlight: true },
-  { name: "Cat III AIF", returnRange: "12–20%+", risk: "High", min: "₹1 Crore", taxation: "42.7% at fund level", shortSelling: true, derivatives: "Full leverage (200%)", liquidity: "3+ year lock-in", highlight: false },
+  { name: "Fixed Deposits", returnRange: "5–7%", risk: "Low", min: "₹1,000", taxation: "Slab rate", shortSelling: "No", derivatives: "None", liquidity: "Penalty on early exit", highlight: false },
+  { name: "Debt MFs", returnRange: "6–8%", risk: "Low–Moderate", min: "₹500", taxation: "Slab rate", shortSelling: "No", derivatives: "None", liquidity: "T+1 to T+3", highlight: false },
+  { name: "Arbitrage MFs", returnRange: "6–8%", risk: "Low", min: "₹500", taxation: "12.5% LTCG", shortSelling: "Hedging only", derivatives: "Hedging only", liquidity: "T+1", highlight: false },
+  { name: "Hybrid MFs", returnRange: "8–12%", risk: "Moderate", min: "₹500", taxation: "12.5% LTCG", shortSelling: "Hedging only", derivatives: "Hedging only", liquidity: "T+1 to T+3", highlight: false },
+  { name: "SIF", returnRange: "9–15%+", risk: "Moderate", min: "₹10 Lakh", taxation: "12.5% LTCG", shortSelling: "Up to 25% unhedged + hedging", derivatives: "Hedging + 25% unhedged shorts", liquidity: "Weekly / Bi-weekly", highlight: true },
+  { name: "PMS", returnRange: "12–18%+", risk: "High", min: "₹50 Lakh", taxation: "Per transaction", shortSelling: "Hedging only", derivatives: "Hedging + rebalancing", liquidity: "T+2 to T+3", highlight: false },
+  { name: "Cat III AIF", returnRange: "12–20%+", risk: "Very High", min: "₹1 Crore", taxation: "~43% at fund level", shortSelling: "No restriction", derivatives: "Full leverage (200%)", liquidity: "3+ year lock-in", highlight: false },
 ];
 
 const ComparisonPreview = () => {
@@ -73,8 +74,8 @@ const ComparisonPreview = () => {
 
                 <div className="mb-4">
                   <p className={`text-[9px] uppercase tracking-wider mb-1 ${v.highlight ? "text-white/30" : "text-muted-foreground/60"}`}>Short Selling</p>
-                  <p className={`text-sm ${v.shortSelling ? (v.highlight ? "text-emerald-400" : "text-emerald-600") : (v.highlight ? "text-white/20" : "text-foreground/25")}`}>
-                    {v.shortSelling ? "Yes" : "No"}
+                  <p className={`text-xs ${v.highlight ? "text-white/70" : "text-foreground/60"}`}>
+                    {v.shortSelling}
                   </p>
                 </div>
 
