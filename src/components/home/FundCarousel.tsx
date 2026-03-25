@@ -38,7 +38,7 @@ const FundCarousel = () => {
               >
                 <Link
                   to={`/funds/${fund.id}`}
-                  className="group block bg-jericho p-7 h-full rounded-3xl shadow-apple-lg card-hover relative overflow-hidden"
+                  className="group block bg-jericho p-7 h-full rounded-3xl shadow-apple-lg card-hover-dark relative overflow-hidden"
                 >
                   {/* Corner gradient accent (Apple-style) */}
                   <div className="absolute top-0 right-0 w-32 h-32 rounded-bl-[80px] bg-gradient-to-bl from-gold/[0.08] to-transparent" />

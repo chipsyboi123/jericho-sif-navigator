@@ -4,7 +4,106 @@ import { requireAuth } from "../middleware/auth.js";
 
 const router = Router();
 
-// Public: get all funds with AMC name
+// Compute returns for a fund from nav_history
+async function computeReturns(fundId: string): Promise<{
+  threeMonth?: string;
+  sixMonth?: string;
+  oneYear?: string;
+  sinceInception?: string;
+  inceptionDate?: string;
+}> {
+  try {
+    // Get latest NAV
+    const latestResult = await query(
+      "SELECT date, nav FROM nav_history WHERE fund_id = $1 ORDER BY date DESC LIMIT 1",
+      [fundId]
+    );
+    if (latestResult.rows.length === 0) return {};
+
+    const latestNav = parseFloat(latestResult.rows[0].nav);
+    const latestDate = new Date(latestResult.rows[0].date);
+
+    // Get inception (first) NAV
+    const firstResult = await query(
+      "SELECT date, nav FROM nav_history WHERE fund_id = $1 ORDER BY date ASC LIMIT 1",
+      [fundId]
+    );
+    const firstNav = parseFloat(firstResult.rows[0].nav);
+    const firstDate = new Date(firstResult.rows[0].date);
+
+    // Helper: get NAV closest to a target date (on or before)
+    async function getNavAt(targetDate: Date): Promise<number | null> {
+      const dateStr = targetDate.toISOString().split("T")[0];
+      const result = await query(
+        "SELECT nav FROM nav_history WHERE fund_id = $1 AND date <= $2 ORDER BY date DESC LIMIT 1",
+        [fundId, dateStr]
+      );
+      return result.rows.length > 0 ? parseFloat(result.rows[0].nav) : null;
+    }
+
+    // Helper: format return as percentage string
+    function formatReturn(current: number, past: number): string {
+      const ret = ((current - past) / past) * 100;
+      return (ret >= 0 ? "+" : "") + ret.toFixed(2) + "%";
+    }
+
+    const returns: any = {};
+    returns.inceptionDate = firstDate.toISOString().split("T")[0];
+
+    // Since inception
+    returns.sinceInception = formatReturn(latestNav, firstNav);
+
+    // 3 months ago
+    const threeMonthsAgo = new Date(latestDate);
+    threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+    if (threeMonthsAgo >= firstDate) {
+      const nav3m = await getNavAt(threeMonthsAgo);
+      if (nav3m) returns.threeMonth = formatReturn(latestNav, nav3m);
+    }
+
+    // 6 months ago
+    const sixMonthsAgo = new Date(latestDate);
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+    if (sixMonthsAgo >= firstDate) {
+      const nav6m = await getNavAt(sixMonthsAgo);
+      if (nav6m) returns.sixMonth = formatReturn(latestNav, nav6m);
+    }
+
+    // 1 year ago
+    const oneYearAgo = new Date(latestDate);
+    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+    if (oneYearAgo >= firstDate) {
+      const nav1y = await getNavAt(oneYearAgo);
+      if (nav1y) returns.oneYear = formatReturn(latestNav, nav1y);
+    }
+
+    return returns;
+  } catch {
+    return {};
+  }
+}
+
+// Attach returns to fund rows
+async function attachReturns(funds: any[]): Promise<any[]> {
+  const results = await Promise.all(
+    funds.map(async (fund) => {
+      const returns = await computeReturns(fund.id);
+      return {
+        ...fund,
+        returns: {
+          threeMonth: returns.threeMonth || null,
+          sixMonth: returns.sixMonth || null,
+          oneYear: returns.oneYear || null,
+          sinceInception: returns.sinceInception || null,
+        },
+        inception_date: returns.inceptionDate || null,
+      };
+    })
+  );
+  return results;
+}
+
+// Public: get all funds with AMC name + computed returns
 router.get("/", async (_req: Request, res: Response) => {
   try {
     const result = await query(
@@ -13,13 +112,14 @@ router.get("/", async (_req: Request, res: Response) => {
        LEFT JOIN amcs a ON f.amc_id = a.id
        ORDER BY f.name`
     );
-    res.json(result.rows);
+    const fundsWithReturns = await attachReturns(result.rows);
+    res.json(fundsWithReturns);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// Public: get single fund by slug
+// Public: get single fund by slug + computed returns
 router.get("/:slug", async (req: Request, res: Response) => {
   try {
     const result = await query(
@@ -33,7 +133,8 @@ router.get("/:slug", async (req: Request, res: Response) => {
       res.status(404).json({ error: "Fund not found" });
       return;
     }
-    res.json(result.rows[0]);
+    const fundsWithReturns = await attachReturns(result.rows);
+    res.json(fundsWithReturns[0]);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }

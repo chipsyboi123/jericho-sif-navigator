@@ -53,6 +53,16 @@ function mapDbFund(row: any): SIFFund {
       debt: allocation.debt || 0,
       derivatives: allocation.derivatives || 0,
     },
+    // Computed returns from API
+    returns: row.returns ? {
+      threeMonth: row.returns.threeMonth || undefined,
+      sixMonth: row.returns.sixMonth || undefined,
+      oneYear: row.returns.oneYear || undefined,
+      sinceInception: row.returns.sinceInception || undefined,
+    } : undefined,
+    inceptionDate: row.inception_date
+      ? new Date(row.inception_date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })
+      : undefined,
     // Enriched fields
     tagline: row.tagline || undefined,
     investmentApproach: row.investment_approach || undefined,
