@@ -16,7 +16,7 @@ const Footer = () => {
             <p className="text-white/50 text-sm leading-relaxed mb-5">
               Your gateway to India's Specialized Investment Funds — understand, compare, and invest with confidence.
             </p>
-            <p className="text-gold/40 text-xs font-medium">
+            <p className="text-gold text-xs font-semibold tracking-wide">
               Powered by Jericho Ventures
             </p>
           </div>

@@ -24,7 +24,9 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-3">
+    <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-2"
+      style={{ background: 'linear-gradient(to bottom, rgba(5,10,48,0.9) 0%, rgba(5,10,48,0.4) 70%, transparent 100%)' }}
+    >
       {/* Jericho navy + gold floating pill */}
       <div className={`container mx-auto transition-all duration-500 rounded-2xl border ${
         scrolled
@@ -38,7 +40,7 @@ const Navbar = () => {
               <span className="text-[15px] font-bold tracking-tight text-white">SIF</span>
               <span className="text-[15px] font-bold tracking-tight text-gold">Insider</span>
             </div>
-            <span className="hidden sm:block text-[9px] text-white/25 tracking-wide border-l border-white/10 pl-3">
+            <span className="hidden sm:block text-[9px] text-gold/50 tracking-wide border-l border-gold/20 pl-3">
               by Jericho Ventures
             </span>
           </Link>

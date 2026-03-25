@@ -47,7 +47,7 @@ const FundCarousel = () => {
                   <div className="relative">
                     {/* Top row: AMC + badges */}
                     <div className="flex items-center justify-between mb-6">
-                      <span className="text-white/25 text-[10px] tracking-[0.15em] uppercase">{fund.amcName}</span>
+                      <span className="text-gold/60 text-[10px] tracking-[0.15em] uppercase font-medium">{fund.amcName}</span>
                       <div className="flex items-center gap-2">
                         {fund.planType && (
                           <span className="text-[9px] font-medium text-gold/60 border border-gold/15 px-2 py-0.5 rounded-lg">
@@ -64,21 +64,21 @@ const FundCarousel = () => {
                     <h3 className="font-editorial text-[22px] text-white mb-1 group-hover:text-gold transition-colors duration-300 leading-tight">
                       {fund.sifBrand}
                     </h3>
-                    <p className="text-white/20 text-xs mb-6">{fund.strategyType} &middot; {fund.category}</p>
+                    <p className="text-white/50 text-xs mb-6">{fund.strategyType} &middot; {fund.category}</p>
 
                     {/* NAV + Inception */}
                     <div className="flex items-baseline justify-between mb-6 pb-5 border-b border-white/[0.06]">
                       <div>
-                        <p className="text-[9px] text-white/20 uppercase tracking-wider mb-1">Current NAV</p>
+                        <p className="text-[9px] text-white/40 uppercase tracking-wider mb-1">Current NAV</p>
                         <p className="font-mono-data text-lg text-gold">
                           {fund.nav !== "Placeholder" ? fund.nav : "—"}
                         </p>
                         {fund.navDate && fund.navDate !== "Placeholder" && (
-                          <p className="text-[9px] text-white/15 mt-0.5">as of {fund.navDate}</p>
+                          <p className="text-[9px] text-white/35 mt-0.5">as of {fund.navDate}</p>
                         )}
                       </div>
                       <div className="text-right">
-                        <p className="text-[9px] text-white/20 uppercase tracking-wider mb-1">Since</p>
+                        <p className="text-[9px] text-white/40 uppercase tracking-wider mb-1">Since</p>
                         <p className="text-sm text-white/60">{fund.inceptionDate || fund.launchDate}</p>
                       </div>
                     </div>
@@ -92,7 +92,7 @@ const FundCarousel = () => {
                         { label: "SI", val: fund.returns?.sinceInception },
                       ].map((r, j) => (
                         <div key={j} className="glass-dark rounded-xl px-2 py-2 text-center">
-                          <p className="text-[8px] text-white/20 uppercase tracking-wider mb-0.5">{r.label}</p>
+                          <p className="text-[8px] text-white/40 uppercase tracking-wider mb-0.5">{r.label}</p>
                           <p className={`font-mono-data text-sm ${
                             r.val && !r.val.startsWith("-") ? "text-emerald-400" :
                             r.val && r.val.startsWith("-") ? "text-red-400" : "text-white/25"
@@ -113,16 +113,16 @@ const FundCarousel = () => {
                     {/* Bottom metrics */}
                     <div className="flex gap-5 text-xs">
                       <div>
-                        <p className="text-[9px] text-white/20 uppercase tracking-wider mb-0.5">Risk</p>
+                        <p className="text-[9px] text-white/40 uppercase tracking-wider mb-0.5">Risk</p>
                         <p className={`text-xs font-medium ${getRiskColor(fund.riskBand)}`}>{riskLabel}</p>
                       </div>
                       <div>
-                        <p className="text-[9px] text-white/20 uppercase tracking-wider mb-0.5">Min</p>
+                        <p className="text-[9px] text-white/40 uppercase tracking-wider mb-0.5">Min</p>
                         <p className="text-white/70">{fund.minInvestment}</p>
                       </div>
                       {fund.expenseRatio && (
                         <div>
-                          <p className="text-[9px] text-white/20 uppercase tracking-wider mb-0.5">Expense</p>
+                          <p className="text-[9px] text-white/40 uppercase tracking-wider mb-0.5">Expense</p>
                           <p className="text-white/70">{fund.expenseRatio}</p>
                         </div>
                       )}

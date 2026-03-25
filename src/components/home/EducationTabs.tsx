@@ -2,6 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Subtle card tints — alternating blue and warm beige shades
+const cardTints = [
+  "bg-[#E8EDF5]",  // soft blue-gray
+  "bg-[#F5F0E8]",  // warm beige
+  "bg-[#E5EBF2]",  // cool slate blue
+  "bg-[#F2EDE4]",  // cream sand
+];
+
 const questions = [
   {
     num: "01",
@@ -46,7 +54,7 @@ const EducationTabs = () => {
           {questions.map((item, i) => (
             <div
               key={i}
-              className="bg-secondary/40 rounded-3xl p-8 md:p-10 card-hover animate-fadeIn"
+              className={`${cardTints[i % cardTints.length]} rounded-3xl p-8 md:p-10 card-hover animate-fadeIn`}
               style={{ animationDelay: `${i * 80}ms` }}
             >
               <div className="grid grid-cols-12 gap-6 md:gap-10">

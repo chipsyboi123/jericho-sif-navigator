@@ -2,14 +2,17 @@ const pillars = [
   {
     title: "Guided.",
     desc: "We'll get on a call with you to understand your exact requirements and ensure you get invested into the right product — with all the information you need to make a confident decision.",
+    tint: "bg-[#F0EDE5]", // warm sand
   },
   {
     title: "Clarity.",
     desc: "We write for investors, not fund managers. No jargon. No caveats wrapped in caveats. If a fund is risky, we say it's risky. If the exit load stings, we'll tell you.",
+    tint: "bg-[#E8EDF5]", // cool blue
   },
   {
     title: "Curated.",
     desc: "We deeply analyze every product before onboarding it. All investments carry risks — but we present you the cream of the crop, so you start from a position of strength.",
+    tint: "bg-[#EEE8F2]", // soft lavender
   },
 ];
 
@@ -37,7 +40,7 @@ const WhyJericho = () => {
             {pillars.map((pillar, i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl p-7 shadow-apple card-hover animate-fadeIn"
+                className={`${pillar.tint} rounded-2xl p-7 shadow-apple card-hover animate-fadeIn`}
                 style={{ animationDelay: `${i * 80}ms` }}
               >
                 <h3 className="text-lg font-semibold text-jericho mb-2 tracking-tight">{pillar.title}</h3>

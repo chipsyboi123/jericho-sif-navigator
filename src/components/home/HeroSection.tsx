@@ -51,8 +51,8 @@ const HeroSection = () => {
       {/* Apple-style gradient mesh overlay */}
       <div className="absolute inset-0 bg-mesh-dark" />
 
-      {/* Bottom gradient fade to white (Apple section transition) */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
+      {/* Bottom gradient fade to cream/beige */}
+      <div className="absolute bottom-0 left-0 right-0 h-40" style={{ background: 'linear-gradient(to top, #F5F0E8 0%, #F5F0E830 40%, transparent 100%)' }} />
 
       <div className="relative container mx-auto px-4 text-center pt-14">
         {/* Eyebrow pill badge */}
