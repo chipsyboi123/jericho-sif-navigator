@@ -1,9 +1,8 @@
 import SEOHead from "@/components/SEOHead";
 import HeroSection from "@/components/home/HeroSection";
-import Marquee from "@/components/home/Marquee";
-import FundCarousel from "@/components/home/FundCarousel";
 import ComparisonPreview from "@/components/home/ComparisonPreview";
 import EducationTabs from "@/components/home/EducationTabs";
+import FundCarousel from "@/components/home/FundCarousel";
 import WhyJericho from "@/components/home/WhyJericho";
 import KnowledgePreview from "@/components/home/KnowledgePreview";
 import CTAStrip from "@/components/home/CTAStrip";
@@ -21,10 +20,9 @@ const Index = () => {
         }}
       />
       <HeroSection />
-      <Marquee />
-      <FundCarousel />
       <ComparisonPreview />
       <EducationTabs />
+      <FundCarousel />
       <WhyJericho />
       <KnowledgePreview />
       <CTAStrip />

@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 
 const pillars = [
   {
-    title: "We'll help you decide.",
-    desc: "We'll get on a call with you to understand your exact requirements and ensure you get invested into the right product with all the information you need to make a confident decision.",
+    title: "Guided.",
+    desc: "We'll get on a call with you to understand your exact requirements and ensure you get invested into the right product — with all the information you need to make a confident decision.",
   },
   {
     title: "Clarity.",

@@ -119,7 +119,7 @@ const EducationTabs = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-10"
+          className="mt-10 flex flex-col sm:flex-row sm:items-center gap-3"
         >
           <Link
             to="/learn"
@@ -127,6 +127,9 @@ const EducationTabs = () => {
           >
             Read the full SIF guide &rarr;
           </Link>
+          <span className="text-xs text-muted-foreground/60">
+            Learn everything you need to know in less than 15 minutes.
+          </span>
         </motion.div>
       </div>
     </section>

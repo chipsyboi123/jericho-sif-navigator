@@ -30,13 +30,14 @@ const Navbar = () => {
         : "bg-white"
     } border-b border-border`}>
       <div className="container mx-auto flex items-center justify-between h-14 px-4">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-0.5">
-          <span className="text-[15px] font-bold tracking-tight text-jericho">
-            SIF
-          </span>
-          <span className="text-[15px] font-bold tracking-tight text-gold">
-            Insider
+        {/* Logo + Powered by */}
+        <Link to="/" className="flex items-center gap-3">
+          <div className="flex items-center gap-0.5">
+            <span className="text-[15px] font-bold tracking-tight text-jericho">SIF</span>
+            <span className="text-[15px] font-bold tracking-tight text-gold">Insider</span>
+          </div>
+          <span className="hidden sm:block text-[9px] text-muted-foreground/50 tracking-wide border-l border-border pl-3">
+            by Jericho Ventures
           </span>
         </Link>
 
@@ -61,7 +62,7 @@ const Navbar = () => {
         <div className="hidden lg:block">
           <Link
             to="/contact"
-            className="px-5 py-2 text-[13px] font-semibold bg-jericho text-white hover:bg-jericho-light transition-colors"
+            className="px-5 py-2 text-[13px] font-semibold bg-jericho text-white rounded-full hover:bg-jericho-light transition-colors"
           >
             Schedule a Call
           </Link>
@@ -101,7 +102,7 @@ const Navbar = () => {
               <Link
                 to="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-3 px-6 py-3 text-sm font-semibold bg-jericho text-white text-center"
+                className="mt-3 px-6 py-3 text-sm font-semibold bg-jericho text-white text-center rounded-full"
               >
                 Schedule a Call
               </Link>

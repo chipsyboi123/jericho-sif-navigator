@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-jericho border-t border-gold/10">
+    <footer className="bg-jericho">
       {/* Gold accent line */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
+      <div className="h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
 
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -13,16 +13,16 @@ const Footer = () => {
               <span className="text-[15px] font-bold text-white tracking-tight">SIF</span>
               <span className="text-[15px] font-bold text-gold tracking-tight">Insider</span>
             </Link>
-            <p className="text-gold/40 text-sm leading-relaxed mb-5">
+            <p className="text-white/50 text-sm leading-relaxed mb-5">
               Your gateway to India's Specialized Investment Funds — understand, compare, and invest with confidence.
             </p>
-            <p className="text-gold/25 text-xs">
+            <p className="text-gold/40 text-xs font-medium">
               Powered by Jericho Ventures
             </p>
           </div>
 
           <div>
-            <p className="text-[10px] text-gold/50 tracking-[0.2em] uppercase mb-5 font-semibold">Explore</p>
+            <p className="text-[10px] text-gold tracking-[0.2em] uppercase mb-5 font-bold">Explore</p>
             <div className="flex flex-col gap-3">
               {[
                 { label: "Learn about SIF", path: "/learn" },
@@ -30,7 +30,7 @@ const Footer = () => {
                 { label: "Compare", path: "/compare" },
                 { label: "Tracker", path: "/tracker" },
               ].map((link) => (
-                <Link key={link.path} to={link.path} className="text-sm text-white/30 hover:text-gold transition-colors">
+                <Link key={link.path} to={link.path} className="text-sm text-white/50 hover:text-gold transition-colors">
                   {link.label}
                 </Link>
               ))}
@@ -38,14 +38,14 @@ const Footer = () => {
           </div>
 
           <div>
-            <p className="text-[10px] text-gold/50 tracking-[0.2em] uppercase mb-5 font-semibold">Resources</p>
+            <p className="text-[10px] text-gold tracking-[0.2em] uppercase mb-5 font-bold">Resources</p>
             <div className="flex flex-col gap-3">
               {[
                 { label: "Knowledge Hub", path: "/knowledge" },
                 { label: "About", path: "/about" },
                 { label: "Contact", path: "/contact" },
               ].map((link) => (
-                <Link key={link.path} to={link.path} className="text-sm text-white/30 hover:text-gold transition-colors">
+                <Link key={link.path} to={link.path} className="text-sm text-white/50 hover:text-gold transition-colors">
                   {link.label}
                 </Link>
               ))}
@@ -53,8 +53,8 @@ const Footer = () => {
           </div>
 
           <div>
-            <p className="text-[10px] text-gold/50 tracking-[0.2em] uppercase mb-5 font-semibold">Regulatory</p>
-            <p className="text-xs text-white/20 leading-relaxed">
+            <p className="text-[10px] text-gold tracking-[0.2em] uppercase mb-5 font-bold">Regulatory</p>
+            <p className="text-xs text-white/40 leading-relaxed">
               All SIF investments are subject to market risks.
               Read all scheme-related documents carefully. Minimum investment ₹10 Lakh.
               Past performance does not guarantee future results.
@@ -62,9 +62,9 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-16 pt-6 border-t border-gold/[0.08] flex flex-col md:flex-row justify-between gap-3">
-          <p className="text-[11px] text-gold/20">&copy; {new Date().getFullYear()} SIF Insider. A Jericho Ventures initiative.</p>
-          <p className="text-[11px] text-gold/20">ARN: 166913 &middot; AMFI Registered</p>
+        <div className="mt-16 pt-6 border-t border-white/[0.06] flex flex-col md:flex-row justify-between gap-3">
+          <p className="text-[11px] text-white/30">&copy; {new Date().getFullYear()} SIF Insider. A Jericho Ventures initiative.</p>
+          <p className="text-[11px] text-white/30">ARN: 166913 &middot; AMFI Registered</p>
         </div>
       </div>
     </footer>
