@@ -1,18 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { getRiskColor, getSebiRiskLabel } from "@/data/sifFunds";
 import { useFunds } from "@/hooks/useFunds";
 import SEOHead from "@/components/SEOHead";
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.07, ease: "easeOut" },
-  }),
-};
 
 const FundExplorer = () => {
   const [filter, setFilter] = useState<string>("All");
@@ -29,13 +19,13 @@ const FundExplorer = () => {
         description="Explore all SEBI-registered Specialized Investment Funds. Filter by category, compare strategies, and find the right SIF for your portfolio."
       />
       <div className="container mx-auto px-4">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        <div className="animate-fadeIn">
           <p className="text-gold text-[11px] tracking-[0.3em] uppercase mb-3">Browse</p>
           <h1 className="font-editorial text-3xl md:text-5xl text-jericho mb-3">
             Fund Explorer
           </h1>
           <p className="text-muted-foreground text-base mb-10">All launched SIF schemes across AMCs.</p>
-        </motion.div>
+        </div>
 
         {/* Filters — Apple-style pill toggles */}
         <div className="flex gap-2 mb-10 flex-wrap">
@@ -65,13 +55,9 @@ const FundExplorer = () => {
               const riskLabel = fund.sebiRiskLabel || getSebiRiskLabel(fund.riskBand);
               return (
                 <Link to={`/funds/${fund.id}`} key={fund.id}>
-                  <motion.div
-                    custom={i}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-40px" }}
-                    variants={cardVariants}
-                    className="bg-white rounded-2xl shadow-apple card-hover p-7 h-full"
+                  <div
+                    className="bg-white rounded-2xl shadow-apple card-hover p-7 h-full animate-fadeIn"
+                    style={{ animationDelay: `${i * 70}ms` }}
                   >
                     {/* Header: AMC + Risk badge */}
                     <div className="flex justify-between items-start mb-4">
@@ -149,7 +135,7 @@ const FundExplorer = () => {
                         </span>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 </Link>
               );
             })}

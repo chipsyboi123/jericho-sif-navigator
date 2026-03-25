@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 
 const CTAStrip = () => {
   return (
@@ -9,11 +8,7 @@ const CTAStrip = () => {
       <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-jericho-accent/20 blur-[80px]" />
 
       <div className="relative container mx-auto px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
+        <div className="animate-fadeIn">
           <h2 className="font-editorial text-3xl md:text-5xl text-white mb-6 leading-tight">
             Ready to explore <em className="text-gradient-gold">SIF?</em>
           </h2>
@@ -35,7 +30,7 @@ const CTAStrip = () => {
               Browse Funds
             </Link>
           </div>
-        </motion.div>
+        </div>
 
         <p className="text-white/10 text-xs mt-20 tracking-widest uppercase">
           Powered by Jericho Ventures

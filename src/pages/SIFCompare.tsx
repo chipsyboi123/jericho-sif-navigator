@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { useLaunchedFunds } from "@/hooks/useFunds";
 import SEOHead from "@/components/SEOHead";
-
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
 
 const SIFCompare = () => {
   const { data: launched, isLoading } = useLaunchedFunds();
@@ -45,15 +39,15 @@ const SIFCompare = () => {
     <div className="py-20">
       <SEOHead title="Compare SIF Funds" description="Side-by-side comparison of SIF strategies. Compare risk bands, benchmarks, fund managers, and allocation across schemes." />
       <div className="container mx-auto px-4">
-        <motion.div {...fadeUp} transition={{ duration: 0.6 }}>
+        <div className="animate-fadeIn">
           <h1 className="font-display text-4xl md:text-5xl font-bold mb-3 text-foreground">
             Compare SIF Funds
           </h1>
           <p className="text-muted-foreground text-lg mb-8">Select 2-3 funds for side-by-side comparison.</p>
-        </motion.div>
+        </div>
 
         {/* Fund selector */}
-        <motion.div {...fadeUp} transition={{ duration: 0.5, delay: 0.15 }} className="flex flex-wrap gap-2 mb-10">
+        <div className="flex flex-wrap gap-2 mb-10 animate-fadeIn-delay-2">
           {launched.map((fund) => (
             <button
               key={fund.id}
@@ -67,14 +61,10 @@ const SIFCompare = () => {
               {fund.sifBrand}
             </button>
           ))}
-        </motion.div>
+        </div>
 
         {/* Comparison table */}
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="overflow-x-auto rounded-2xl border border-border bg-white/70 backdrop-blur-sm shadow-card overflow-hidden"
-        >
+        <div className="overflow-x-auto rounded-2xl border border-border bg-white/70 backdrop-blur-sm shadow-card overflow-hidden animate-fadeIn-delay-3">
           <table className="w-full">
             <thead>
               <tr className="border-b border-border bg-secondary/50">
@@ -88,12 +78,10 @@ const SIFCompare = () => {
             </thead>
             <tbody>
               {fields.map((field, i) => (
-                <motion.tr
+                <tr
                   key={field.key}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.25, delay: 0.3 + i * 0.04 }}
-                  className="border-b border-border/50 hover:bg-secondary/40 transition-colors"
+                  className="border-b border-border/50 hover:bg-secondary/40 transition-colors animate-fadeIn"
+                  style={{ animationDelay: `${i * 40}ms` }}
                 >
                   <td className="py-3.5 px-5 text-sm font-medium text-foreground font-heading">{field.label}</td>
                   {selectedFunds.map((fund) => {
@@ -103,7 +91,7 @@ const SIFCompare = () => {
                       <td key={fund.id} className="py-3.5 px-5 text-sm text-muted-foreground">{display}</td>
                     );
                   })}
-                </motion.tr>
+                </tr>
               ))}
               {/* Allocation row */}
               <tr className="border-b border-border/50 hover:bg-secondary/40 transition-colors">
@@ -116,7 +104,7 @@ const SIFCompare = () => {
               </tr>
             </tbody>
           </table>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { motion } from "framer-motion";
 import { apiFetch } from "@/lib/api";
 import SEOHead from "@/components/SEOHead";
-
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
 
 const Contact = () => {
   const [searchParams] = useSearchParams();
@@ -57,7 +51,7 @@ const Contact = () => {
     return (
       <div className="py-24 bg-cream min-h-screen">
         <div className="container mx-auto px-4 max-w-2xl text-center">
-          <motion.div {...fadeUp} transition={{ duration: 0.6 }}>
+          <div className="animate-fadeIn">
             <div className="glass-gold rounded-2xl p-10 md:p-14">
               <h1 className="font-display text-4xl md:text-5xl font-semibold italic mb-4 text-foreground">
                 Thank You
@@ -72,7 +66,7 @@ const Contact = () => {
                 Back to Home
               </a>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     );
@@ -84,18 +78,14 @@ const Contact = () => {
     <div className="py-24 bg-cream min-h-screen">
       <SEOHead title="Contact Us" description="Schedule a consultation with SIF Insider's advisory team. Get personalized guidance on Specialized Investment Fund allocation." noIndex={true} />
       <div className="container mx-auto px-4 max-w-2xl">
-        <motion.div {...fadeUp} transition={{ duration: 0.6 }}>
+        <div className="animate-fadeIn">
           <h1 className="font-display text-4xl md:text-5xl font-semibold italic mb-3 text-foreground">
             Start a Conversation
           </h1>
           <p className="text-muted-foreground text-lg mb-10">Tell us about yourself and we will guide you to the right SIF strategy.</p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.5, delay: 0.15 }}
-          className="glass-card rounded-2xl p-8 md:p-10"
-        >
+        <div className="glass-card rounded-2xl p-8 md:p-10 animate-fadeIn-delay-2">
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -160,7 +150,7 @@ const Contact = () => {
               {submitting ? "Submitting..." : "Schedule a Consultation"}
             </button>
           </form>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

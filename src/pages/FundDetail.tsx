@@ -1,5 +1,4 @@
 import { useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { getRiskColor, getRiskLabel, type FundManagerDetail } from "@/data/sifFunds";
 import { useFundBySlug } from "@/hooks/useFunds";
 import PerformanceChart from "@/components/PerformanceChart";
@@ -57,7 +56,7 @@ const FundDetail = () => {
           <span className="text-foreground">{fund.sifBrand}</span>
         </div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        <div className="animate-fadeIn">
           {/* Header */}
           <div className="mb-10">
             <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-2">{fund.amcName}</p>
@@ -373,7 +372,7 @@ const FundDetail = () => {
               Compare This Fund
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

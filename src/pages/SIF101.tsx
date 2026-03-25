@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 
@@ -158,12 +158,6 @@ function getResult(score: number) {
   };
 }
 
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 },
-};
-
 const RiskProfiler = () => {
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(questions.length).fill(null));
   const [showResult, setShowResult] = useState(false);
@@ -181,7 +175,7 @@ const RiskProfiler = () => {
 
   if (showResult) {
     return (
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+      <div className="animate-fadeIn">
         <div className="glass-gold rounded-2xl p-8 mb-6">
           <p className="text-xs font-semibold text-gold uppercase tracking-wider mb-2 font-heading">Your Score: {totalScore}/16</p>
           <h3 className={`font-heading text-2xl font-bold mb-3 ${result.color}`}>{result.title}</h3>
@@ -201,19 +195,17 @@ const RiskProfiler = () => {
             </button>
           </div>
         </div>
-      </motion.div>
+      </div>
     );
   }
 
   return (
     <div className="space-y-6">
       {questions.map((q, qi) => (
-        <motion.div
+        <div
           key={qi}
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, delay: qi * 0.05 }}
-          className="bg-white/60 backdrop-blur-sm border border-border rounded-2xl shadow-card p-6"
+          className="bg-white/60 backdrop-blur-sm border border-border rounded-2xl shadow-card p-6 animate-fadeIn"
+          style={{ animationDelay: `${qi * 50}ms` }}
         >
           <p className="text-sm font-semibold text-foreground mb-4 font-heading">
             {qi + 1}. {q.question}
@@ -233,7 +225,7 @@ const RiskProfiler = () => {
               </button>
             ))}
           </div>
-        </motion.div>
+        </div>
       ))}
       <button
         onClick={() => setShowResult(true)}
@@ -257,22 +249,17 @@ const SIF101 = () => {
     <div className="py-20">
       <SEOHead title="SIF 101: What is a Specialized Investment Fund?" description="Learn everything about SIFs. Investment minimums, strategies, taxation, risk bands, and how SIFs compare to PMS and AIF." />
       <div className="container mx-auto px-4">
-        <motion.div {...fadeUp}>
+        <div className="animate-fadeIn">
           <h1 className="font-display text-4xl md:text-5xl font-bold mb-3 text-foreground">
             SIF 101
           </h1>
           <p className="text-muted-foreground text-lg mb-12">Your complete learning path to understanding Specialized Investment Funds.</p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar nav */}
           <div className="lg:col-span-1">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="sticky top-24 glass-card rounded-2xl p-3 space-y-1"
-            >
+            <div className="sticky top-24 glass-card rounded-2xl p-3 space-y-1 animate-fadeIn-delay-2">
               {modules.map((m) => (
                 <button
                   key={m.id}
@@ -286,7 +273,7 @@ const SIF101 = () => {
                   <span className="font-heading">Module {m.id}:</span> {m.title}
                 </button>
               ))}
-            </motion.div>
+            </div>
           </div>
 
           {/* Content */}
@@ -312,15 +299,13 @@ const SIF101 = () => {
                       <>
                         <div className="space-y-4 rounded-2xl border border-border bg-white/60 backdrop-blur-sm p-6 md:p-8">
                           {m.content.map((para, i) => (
-                            <motion.p
+                            <p
                               key={i}
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.3, delay: i * 0.08 }}
-                              className="text-foreground/80 leading-relaxed"
+                              className="text-foreground/80 leading-relaxed animate-fadeIn"
+                              style={{ animationDelay: `${i * 80}ms` }}
                             >
                               {para}
-                            </motion.p>
+                            </p>
                           ))}
                         </div>
                         <div className="mt-8 flex gap-3">

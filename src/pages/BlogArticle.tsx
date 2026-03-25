@@ -1,5 +1,4 @@
 import { useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useBlogPost } from "@/hooks/useBlogPosts";
@@ -62,11 +61,7 @@ const BlogArticle = () => {
           <span className="text-foreground truncate">{post.title}</span>
         </div>
 
-        <motion.article
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <article className="animate-fadeIn">
           {/* Header */}
           <div className="mb-10">
             <span className="text-xs font-semibold text-gold uppercase tracking-wider">
@@ -104,7 +99,7 @@ const BlogArticle = () => {
               Schedule a Consultation
             </Link>
           </div>
-        </motion.article>
+        </article>
       </div>
     </div>
   );

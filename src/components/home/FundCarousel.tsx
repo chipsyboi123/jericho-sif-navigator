@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { getSebiRiskLabel, getRiskColor } from "@/data/sifFunds";
 import { useFunds } from "@/hooks/useFunds";
 
@@ -32,13 +31,10 @@ const FundCarousel = () => {
           {displayFunds.map((fund, i) => {
             const riskLabel = fund.sebiRiskLabel || getSebiRiskLabel(fund.riskBand);
             return (
-              <motion.div
+              <div
                 key={fund.id}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="shrink-0 w-[340px] md:w-[400px]"
+                className="shrink-0 w-[340px] md:w-[400px] animate-fadeIn"
+                style={{ animationDelay: `${i * 80}ms` }}
               >
                 <Link
                   to={`/funds/${fund.id}`}
@@ -133,7 +129,7 @@ const FundCarousel = () => {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </div>
             );
           })}
         </div>

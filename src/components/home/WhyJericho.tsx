@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 const pillars = [
   {
     title: "Guided.",
@@ -21,12 +19,7 @@ const WhyJericho = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-14">
           {/* Left — big statement */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="md:col-span-5"
-          >
+          <div className="md:col-span-5 animate-fadeIn">
             <p className="text-gold text-[11px] tracking-[0.3em] uppercase mb-4">Why SIF Insider</p>
             <h2 className="font-editorial text-3xl md:text-5xl text-jericho leading-tight mb-6">
               we built what
@@ -37,22 +30,19 @@ const WhyJericho = () => {
               When SIFs launched in 2025, there was no single place to understand, compare, and invest in them.
               No plain-English breakdowns. No independent analysis. So we made one.
             </p>
-          </motion.div>
+          </div>
 
           {/* Right — three pillar cards */}
           <div className="md:col-span-7 space-y-4">
             {pillars.map((pillar, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="bg-white rounded-2xl p-7 shadow-apple card-hover"
+                className="bg-white rounded-2xl p-7 shadow-apple card-hover animate-fadeIn"
+                style={{ animationDelay: `${i * 80}ms` }}
               >
                 <h3 className="text-lg font-semibold text-jericho mb-2 tracking-tight">{pillar.title}</h3>
                 <p className="text-muted-foreground text-[15px] leading-relaxed">{pillar.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

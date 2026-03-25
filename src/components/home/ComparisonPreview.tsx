@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 
 const vehicles = [
   { name: "Fixed Deposits", returnRange: "5–7%", risk: "Low", min: "₹1,000", taxation: "Slab rate", shortSelling: false, derivatives: "None", liquidity: "Penalty on early exit", highlight: false },
@@ -14,12 +13,7 @@ const ComparisonPreview = () => {
   return (
     <section className="py-28 bg-secondary/30">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16 animate-fadeIn">
           <p className="text-gold text-[11px] tracking-[0.3em] uppercase mb-3">The Landscape</p>
           <h2 className="font-editorial text-3xl md:text-5xl text-jericho mb-4">
             Where does SIF fit in?
@@ -27,23 +21,20 @@ const ComparisonPreview = () => {
           <p className="text-muted-foreground text-sm max-w-lg mx-auto">
             From fixed deposits to hedge funds — here's how SIF compares across the entire spectrum.
           </p>
-        </motion.div>
+        </div>
 
         {/* Apple-style scrollable cards */}
         <div className="overflow-x-auto scrollbar-hide pb-4">
           <div className="flex gap-4 min-w-max px-2">
             {vehicles.map((v, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.06 }}
-                className={`w-[200px] md:w-[210px] p-6 rounded-3xl card-hover relative ${
+                className={`w-[200px] md:w-[210px] p-6 rounded-3xl card-hover relative animate-fadeIn ${
                   v.highlight
                     ? "bg-jericho text-white shadow-apple-lg"
                     : "bg-white text-foreground shadow-apple"
                 }`}
+                style={{ animationDelay: `${i * 60}ms` }}
               >
                 {v.highlight && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -91,21 +82,16 @@ const ComparisonPreview = () => {
                   <p className={`text-[9px] uppercase tracking-wider mb-1 ${v.highlight ? "text-white/30" : "text-muted-foreground/60"}`}>Liquidity</p>
                   <p className={`text-xs ${v.highlight ? "text-white/60" : "text-foreground/50"}`}>{v.liquidity}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mt-10"
-        >
+        <div className="text-center mt-10 animate-fadeIn-delay-5">
           <Link to="/compare" className="text-sm text-jericho/50 hover:text-gold transition-colors">
             Full side-by-side comparison &rarr;
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

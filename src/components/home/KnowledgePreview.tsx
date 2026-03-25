@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 
 const KnowledgePreview = () => {
@@ -28,12 +27,10 @@ const KnowledgePreview = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {displayPosts.map((post, i) => (
-            <motion.div
+            <div
               key={post.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="animate-fadeIn"
+              style={{ animationDelay: `${i * 80}ms` }}
             >
               <Link
                 to={`/knowledge/${post.slug}`}
@@ -47,7 +44,7 @@ const KnowledgePreview = () => {
                 </h3>
                 <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">{post.excerpt}</p>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

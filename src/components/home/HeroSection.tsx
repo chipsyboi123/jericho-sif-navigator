@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 // Animated counter hook
@@ -57,47 +56,35 @@ const HeroSection = () => {
 
       <div className="relative container mx-auto px-4 text-center pt-14">
         {/* Eyebrow pill badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="inline-block mb-10"
-        >
+        <div className="inline-block mb-10 animate-fadeIn-delay-2">
           <span className="glass-dark text-gold/70 text-[10px] tracking-[0.3em] uppercase px-6 py-2.5 rounded-full inline-flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-gold rounded-full animate-glow-pulse" />
             Powered by Jericho Ventures
           </span>
-        </motion.div>
+        </div>
 
         {/* THE headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="font-editorial text-[clamp(2.5rem,6.5vw,5.5rem)] leading-[1.05] text-white mb-8 tracking-[-0.01em] max-w-4xl mx-auto"
+        <h1
+          className="font-editorial text-[clamp(2.5rem,6.5vw,5.5rem)] leading-[1.05] text-white mb-8 tracking-[-0.01em] max-w-4xl mx-auto animate-fadeIn-delay-4"
         >
           Your gateway to India's
           <br />
           <em className="text-gradient-gold">fastest growing</em> asset class.
-        </motion.h1>
+        </h1>
 
         {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="text-white/40 text-base md:text-lg max-w-lg mx-auto mb-12 leading-relaxed"
+        <p
+          className="text-white/40 text-base md:text-lg max-w-lg mx-auto mb-12 leading-relaxed animate-fadeIn"
+          style={{ animationDelay: '0.7s', opacity: 0, animationFillMode: 'forwards' }}
         >
           Specialized Investment Funds — decoded, compared,
           and made accessible. Your first step starts here.
-        </motion.p>
+        </p>
 
         {/* Apple-style rounded CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+        <div
+          className="flex flex-col sm:flex-row gap-4 justify-center animate-fadeIn"
+          style={{ animationDelay: '1s', opacity: 0, animationFillMode: 'forwards' }}
         >
           <Link
             to="/funds"
@@ -112,14 +99,12 @@ const HeroSection = () => {
           >
             What is SIF?
           </Link>
-        </motion.div>
+        </div>
 
         {/* Stats row — glass cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.3 }}
-          className="flex flex-col sm:flex-row justify-center gap-4 mt-16"
+        <div
+          className="flex flex-col sm:flex-row justify-center gap-4 mt-16 animate-fadeIn"
+          style={{ animationDelay: '1.3s', opacity: 0, animationFillMode: 'forwards' }}
           ref={aum.ref}
         >
           {[
@@ -139,7 +124,7 @@ const HeroSection = () => {
               SEBI Regulated
             </span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

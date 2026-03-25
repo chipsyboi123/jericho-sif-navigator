@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
@@ -28,11 +27,6 @@ const categoryColors: Record<string, string> = {
   updates: "bg-cyan-500/10 text-cyan-600",
 };
 
-const fadeUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
-
 const KnowledgeHub = () => {
   const { data: publishedPosts } = useBlogPosts();
 
@@ -43,22 +37,20 @@ const KnowledgeHub = () => {
     <div className="py-20">
       <SEOHead title="Knowledge Hub" description="Deep-dive articles on SIF strategies, taxation, market updates, and investment education for Indian HNIs." />
       <div className="container mx-auto px-4">
-        <motion.div {...fadeUp} transition={{ duration: 0.6 }}>
+        <div className="animate-fadeIn">
           <h1 className="font-display text-4xl md:text-5xl font-bold mb-3 text-foreground">
             Knowledge Hub
           </h1>
           <p className="text-muted-foreground text-lg mb-12">Deep-dive articles on SIF strategies, taxation, and market updates.</p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {/* Published articles from Supabase */}
           {publishedPosts?.map((post, i) => (
             <Link to={`/knowledge/${post.slug}`} key={post.id}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
-                className="bg-white/70 backdrop-blur-sm border border-border rounded-2xl shadow-card hover:shadow-card-hover hover:border-gold/30 hover:-translate-y-1 p-6 transition-all cursor-pointer h-full"
+              <div
+                className="bg-white/70 backdrop-blur-sm border border-border rounded-2xl shadow-card hover:shadow-card-hover hover:border-gold/30 hover:-translate-y-1 p-6 transition-all cursor-pointer h-full animate-fadeIn"
+                style={{ animationDelay: `${i * 50}ms` }}
               >
                 <div className="flex items-center gap-3 mb-3">
                   <span className={`text-xs font-semibold px-3 py-1 rounded-full ${categoryColors[post.category] || "bg-gold/10 text-gold"}`}>
@@ -72,7 +64,7 @@ const KnowledgeHub = () => {
                 {post.excerpt && (
                   <p className="text-sm text-muted-foreground mt-2">{post.excerpt}</p>
                 )}
-              </motion.div>
+              </div>
             </Link>
           ))}
 
@@ -80,12 +72,10 @@ const KnowledgeHub = () => {
           {placeholderArticles
             .filter((a) => !publishedTitles.has(a.title))
             .map((article, i) => (
-              <motion.div
+              <div
                 key={article.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: (publishedPosts?.length || 0 + i) * 0.05 }}
-                className="bg-white/50 backdrop-blur-sm border border-border rounded-2xl p-6 opacity-60"
+                className="bg-white/50 backdrop-blur-sm border border-border rounded-2xl p-6 opacity-60 animate-fadeIn"
+                style={{ animationDelay: `${(publishedPosts?.length || 0 + i) * 50}ms` }}
               >
                 <div className="flex items-center gap-3 mb-3">
                   <span className={`text-xs font-semibold px-3 py-1 rounded-full ${categoryColors[article.category] || "bg-gold/10 text-gold"}`}>
@@ -97,7 +87,7 @@ const KnowledgeHub = () => {
                   {article.title}
                 </h3>
                 <p className="text-sm text-muted-foreground mt-2">Coming soon, article in preparation.</p>
-              </motion.div>
+              </div>
             ))}
         </div>
       </div>

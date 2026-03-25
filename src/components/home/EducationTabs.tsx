@@ -32,24 +32,16 @@ const EducationTabs = () => {
   return (
     <section className="py-28 bg-white">
       <div className="container mx-auto px-4">
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-gold text-[11px] tracking-[0.3em] uppercase mb-14"
-        >
+        <p className="text-gold text-[11px] tracking-[0.3em] uppercase mb-14 animate-fadeIn">
           The Basics
-        </motion.p>
+        </p>
 
         <div className="space-y-4">
           {questions.map((item, i) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="bg-secondary/40 rounded-3xl p-8 md:p-10 card-hover"
+              className="bg-secondary/40 rounded-3xl p-8 md:p-10 card-hover animate-fadeIn"
+              style={{ animationDelay: `${i * 80}ms` }}
             >
               <div className="grid grid-cols-12 gap-6 md:gap-10">
                 {/* Number */}
@@ -113,16 +105,11 @@ const EducationTabs = () => {
                   </AnimatePresence>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-10 flex flex-col sm:flex-row sm:items-center gap-3"
-        >
+        <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-3 animate-fadeIn-delay-3">
           <Link
             to="/learn"
             className="text-sm text-jericho font-medium hover:text-gold transition-colors"
@@ -132,7 +119,7 @@ const EducationTabs = () => {
           <span className="text-xs text-muted-foreground/60">
             Learn everything you need to know in less than 15 minutes.
           </span>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
