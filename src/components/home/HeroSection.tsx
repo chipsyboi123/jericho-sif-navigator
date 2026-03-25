@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 // Animated counter hook
@@ -16,7 +16,7 @@ function useCountUp(target: number, duration: number = 2000) {
           const start = performance.now();
           const step = (now: number) => {
             const progress = Math.min((now - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+            const eased = 1 - Math.pow(1 - progress, 3);
             setCount(Math.round(eased * target));
             if (progress < 1) requestAnimationFrame(step);
           };
@@ -37,27 +37,25 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-[88vh] flex flex-col items-center justify-center overflow-hidden bg-jericho">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0" style={{
-        backgroundImage: `
-          radial-gradient(ellipse at 20% 50%, rgba(42, 58, 143, 0.4) 0%, transparent 50%),
-          radial-gradient(ellipse at 80% 30%, rgba(5, 10, 48, 0.8) 0%, transparent 50%),
-          radial-gradient(ellipse at 50% 90%, rgba(201, 150, 12, 0.08) 0%, transparent 40%),
-          radial-gradient(ellipse at 60% 20%, rgba(26, 37, 112, 0.3) 0%, transparent 40%)
-        `,
-      }} />
+      {/* Video background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        poster=""
+      >
+        <source src="/hero-bg.mp4" type="video/mp4" />
+      </video>
 
-      {/* Subtle floating orbs */}
-      <motion.div
-        animate={{ y: [0, -15, 0], x: [0, 8, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[20%] right-[15%] w-64 h-64 rounded-full bg-gold/[0.03] blur-3xl"
-      />
-      <motion.div
-        animate={{ y: [0, 12, 0], x: [0, -10, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-[25%] left-[10%] w-48 h-48 rounded-full bg-jericho-accent/20 blur-3xl"
-      />
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-jericho/60" />
+
+      {/* Subtle vignette */}
+      <div className="absolute inset-0" style={{
+        background: 'radial-gradient(ellipse at center, transparent 40%, rgba(5,10,48,0.6) 100%)',
+      }} />
 
       {/* Top gold accent line */}
       <div className="absolute top-14 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
