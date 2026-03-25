@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { getRiskColor, getRiskLabel } from "@/data/sifFunds";
-import { useLaunchedFunds } from "@/hooks/useFunds";
+import { getRiskColor, getSebiRiskLabel } from "@/data/sifFunds";
+import { useFunds } from "@/hooks/useFunds";
 import SEOHead from "@/components/SEOHead";
 
 const cardVariants = {
@@ -16,35 +16,37 @@ const cardVariants = {
 
 const FundExplorer = () => {
   const [filter, setFilter] = useState<string>("All");
-  const { data: launched, isLoading } = useLaunchedFunds();
+  const { data: allFunds, isLoading } = useFunds();
   const categories = ["All", "Equity", "Hybrid", "Debt"];
 
+  const launched = allFunds?.filter((f) => f.status === "Launched" || f.status === "NFO") || [];
   const filtered = filter === "All" ? launched : launched.filter((f) => f.category === filter);
 
   return (
-    <div className="py-20 bg-cream">
+    <div className="pt-24 pb-16 bg-mesh-warm min-h-screen">
       <SEOHead
-        title="SIF Fund Explorer"
+        title="SIF Fund Explorer — Browse All Specialized Investment Funds"
         description="Explore all SEBI-registered Specialized Investment Funds. Filter by category, compare strategies, and find the right SIF for your portfolio."
       />
       <div className="container mx-auto px-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <h1 className="font-heading text-3xl md:text-5xl font-bold mb-3 text-foreground">
+          <p className="text-gold text-[11px] tracking-[0.3em] uppercase mb-3">Browse</p>
+          <h1 className="font-editorial text-3xl md:text-5xl text-jericho mb-3">
             Fund Explorer
           </h1>
-          <p className="text-muted-foreground text-lg mb-8">All launched SIF schemes across AMCs.</p>
+          <p className="text-muted-foreground text-base mb-10">All launched SIF schemes across AMCs.</p>
         </motion.div>
 
-        {/* Filters */}
-        <div className="flex gap-2 mb-8 flex-wrap">
+        {/* Filters — Apple-style pill toggles */}
+        <div className="flex gap-2 mb-10 flex-wrap">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-5 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
+              className={`px-5 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 ${
                 filter === cat
-                  ? "bg-gradient-gold text-white shadow-gold-glow"
-                  : "bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80"
+                  ? "bg-jericho text-gold shadow-apple"
+                  : "bg-white text-muted-foreground hover:text-foreground shadow-apple hover:shadow-apple-lg"
               }`}
             >
               {cat}
@@ -53,75 +55,106 @@ const FundExplorer = () => {
         </div>
 
         {/* Fund cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((fund, i) => (
-            <Link to={`/funds/${fund.id}`} key={fund.id}>
-              <motion.div
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-40px" }}
-                variants={cardVariants}
-                className="bg-white border border-border rounded-2xl shadow-card hover:shadow-card-hover hover:-translate-y-1 p-6 transition-all duration-300 h-full"
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <p className="text-xs font-semibold text-gold uppercase tracking-wider">{fund.amcName}</p>
-                    <h3 className="font-heading text-xl font-bold text-foreground mt-1">{fund.sifBrand}</h3>
-                  </div>
-                  <span className={`text-xs font-bold px-3 py-1 rounded-full bg-secondary ${getRiskColor(fund.riskBand)}`}>
-                    {getRiskLabel(fund.riskBand)}
-                  </span>
-                </div>
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{fund.objective}</p>
+        {isLoading ? (
+          <div className="text-center py-20 text-muted-foreground">Loading funds...</div>
+        ) : filtered.length === 0 ? (
+          <div className="text-center py-20 text-muted-foreground">No funds in this category yet.</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((fund, i) => {
+              const riskLabel = fund.sebiRiskLabel || getSebiRiskLabel(fund.riskBand);
+              return (
+                <Link to={`/funds/${fund.id}`} key={fund.id}>
+                  <motion.div
+                    custom={i}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-40px" }}
+                    variants={cardVariants}
+                    className="bg-white rounded-2xl shadow-apple card-hover p-7 h-full"
+                  >
+                    {/* Header: AMC + Risk badge */}
+                    <div className="flex justify-between items-start mb-4">
+                      <p className="text-[10px] font-semibold text-gold uppercase tracking-[0.15em]">{fund.amcName}</p>
+                      <span className={`text-[10px] font-bold px-3 py-1 rounded-full bg-secondary ${getRiskColor(fund.riskBand)}`}>
+                        {riskLabel}
+                      </span>
+                    </div>
 
-                {/* Strategy / Category pills */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-gold/10 text-gold">
-                    {fund.strategyType}
-                  </span>
-                  <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-secondary text-muted-foreground">
-                    {fund.category}
-                  </span>
-                </div>
+                    {/* Fund name */}
+                    <h3 className="font-editorial text-xl text-jericho mb-2 leading-tight">{fund.sifBrand}</h3>
+                    <p className="text-sm text-muted-foreground mb-5 line-clamp-2 leading-relaxed">{fund.objective}</p>
 
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">NAV</span>
-                    <span className="text-foreground font-medium">{fund.nav}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Min Investment</span>
-                    <span className="text-foreground font-medium">{fund.minInvestment}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Exit Load</span>
-                    <span className="text-foreground font-medium">{fund.exitLoad}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Fund Managers</span>
-                    <span className="text-foreground font-medium text-right">{fund.fundManagers.join(", ")}</span>
-                  </div>
-                </div>
+                    {/* Strategy pills */}
+                    <div className="flex flex-wrap gap-1.5 mb-5">
+                      <span className="text-[10px] font-medium px-3 py-1 rounded-full bg-gold/[0.06] text-gold">
+                        {fund.strategyType}
+                      </span>
+                      <span className="text-[10px] font-medium px-3 py-1 rounded-full bg-secondary text-muted-foreground">
+                        {fund.category}
+                      </span>
+                      {fund.planType && (
+                        <span className="text-[10px] font-medium px-3 py-1 rounded-full bg-jericho/[0.04] text-jericho/60">
+                          {fund.planType}
+                        </span>
+                      )}
+                    </div>
 
-                {/* Allocation bar */}
-                <div className="mt-4 pt-3 border-t border-border">
-                  <p className="text-xs text-muted-foreground mb-2">Allocation</p>
-                  <div className="flex h-2 rounded-full overflow-hidden">
-                    <div className="bg-primary" style={{ width: `${fund.allocation.equity}%` }} />
-                    <div className="bg-blue-500" style={{ width: `${fund.allocation.debt}%` }} />
-                    <div className="bg-orange-500" style={{ width: `${fund.allocation.derivatives}%` }} />
-                  </div>
-                  <div className="flex gap-4 mt-1.5 text-xs text-muted-foreground">
-                    <span>Equity {fund.allocation.equity}%</span>
-                    <span>Debt {fund.allocation.debt}%</span>
-                    <span>Derivatives {fund.allocation.derivatives}%</span>
-                  </div>
-                </div>
-              </motion.div>
-            </Link>
-          ))}
-        </div>
+                    {/* Key metrics grid */}
+                    <div className="grid grid-cols-2 gap-3 mb-5">
+                      <div className="bg-secondary/50 rounded-xl px-4 py-3">
+                        <p className="text-[9px] text-muted-foreground uppercase tracking-wider mb-0.5">NAV</p>
+                        <p className="text-sm font-semibold text-jericho font-mono-data">
+                          {fund.nav !== "Placeholder" ? fund.nav : "—"}
+                        </p>
+                      </div>
+                      <div className="bg-secondary/50 rounded-xl px-4 py-3">
+                        <p className="text-[9px] text-muted-foreground uppercase tracking-wider mb-0.5">Min Investment</p>
+                        <p className="text-sm font-semibold text-jericho">{fund.minInvestment}</p>
+                      </div>
+                      {fund.expenseRatio && (
+                        <div className="bg-secondary/50 rounded-xl px-4 py-3">
+                          <p className="text-[9px] text-muted-foreground uppercase tracking-wider mb-0.5">Expense Ratio</p>
+                          <p className="text-sm font-semibold text-jericho">{fund.expenseRatio}</p>
+                        </div>
+                      )}
+                      <div className="bg-secondary/50 rounded-xl px-4 py-3">
+                        <p className="text-[9px] text-muted-foreground uppercase tracking-wider mb-0.5">Launch</p>
+                        <p className="text-sm font-semibold text-jericho">{fund.launchDate}</p>
+                      </div>
+                    </div>
+
+                    {/* Fund Managers */}
+                    <div className="mb-4">
+                      <p className="text-[9px] text-muted-foreground uppercase tracking-wider mb-1">Fund Managers</p>
+                      <p className="text-xs text-foreground/70 line-clamp-1">{fund.fundManagers.join(", ")}</p>
+                    </div>
+
+                    {/* Allocation bar */}
+                    <div className="pt-4 border-t border-border">
+                      <div className="flex h-[4px] rounded-full overflow-hidden mb-2">
+                        <div className="bg-gradient-gold" style={{ width: `${fund.allocation.equity}%` }} />
+                        <div className="bg-jericho/20" style={{ width: `${fund.allocation.debt}%` }} />
+                        <div className="bg-jericho/10" style={{ width: `${fund.allocation.derivatives}%` }} />
+                      </div>
+                      <div className="flex gap-4 text-[10px] text-muted-foreground">
+                        <span className="flex items-center gap-1">
+                          <span className="w-2 h-2 rounded-full bg-gold" /> Equity {fund.allocation.equity}%
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <span className="w-2 h-2 rounded-full bg-jericho/20" /> Debt {fund.allocation.debt}%
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <span className="w-2 h-2 rounded-full bg-jericho/10" /> Deriv {fund.allocation.derivatives}%
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
