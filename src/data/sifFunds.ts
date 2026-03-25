@@ -127,7 +127,7 @@ export const sifFunds: SIFFund[] = [
     minInvestment: "\u20B910,00,000",
     exitLoad: "1% within 12 months, NIL after",
     launchDate: "Jan 2026",
-    status: "NFO",
+    status: "Launched",
     objective: "Predominantly invest in equity and debt securities with derivative strategies for capital appreciation and regular income.",
     redemptionTerms: "Twice a week (Monday and Wednesday)",
     allocation: { equity: 70, debt: 30, derivatives: 0 },

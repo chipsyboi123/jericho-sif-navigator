@@ -46,8 +46,10 @@ const SCHEMES = [
   { sdId: "SIF-14", fundSlug: "sbi-magnum", planType: "Direct Growth", label: "Magnum - Direct Growth" },
   { sdId: "SIF-15", fundSlug: "sbi-magnum", planType: "Direct IDCW", label: "Magnum - Direct IDCW" },
   { sdId: "SIF-16", fundSlug: "sbi-magnum", planType: "Regular IDCW", label: "Magnum - Regular IDCW" },
-  // iSIF Hybrid Long-Short Fund — NFO, may not have NAV data yet
-  // Will be added here when AMFI assigns scheme IDs
+  // iSIF Hybrid Long-Short Fund
+  { sdId: "SIF-35", fundSlug: "icici-isif-hybrid", planType: "Regular Growth", label: "iSIF Hybrid - Regular Growth" },
+  { sdId: "SIF-36", fundSlug: "icici-isif-hybrid", planType: "Direct Growth", label: "iSIF Hybrid - Direct Growth" },
+  // Note: iSIF IDCW plans not yet available on AMFI as of Mar 2026
 ];
 
 async function fetchNavFromAmfi(sdId: string, fromDate: string, toDate: string): Promise<AmfiRecord[]> {
