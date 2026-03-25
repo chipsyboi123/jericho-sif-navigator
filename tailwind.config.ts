@@ -46,9 +46,12 @@ export default {
         "card-hover": "0 8px 30px rgba(0,0,0,0.08)",
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "var(--radius)",
-        sm: "var(--radius)",
+        lg: "1rem",
+        md: "0.75rem",
+        sm: "0.5rem",
+        xl: "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "2rem",
       },
       keyframes: {
         "accordion-down": { from: { height: "0" }, to: { height: "var(--radix-accordion-content-height)" } },

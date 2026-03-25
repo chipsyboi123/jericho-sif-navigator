@@ -36,39 +36,35 @@ const HeroSection = () => {
   const aum = useCountUp(9700, 2500);
 
   return (
-    <section className="relative min-h-[88vh] flex flex-col items-center justify-center overflow-hidden bg-jericho">
+    <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-jericho">
       {/* Video background */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover opacity-70"
         poster=""
       >
         <source src="/hero-bg.mp4" type="video/mp4" />
       </video>
 
-      {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-jericho/60" />
+      {/* Apple-style gradient mesh overlay */}
+      <div className="absolute inset-0 bg-mesh-dark" />
 
-      {/* Subtle vignette */}
-      <div className="absolute inset-0" style={{
-        background: 'radial-gradient(ellipse at center, transparent 40%, rgba(5,10,48,0.6) 100%)',
-      }} />
-
-      {/* Top gold accent line */}
-      <div className="absolute top-14 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
+      {/* Bottom gradient fade to white (Apple section transition) */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
 
       <div className="relative container mx-auto px-4 text-center pt-14">
-        {/* Eyebrow badge */}
+        {/* Eyebrow pill badge */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="inline-block mb-10"
         >
-          <span className="text-gold/60 text-[10px] tracking-[0.3em] uppercase bg-white/[0.04] backdrop-blur-sm border border-white/[0.06] px-5 py-2 rounded-full">
+          <span className="glass-dark text-gold/70 text-[10px] tracking-[0.3em] uppercase px-6 py-2.5 rounded-full inline-flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-gold rounded-full animate-glow-pulse" />
             Powered by Jericho Ventures
           </span>
         </motion.div>
@@ -90,13 +86,13 @@ const HeroSection = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className="text-white/35 text-base md:text-lg max-w-lg mx-auto mb-12 leading-relaxed"
+          className="text-white/40 text-base md:text-lg max-w-lg mx-auto mb-12 leading-relaxed"
         >
           Specialized Investment Funds — decoded, compared,
           and made accessible. Your first step starts here.
         </motion.p>
 
-        {/* Glassmorphic CTAs */}
+        {/* Apple-style rounded CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -105,41 +101,43 @@ const HeroSection = () => {
         >
           <Link
             to="/funds"
-            className="group px-8 py-3.5 bg-gold/90 backdrop-blur-sm text-jericho text-sm font-bold tracking-wide rounded-full hover:bg-gold hover:shadow-[0_0_25px_rgba(201,150,12,0.3)] transition-all inline-flex items-center justify-center gap-2"
+            className="group px-8 py-4 bg-gradient-gold text-jericho text-sm font-bold tracking-wide rounded-2xl hover:shadow-gold-glow transition-all duration-300 inline-flex items-center justify-center gap-2 hover:scale-[1.02]"
           >
             Explore Funds
-            <span className="group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+            <span className="group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
           </Link>
           <Link
             to="/learn"
-            className="px-8 py-3.5 bg-white/[0.06] backdrop-blur-md border border-white/[0.1] text-white/70 text-sm font-medium tracking-wide rounded-full hover:bg-white/[0.1] hover:border-gold/20 hover:text-white transition-all"
+            className="px-8 py-4 glass-dark text-white/70 text-sm font-medium tracking-wide rounded-2xl hover:bg-white/[0.08] hover:text-white transition-all duration-300 hover:scale-[1.02]"
           >
             What is SIF?
           </Link>
         </motion.div>
 
-        {/* Stats bar */}
+        {/* Stats row — glass cards */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.3 }}
-          className="flex justify-center gap-10 md:gap-16 mt-16 pt-10 border-t border-white/[0.06]"
+          className="flex flex-col sm:flex-row justify-center gap-4 mt-16"
           ref={aum.ref}
         >
-          <div className="text-center">
-            <p className="font-mono-data text-2xl md:text-3xl text-gold font-medium">
-              ₹{aum.count.toLocaleString("en-IN")}Cr+
-            </p>
-            <p className="text-[10px] text-white/25 tracking-[0.15em] uppercase mt-1">Total SIF AUM</p>
-          </div>
-          <div className="text-center">
-            <p className="font-mono-data text-2xl md:text-3xl text-gold font-medium">₹10L</p>
-            <p className="text-[10px] text-white/25 tracking-[0.15em] uppercase mt-1">Min Investment</p>
-          </div>
-          <div className="text-center">
-            <p className="text-[10px] tracking-[0.3em] uppercase text-gold/80 bg-gold/[0.08] border border-gold/15 px-4 py-2 rounded-full font-semibold">
+          {[
+            { value: `₹${aum.count.toLocaleString("en-IN")}Cr+`, label: "Total SIF AUM" },
+            { value: "₹10L", label: "Min Investment" },
+          ].map((stat, i) => (
+            <div key={i} className="glass-dark rounded-2xl px-8 py-4 text-center">
+              <p className="font-mono-data text-xl md:text-2xl text-gold font-medium">
+                {stat.value}
+              </p>
+              <p className="text-[10px] text-white/25 tracking-[0.15em] uppercase mt-1">{stat.label}</p>
+            </div>
+          ))}
+          <div className="glass-dark rounded-2xl px-8 py-4 flex items-center justify-center">
+            <span className="text-[10px] tracking-[0.3em] uppercase text-gold/80 font-semibold flex items-center gap-2">
+              <span className="w-2 h-2 bg-emerald-400 rounded-full" />
               SEBI Regulated
-            </p>
+            </span>
           </div>
         </motion.div>
       </div>

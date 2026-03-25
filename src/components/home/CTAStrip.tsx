@@ -3,13 +3,10 @@ import { motion } from "framer-motion";
 
 const CTAStrip = () => {
   return (
-    <section className="py-32 bg-jericho relative">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
-
-      {/* Subtle gold radial */}
-      <div className="absolute inset-0 opacity-[0.05]"
-        style={{ backgroundImage: `radial-gradient(ellipse at 50% 100%, rgba(201,150,12,0.5) 0%, transparent 50%)` }}
-      />
+    <section className="py-32 bg-jericho relative overflow-hidden">
+      {/* Apple-style gradient orbs */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gold/[0.06] blur-[120px] animate-float" />
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-jericho-accent/20 blur-[80px]" />
 
       <div className="relative container mx-auto px-4 text-center">
         <motion.div
@@ -26,14 +23,14 @@ const CTAStrip = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/contact"
-              className="group px-9 py-3.5 bg-gold text-jericho text-sm font-bold tracking-wide hover:bg-gold-light transition-all inline-flex items-center justify-center gap-2"
+              className="group px-9 py-4 bg-gradient-gold text-jericho text-sm font-bold tracking-wide rounded-2xl hover:shadow-gold-glow transition-all duration-300 hover:scale-[1.02] inline-flex items-center justify-center gap-2"
             >
               Schedule a Quick Call
               <span className="group-hover:translate-x-0.5 transition-transform">&rarr;</span>
             </Link>
             <Link
               to="/funds"
-              className="px-9 py-3.5 border border-white/15 text-white/50 text-sm font-medium hover:border-gold/30 hover:text-gold transition-all"
+              className="px-9 py-4 glass-dark text-white/60 text-sm font-medium rounded-2xl hover:text-gold hover:bg-white/[0.06] transition-all duration-300"
             >
               Browse Funds
             </Link>

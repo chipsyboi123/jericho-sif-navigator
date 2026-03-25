@@ -8,7 +8,7 @@ const FundCarousel = () => {
   const displayFunds = funds?.filter((f) => f.status === "Launched" || f.status === "NFO") || [];
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-mesh-warm">
       <div className="container mx-auto px-4">
         <div className="flex items-end justify-between mb-14">
           <div>
@@ -19,7 +19,7 @@ const FundCarousel = () => {
           </div>
           <Link
             to="/funds"
-            className="hidden md:block text-sm text-jericho/50 hover:text-jericho border-b border-transparent hover:border-jericho/20 pb-1 transition-all"
+            className="hidden md:block text-sm text-jericho/50 hover:text-gold transition-colors"
           >
             View all &rarr;
           </Link>
@@ -42,10 +42,11 @@ const FundCarousel = () => {
               >
                 <Link
                   to={`/funds/${fund.id}`}
-                  className="group block bg-jericho p-7 h-full border border-jericho-light hover:border-gold/25 transition-all relative overflow-hidden"
+                  className="group block bg-jericho p-7 h-full rounded-3xl shadow-apple-lg card-hover relative overflow-hidden"
                 >
-                  {/* Corner accent */}
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-gold/[0.06] to-transparent" />
+                  {/* Corner gradient accent (Apple-style) */}
+                  <div className="absolute top-0 right-0 w-32 h-32 rounded-bl-[80px] bg-gradient-to-bl from-gold/[0.08] to-transparent" />
+                  <div className="absolute bottom-0 left-0 w-24 h-24 rounded-tr-[60px] bg-gradient-to-tr from-jericho-accent/20 to-transparent" />
 
                   <div className="relative">
                     {/* Top row: AMC + badges */}
@@ -53,18 +54,18 @@ const FundCarousel = () => {
                       <span className="text-white/25 text-[10px] tracking-[0.15em] uppercase">{fund.amcName}</span>
                       <div className="flex items-center gap-2">
                         {fund.planType && (
-                          <span className="text-[9px] font-medium text-gold/60 border border-gold/15 px-1.5 py-0.5">
+                          <span className="text-[9px] font-medium text-gold/60 border border-gold/15 px-2 py-0.5 rounded-lg">
                             {fund.planType}
                           </span>
                         )}
                         {fund.status === "NFO" && (
-                          <span className="text-[9px] font-bold text-jericho bg-gold px-2 py-0.5">NFO</span>
+                          <span className="text-[9px] font-bold text-jericho bg-gradient-gold px-2.5 py-0.5 rounded-lg">NFO</span>
                         )}
                       </div>
                     </div>
 
                     {/* Fund name + strategy */}
-                    <h3 className="font-editorial text-[22px] text-white mb-1 group-hover:text-gold transition-colors leading-tight">
+                    <h3 className="font-editorial text-[22px] text-white mb-1 group-hover:text-gold transition-colors duration-300 leading-tight">
                       {fund.sifBrand}
                     </h3>
                     <p className="text-white/20 text-xs mb-6">{fund.strategyType} &middot; {fund.category}</p>
@@ -94,8 +95,8 @@ const FundCarousel = () => {
                         { label: "1Y", val: fund.returns?.oneYear },
                         { label: "SI", val: fund.returns?.sinceInception },
                       ].map((r, j) => (
-                        <div key={j}>
-                          <p className="text-[9px] text-white/20 uppercase tracking-wider mb-1">{r.label}</p>
+                        <div key={j} className="glass-dark rounded-xl px-2 py-2 text-center">
+                          <p className="text-[8px] text-white/20 uppercase tracking-wider mb-0.5">{r.label}</p>
                           <p className={`font-mono-data text-sm ${
                             r.val && !r.val.startsWith("-") ? "text-emerald-400" :
                             r.val && r.val.startsWith("-") ? "text-red-400" : "text-white/25"
@@ -106,15 +107,15 @@ const FundCarousel = () => {
                       ))}
                     </div>
 
-                    {/* Allocation bar */}
-                    <div className="flex h-[3px] mb-5">
-                      <div className="bg-gold" style={{ width: `${fund.allocation.equity}%` }} />
+                    {/* Allocation bar — rounded */}
+                    <div className="flex h-[4px] rounded-full overflow-hidden mb-5">
+                      <div className="bg-gradient-gold rounded-l-full" style={{ width: `${fund.allocation.equity}%` }} />
                       <div className="bg-white/20" style={{ width: `${fund.allocation.debt}%` }} />
-                      <div className="bg-white/10" style={{ width: `${fund.allocation.derivatives}%` }} />
+                      <div className="bg-white/10 rounded-r-full" style={{ width: `${fund.allocation.derivatives}%` }} />
                     </div>
 
                     {/* Bottom metrics */}
-                    <div className="flex gap-6 text-xs">
+                    <div className="flex gap-5 text-xs">
                       <div>
                         <p className="text-[9px] text-white/20 uppercase tracking-wider mb-0.5">Risk</p>
                         <p className={`text-xs font-medium ${getRiskColor(fund.riskBand)}`}>{riskLabel}</p>

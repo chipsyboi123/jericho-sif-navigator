@@ -9,7 +9,7 @@ const KnowledgePreview = () => {
   if (displayPosts.length === 0) return null;
 
   return (
-    <section className="py-28 bg-secondary/40">
+    <section className="py-28 bg-secondary/30">
       <div className="container mx-auto px-4">
         <div className="flex items-end justify-between mb-14">
           <div>
@@ -20,7 +20,7 @@ const KnowledgePreview = () => {
           </div>
           <Link
             to="/knowledge"
-            className="hidden md:block text-sm text-jericho/50 hover:text-jericho border-b border-transparent hover:border-jericho/20 pb-1 transition-all"
+            className="hidden md:block text-sm text-jericho/50 hover:text-gold transition-colors"
           >
             All articles &rarr;
           </Link>
@@ -37,12 +37,12 @@ const KnowledgePreview = () => {
             >
               <Link
                 to={`/knowledge/${post.slug}`}
-                className="group block bg-white p-7 h-full border border-border hover:border-gold/20 transition-all"
+                className="group block bg-white p-8 h-full rounded-2xl shadow-apple card-hover"
               >
-                <span className="text-[10px] font-semibold text-gold uppercase tracking-[0.15em]">
+                <span className="text-[10px] font-semibold text-gold uppercase tracking-[0.15em] bg-gold/[0.06] px-3 py-1 rounded-full">
                   {post.category}
                 </span>
-                <h3 className="font-editorial text-xl text-jericho mt-4 mb-3 group-hover:text-gold transition-colors leading-snug">
+                <h3 className="font-editorial text-xl text-jericho mt-5 mb-3 group-hover:text-gold transition-colors duration-300 leading-snug">
                   {post.title}
                 </h3>
                 <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">{post.excerpt}</p>

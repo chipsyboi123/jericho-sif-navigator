@@ -17,7 +17,7 @@ const pillars = [
 
 const WhyJericho = () => {
   return (
-    <section className="py-28 bg-white">
+    <section className="py-28 bg-mesh-warm">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-14">
           {/* Left — big statement */}
@@ -39,8 +39,8 @@ const WhyJericho = () => {
             </p>
           </motion.div>
 
-          {/* Right — three pillars */}
-          <div className="md:col-span-7 space-y-0">
+          {/* Right — three pillar cards */}
+          <div className="md:col-span-7 space-y-4">
             {pillars.map((pillar, i) => (
               <motion.div
                 key={i}
@@ -48,7 +48,7 @@ const WhyJericho = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="py-8 border-b border-border first:border-t"
+                className="bg-white rounded-2xl p-7 shadow-apple card-hover"
               >
                 <h3 className="text-lg font-semibold text-jericho mb-2 tracking-tight">{pillar.title}</h3>
                 <p className="text-muted-foreground text-[15px] leading-relaxed">{pillar.desc}</p>
