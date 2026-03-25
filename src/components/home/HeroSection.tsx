@@ -74,7 +74,7 @@ const HeroSection = () => {
 
         {/* Subtitle */}
         <p
-          className="text-white/40 text-base md:text-lg max-w-lg mx-auto mb-12 leading-relaxed animate-fadeIn"
+          className="text-white/40 text-sm md:text-base lg:text-lg max-w-lg mx-auto mb-10 md:mb-12 leading-relaxed animate-fadeIn px-2 md:px-0"
           style={{ animationDelay: '0.7s', opacity: 0, animationFillMode: 'forwards' }}
         >
           Specialized Investment Funds — decoded, compared,

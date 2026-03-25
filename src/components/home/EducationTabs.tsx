@@ -57,21 +57,17 @@ const EducationTabs = () => {
               className={`${cardTints[i % cardTints.length]} rounded-3xl p-8 md:p-10 card-hover animate-fadeIn`}
               style={{ animationDelay: `${i * 80}ms` }}
             >
-              <div className="grid grid-cols-12 gap-6 md:gap-10">
-                {/* Number */}
-                <div className="col-span-2 md:col-span-1">
-                  <span className="font-editorial text-3xl md:text-4xl text-gradient-gold">{item.num}</span>
-                </div>
-
-                {/* Question */}
-                <div className="col-span-10 md:col-span-4">
-                  <h3 className="font-editorial text-xl md:text-2xl text-jericho leading-snug">
+              <div className="flex flex-col md:grid md:grid-cols-12 gap-4 md:gap-10">
+                {/* Number + Question (inline on mobile, split on desktop) */}
+                <div className="flex items-start gap-4 md:contents">
+                  <span className="font-editorial text-3xl md:text-4xl text-gradient-gold md:col-span-1 shrink-0">{item.num}</span>
+                  <h3 className="font-editorial text-lg md:text-2xl text-jericho leading-snug md:col-span-4">
                     {item.q}
                   </h3>
                 </div>
 
                 {/* Answer */}
-                <div className="col-span-12 md:col-span-7 md:col-start-6">
+                <div className="md:col-span-7 md:col-start-6">
                   <p className="text-muted-foreground leading-relaxed text-[15px]">
                     {item.expandable ? (
                       <>

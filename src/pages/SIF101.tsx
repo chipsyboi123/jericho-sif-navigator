@@ -272,9 +272,28 @@ const SIF101 = () => {
           <p className="text-muted-foreground text-lg mb-12">Your complete learning path to understanding Specialized Investment Funds.</p>
         </div>
 
+        {/* Mobile: horizontal scrollable module pills */}
+        <div className="lg:hidden mb-6 -mx-4 px-4 overflow-x-auto scrollbar-hide">
+          <div className="flex gap-2 min-w-max pb-2">
+            {modules.map((m) => (
+              <button
+                key={m.id}
+                onClick={() => setActiveModule(m.id)}
+                className={`whitespace-nowrap px-4 py-2 text-xs font-medium transition-all rounded-full ${
+                  activeModule === m.id
+                    ? "bg-gradient-gold text-white shadow-md"
+                    : "bg-secondary text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {m.id}. {m.title}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar nav */}
-          <div className="lg:col-span-1">
+          {/* Desktop: sticky sidebar nav */}
+          <div className="hidden lg:block lg:col-span-1">
             <div className="sticky top-24 glass-card rounded-2xl p-3 space-y-1 animate-fadeIn-delay-2">
               {modules.map((m) => (
                 <button

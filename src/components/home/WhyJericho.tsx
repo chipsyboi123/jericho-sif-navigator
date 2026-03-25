@@ -20,7 +20,7 @@ const WhyJericho = () => {
   return (
     <section className="py-28 bg-mesh-warm">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-14">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-14">
           {/* Left — big statement */}
           <div className="md:col-span-5 animate-fadeIn">
             <p className="text-gold text-[11px] tracking-[0.3em] uppercase mb-4">Why SIF Insider</p>
