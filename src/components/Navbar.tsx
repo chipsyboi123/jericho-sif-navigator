@@ -16,31 +16,26 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const isHome = location.pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const isDark = isHome && !scrolled;
-
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      isDark
-        ? "bg-transparent"
-        : "bg-white/95 backdrop-blur-md border-b border-black/[0.04]"
-    }`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled
+        ? "bg-white/95 backdrop-blur-md shadow-sm"
+        : "bg-white"
+    } border-b border-border`}>
       <div className="container mx-auto flex items-center justify-between h-14 px-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-0">
-          <span className={`text-[15px] font-semibold tracking-tight transition-colors ${
-            isDark ? "text-white" : "text-foreground"
-          }`}>
+        <Link to="/" className="flex items-center gap-0.5">
+          <span className="text-[15px] font-bold tracking-tight text-jericho">
             SIF
           </span>
-          <span className="text-[15px] font-semibold tracking-tight text-gold">
+          <span className="text-[15px] font-bold tracking-tight text-gold">
             Insider
           </span>
         </Link>
@@ -52,11 +47,9 @@ const Navbar = () => {
               key={item.path}
               to={item.path}
               className={`text-[13px] transition-colors ${
-                location.pathname === item.path
-                  ? "text-gold"
-                  : isDark
-                    ? "text-white/40 hover:text-white/80"
-                    : "text-muted-foreground hover:text-foreground"
+                location.pathname === item.path || location.pathname.startsWith(item.path + "/")
+                  ? "text-gold font-medium"
+                  : "text-foreground/50 hover:text-foreground"
               }`}
             >
               {item.label}
@@ -68,15 +61,15 @@ const Navbar = () => {
         <div className="hidden lg:block">
           <Link
             to="/contact"
-            className="text-[13px] font-medium text-gold hover:text-gold-light transition-colors"
+            className="px-5 py-2 text-[13px] font-semibold bg-jericho text-white hover:bg-jericho-light transition-colors"
           >
-            Get Started &rarr;
+            Schedule a Call
           </Link>
         </div>
 
         {/* Mobile toggle */}
         <button
-          className={`lg:hidden ${isDark ? "text-white/60" : "text-foreground/60"}`}
+          className="lg:hidden text-foreground/60"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -99,9 +92,7 @@ const Navbar = () => {
                   to={item.path}
                   onClick={() => setMobileOpen(false)}
                   className={`px-3 py-2.5 text-sm ${
-                    location.pathname === item.path
-                      ? "text-gold"
-                      : "text-muted-foreground"
+                    location.pathname === item.path ? "text-gold font-medium" : "text-muted-foreground"
                   }`}
                 >
                   {item.label}
@@ -110,9 +101,9 @@ const Navbar = () => {
               <Link
                 to="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-3 px-6 py-3 text-sm font-medium bg-gold text-[#050505] text-center"
+                className="mt-3 px-6 py-3 text-sm font-semibold bg-jericho text-white text-center"
               >
-                Get Started
+                Schedule a Call
               </Link>
             </div>
           </motion.div>

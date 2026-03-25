@@ -29,6 +29,7 @@ export default {
         popover: { DEFAULT: "hsl(var(--popover))", foreground: "hsl(var(--popover-foreground))" },
         card: { DEFAULT: "hsl(var(--card))", foreground: "hsl(var(--card-foreground))" },
         gold: { DEFAULT: "#C9960C", light: "#E8C252", dark: "#A67B0A", muted: "#C9960C33", surface: "#FDF8EC" },
+        jericho: { DEFAULT: "#050a30", light: "#0c1654", lighter: "#1a2570", accent: "#2a3a8f" },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

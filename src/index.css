@@ -6,45 +6,34 @@
 
 @layer base {
   :root {
-    --background: 0 0% 96%;
-    --foreground: 0 0% 5%;
+    --background: 0 0% 100%;
+    --foreground: 228 73% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
+    --card-foreground: 228 73% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover-foreground: 228 73% 10%;
     --primary: 42 90% 42%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 94%;
-    --secondary-foreground: 0 0% 20%;
-    --muted: 0 0% 92%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 42 90% 42%;
+    --secondary: 220 15% 96%;
+    --secondary-foreground: 228 73% 10%;
+    --muted: 220 10% 94%;
+    --muted-foreground: 220 10% 45%;
+    --accent: 228 73% 10%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 63% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 88%;
-    --input: 0 0% 88%;
+    --border: 220 15% 90%;
+    --input: 220 15% 90%;
     --ring: 42 90% 42%;
     --radius: 0px;
-    --sidebar-background: 0 0% 3%;
+    --sidebar-background: 228 73% 10%;
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 42 90% 42%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 10%;
+    --sidebar-accent: 228 73% 15%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 10%;
+    --sidebar-border: 228 73% 15%;
     --sidebar-ring: 42 90% 42%;
-    --gold: 42 90% 42%;
-    --gold-light: 46 85% 60%;
-    --gold-dark: 42 90% 38%;
-    --gold-muted: 40 55% 77%;
-    --gold-surface: 43 88% 96%;
-    --navy: 0 0% 3%;
-    --navy-light: 0 0% 8%;
-    --navy-lighter: 0 0% 15%;
-    --cream: 40 20% 96%;
-    --cream-warm: 40 10% 93%;
-    --cream-muted: 0 0% 45%;
   }
 }
 
@@ -64,24 +53,20 @@
 }
 
 @layer utilities {
-  /* The hero font — dramatic serif */
   .font-editorial {
     font-family: 'Instrument Serif', Georgia, serif;
   }
 
-  /* Clean sans for headings */
   .font-heading {
     font-family: 'Inter', -apple-system, sans-serif;
     letter-spacing: -0.03em;
   }
 
-  /* Monospace for data */
   .font-mono-data {
     font-family: 'JetBrains Mono', monospace;
     letter-spacing: -0.02em;
   }
 
-  /* Gold gradient text */
   .text-gradient-gold {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, #C9960C 0%, #E8C252 50%, #C9960C 100%);
@@ -91,18 +76,20 @@
     background-image: linear-gradient(135deg, #B8860B, #C9960C);
   }
 
-  /* Outlined / stroke text */
+  .bg-jericho { background-color: #050a30; }
+  .text-jericho { color: #050a30; }
+  .border-jericho { border-color: #050a30; }
+
   .text-outline {
     -webkit-text-stroke: 1.5px rgba(201, 150, 12, 0.3);
     color: transparent;
   }
 
-  .text-outline-white {
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
+  .text-outline-blue {
+    -webkit-text-stroke: 1px rgba(5, 10, 48, 0.06);
     color: transparent;
   }
 
-  /* Marquee animation */
   @keyframes marquee {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
@@ -111,34 +98,12 @@
     animation: marquee 25s linear infinite;
   }
 
-  /* Subtle noise texture */
-  .noise::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-  }
-
-  /* Gold horizontal rule */
   .hr-gold {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(201, 150, 12, 0.4), transparent);
     border: none;
   }
 
-  /* Fade-in on scroll utility */
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Glass for light sections */
   .glass-card {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
@@ -155,13 +120,7 @@
     box-shadow: 0 0 30px rgba(201, 150, 12, 0.12);
   }
 
-  .prose-gold {
-    --tw-prose-headings: #0d0d0d;
-    --tw-prose-body: #333;
-    --tw-prose-bold: #0d0d0d;
-    --tw-prose-links: #C9960C;
-    --tw-prose-bullets: #C9960C;
-    --tw-prose-hr: #e5e5e5;
-    --tw-prose-code: #C9960C;
-  }
+  /* Scrollbar hide */
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 }

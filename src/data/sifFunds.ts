@@ -25,6 +25,12 @@ export interface SIFFund {
   objective: string;
   redemptionTerms: string;
   allocation: { equity: number; debt: number; derivatives: number };
+  // Card display fields
+  expenseRatio?: string;
+  planType?: string; // "Direct" | "Regular" | "Direct & Regular"
+  inceptionDate?: string;
+  sebiRiskLabel?: string; // SEBI Riskometer: Low, Low to Moderate, Moderate, Moderately High, High, Very High
+  returns?: { threeMonth?: string; sixMonth?: string; oneYear?: string; sinceInception?: string };
   // Enriched fields from presentations
   tagline?: string;
   investmentApproach?: string;
@@ -139,13 +145,18 @@ export const getRiskColor = (band: number): string => {
   }
 };
 
-export const getRiskLabel = (band: number): string => {
+// SEBI SIF Riskometer labels
+export const getSebiRiskLabel = (band: number): string => {
   switch (band) {
-    case 1: return "Very Low";
-    case 2: return "Low";
+    case 1: return "Low";
+    case 2: return "Low to Moderate";
     case 3: return "Moderate";
-    case 4: return "High";
-    case 5: return "Very High";
-    default: return "Unknown";
+    case 4: return "Moderately High";
+    case 5: return "High";
+    case 6: return "Very High";
+    default: return "Moderate";
   }
 };
+
+// Alias for backward compat
+export const getRiskLabel = (band: number): string => getSebiRiskLabel(band);
